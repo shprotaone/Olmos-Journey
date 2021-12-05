@@ -3,30 +3,34 @@ using System.Collections;
 
 public class WorldController : MonoBehaviour
 {
-    private const float speedUpValue = 3;
     private const float platformPoints = 15;
 
     public delegate void DelAndAddPlatform();
     public event DelAndAddPlatform OnPlatformMovement;
 
-    [SerializeField] private float _speedMax = 1;
-    [SerializeField] private float _changeSpeed = 0.01f;
+    [SerializeField] private float _speedMax;
+    [SerializeField] private float _changeSpeedAcceleration = 5;    //это нужно будет добавить в баланс
     [SerializeField] private float _currentSpeed = 0;
-    [SerializeField] private float _smoothLenght = 5;
+
     [SerializeField] private PlatformBuilder _platformBuilder;
     [SerializeField] private ScoreSystem _scoreSystem;
-    [SerializeField] private GameObject _speedUpUI;
 
-    private float _difficultRange = -200;
-    private float _platformLenght = 15;
+    private float _platformLenght = 15; // переделать на точку end? 
+    private float _difficultRange;
+    private float _speedUpValue;
     private float _distance;
 
     public float MinZ { get { return -10; } }
     public float Distance { get { return _distance; } }
+    public float CurrentSpeed { get { return _currentSpeed; } }
     public bool StartMovement { get; set; }
 
     private void Start()
     {
+        _speedMax = LoadBalance.speed;
+        _speedUpValue = LoadBalance.increaseSpeed;
+        _difficultRange = LoadBalance.distanceToUpDifficult;
+
         StartCoroutine(OnPlatformMovementCorutine());
     }
 
@@ -46,7 +50,7 @@ public class WorldController : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(2f);
             if (OnPlatformMovement != null)
             {
                 OnPlatformMovement();
@@ -63,7 +67,7 @@ public class WorldController : MonoBehaviour
     {
         if (transform.position.z < _difficultRange)
         {
-            _speedMax += speedUpValue;
+            _speedMax += _speedUpValue;
             _difficultRange += _difficultRange;
         }
     }
@@ -94,23 +98,7 @@ public class WorldController : MonoBehaviour
     {
         if (_currentSpeed < _speedMax)
         {
-            _currentSpeed += Time.deltaTime * _changeSpeed;
+            _currentSpeed += Time.deltaTime * _changeSpeedAcceleration;
         }
-    }
-
-    private IEnumerator BlinkSpeedUPUI()
-    {
-        for (int i = 0; i < 2; i++)
-        {
-            _speedUpUI.SetActive(true);
-
-            yield return new WaitForSeconds(1);
-
-            _speedUpUI.SetActive(false);
-
-            yield return new WaitForSeconds(1);
-        }
-
-        yield break;
     }
 }

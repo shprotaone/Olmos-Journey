@@ -2,7 +2,8 @@
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float _speedMovement = 1;
+    [SerializeField] private float _speedMovement;
+
     [SerializeField] private ResultUI _result;
     [SerializeField] private Transform _leftLine;
     [SerializeField] private Transform _rightLine;
@@ -11,12 +12,11 @@ public class PlayerController : MonoBehaviour
     private CharacterController _characterController;
     private Animator _animator;
 
-    private Vector2 _targetPosition;
-    private Vector2 _leftPosition = new Vector2(-3,0);
-    private Vector2 _rightPosition = new Vector2(3,0);
+    private Vector3 _targetPosition;
     
     private bool _left;
     private bool _right;
+    private bool _edge;
     private bool _pressedAction;
     private bool _playerDeath;
 
@@ -27,7 +27,11 @@ public class PlayerController : MonoBehaviour
     private int _leftAnimationID = Animator.StringToHash("Left");
     private int _rightAnimationID = Animator.StringToHash("Right");
 
+    private float _distanceToGround;
+
     private PlatformTypes _type;
+
+    public float DistanceToGround { get { return _distanceToGround; } }
 
     private void Awake()
     {
@@ -41,6 +45,8 @@ public class PlayerController : MonoBehaviour
         _startRunningScript = GetComponent<StartRunningScript>();
         _deathScript = GetComponent<DeathScript>();
         _jumpScript = GetComponent<Jump>();
+
+        _speedMovement = LoadBalance.movement;
     }
 
     private void OnEnable()
@@ -58,34 +64,43 @@ public class PlayerController : MonoBehaviour
         if(_startRunningScript.IsStarted && !_playerDeath)
         Movement();        
         Action();
+        CheckPlatform();
     }
 
     private void MoveLeft()
     {
+        if (!_edge)
+            _animator.SetTrigger(_leftAnimationID);
+
         _left = true;
-        _animator.SetTrigger(_leftAnimationID);
     }
      
     private void MoveRight()
-    {        
+    {                
+        if (!_edge)
+        _animator.SetTrigger(_rightAnimationID);
+
         _right = true;
-        _animator.SetBool(_rightAnimationID, _right);
     }
 
     private void Movement()
     {
+        CheckEdge();
+
         float tmpDist = Time.deltaTime * _speedMovement;
 
         var movement = Vector3.MoveTowards(transform.position, _targetPosition, tmpDist) - transform.position ;
         _characterController.Move(movement);
 
-        if (_left && _targetPosition.x > -1.9 )     //тут придумать что то с позицией
+        if (_left && _targetPosition.x > _leftLine.transform.position.x )
         {
-            _targetPosition += _leftPosition;           
+            _targetPosition += _leftLine.transform.position;
+            _edge = false;
         }        
-        else if(_right && _targetPosition.x < 1.9)
+        else if(_right && _targetPosition.x < _rightLine.transform.position.x)
         {
-            _targetPosition += _rightPosition;            
+            _targetPosition += _rightLine.transform.position;
+            _edge = false;
         }
 
         ResetPosition();
@@ -119,9 +134,16 @@ public class PlayerController : MonoBehaviour
         //_result.ResultEnable();
     }
 
+    private void CheckEdge()
+    {
+        if (transform.position.x == _leftLine.transform.position.x || transform.position.x == _rightLine.transform.position.x)
+            _edge = true;
+        else
+            _edge = false;
+    }
     public void CheckPlatform()
     {
-        Ray ray = new Ray(transform.position, Vector3.down);
+        Ray ray = new Ray(transform.position, Vector3.down*2);
         Debug.DrawRay(ray.origin, ray.direction, Color.red,1000);
 
         RaycastHit hit;
@@ -129,6 +151,7 @@ public class PlayerController : MonoBehaviour
         if(Physics.Raycast(ray,out hit))
         {
             _type = hit.transform.GetComponentInParent<PlatformDesription>().Type;
+            _distanceToGround = hit.distance;
         }
     }
 }

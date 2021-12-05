@@ -52,7 +52,7 @@ public class PlatformBuilder : MonoBehaviour
 
         GameObject platform = Instantiate(_platform.platforms[0], instatiatePos, Quaternion.identity, _platformContainer);
         
-        platform.GetComponent<GiftSpawner>().SpawnBonus();
+        //platform.GetComponent<GiftSpawner>().SpawnBonus();
 
         _lastPlatform = platform.transform;        
     }
@@ -65,7 +65,7 @@ public class PlatformBuilder : MonoBehaviour
 
         GameObject platform = Instantiate(_platform.platforms[PlatformSelector()], instatiatePos, Quaternion.identity, _platformContainer);
 
-        platform.GetComponent<GiftSpawner>().SpawnBonus();
+        //platform.GetComponent<GiftSpawner>().SpawnBonus();
 
         _lastPlatform = platform.transform;
     }
