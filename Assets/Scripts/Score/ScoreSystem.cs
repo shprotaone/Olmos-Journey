@@ -1,24 +1,30 @@
 ﻿using UnityEngine;
+using System.Collections;
 using TMPro;
 
 public class ScoreSystem : MonoBehaviour
 {
+    [SerializeField] private CommonScoreContainer _commonContainer;
+    [SerializeField] private TMP_Text _coinDisplay;
+    [SerializeField] private TMP_Text _distanceDisplay;
+    [SerializeField] private TMP_Text _scoreDisplay;
+
     private const int meterMultiplier = 4;
 
-    [SerializeField] private int _snowflakesCounter;
-    [SerializeField] private int _distance;
-    [SerializeField] private int _giftCount;
-    [SerializeField] private CommonScoreContainer _commonContainer;
-    [SerializeField] private TMP_Text _scoreDisplay;
-    [SerializeField] private TMP_Text _distanceDisplay;
+    private int _snowflakesCounter;
+    private int _scoreCounter;
+    private int _distance;
+    private int _giftCount;
+    private int _scoreMultiply = 1;
 
-    public int CurrentScore { get { return _snowflakesCounter; } }
+    public int CurrentCoin { get { return _snowflakesCounter; } }
     public int CurrentDistance { get { return _distance; } }
     public int CurrentGiftCount { get { return _giftCount; } }
 
     private void Update()
     {
-        _scoreDisplay.text = _snowflakesCounter.ToString();
+        _coinDisplay.text = _snowflakesCounter.ToString();
+        _scoreDisplay.text = _scoreCounter.ToString();
     }
 
     public void CatchUpPoint()
@@ -28,12 +34,13 @@ public class ScoreSystem : MonoBehaviour
 
     public void AddPoint()
     {
-        _snowflakesCounter += 10;
+        _scoreCounter += 10 * _scoreMultiply;
     }
 
     public void SaveScore()
     {
-        _commonContainer.score += _snowflakesCounter;
+        _commonContainer.coin += _snowflakesCounter;
+        _commonContainer.score += _scoreCounter;
     }
 
     public void AddDistance(int distance)
@@ -45,5 +52,14 @@ public class ScoreSystem : MonoBehaviour
     public void GiftCounter()
     {
         _giftCount++;
+    }
+
+    public IEnumerator MultiplyScore()
+    {
+        _scoreMultiply = LoadBalance.scoreMultiplyBonusValue;
+        yield return new WaitForSeconds(5f);
+        _scoreMultiply = 1;
+
+        yield break;
     }
 }

@@ -14,7 +14,7 @@ public class MainMenuUI : MonoBehaviour
     private void Start()
     {
         if (_scoreText != null)
-        _scoreText.text = _commonScore.score.ToString();
+        _scoreText.text = _commonScore.coin.ToString();
     }
 
     public void StartGame()

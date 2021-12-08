@@ -21,8 +21,8 @@ public class Balance : ScriptableObject
     public float divideSecondLayerBackground;
     public float divideThirdLayerBackground;
     public float divideFourLayerBackground;
-    public float scoreMultiplyBonus;
-    public float coinMultiplyBonus;
+    public int scoreMultiplyBonusValue;
+    public int coinMultiplyBonus;
     [Range(0,500)]
     public int chanceEmpty;
     [Range(0,100)]
@@ -32,11 +32,16 @@ public class Balance : ScriptableObject
     [Range(0, 100)]
     public int chanceGiftType3;
     [Range(0, 100)]
-    public int chanceBonusType1;
+    public int magnetBonus;
     [Range(0, 100)]
-    public int chanceBonusType2;
+    public int multiplyBonus;
     [Range(0, 100)]
-    public int chanceBonusType3;
+    public int flyBonus;
+    public int speedingZone;
+    public int stoppingZone;
     [Range(0, 100)]
     public int chanceCoinOrBonus;
+    public int speedBonusValue;
+    public int stopBonusValue;
+
 }

@@ -24,8 +24,8 @@ public class ResultUI : MonoBehaviour
     {
         _distanceField.text = _scoreSystem.CurrentDistance.ToString() + " m";
         _giftCountField.text = _scoreSystem.CurrentGiftCount.ToString();
-        _totalScoreField.text = _scoreSystem.CurrentScore.ToString();
-        _commonScoreField.text = _commonScore.score.ToString();
+        _totalScoreField.text = _scoreSystem.CurrentCoin.ToString();
+        _commonScoreField.text = _commonScore.coin.ToString();
     }
 
     public void RestartGame()

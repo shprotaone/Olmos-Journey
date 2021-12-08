@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class Jump : MonoBehaviour,IAction
 {
@@ -8,10 +9,14 @@ public class Jump : MonoBehaviour,IAction
 
     private Vector3 direction = Vector3.zero;
     private CharacterController controller;
+    private float _distanceToGround;
 
     private float _distanceForJump = 0.2f;
-    private float _distanceForDrop = 1f;
+    private float _distanceForDrop = 1f;    //1f
+    private float _distanceForFly = 5f;
     private float _currentGravity;
+
+    private bool fly;
 
     private void Start()
     {
@@ -25,14 +30,20 @@ public class Jump : MonoBehaviour,IAction
 
     private void Update()
     {
+        _distanceToGround = controller.GetComponent<PlayerController>().DistanceToGround;
+
         direction.y -= _currentGravity * Time.deltaTime;
-        controller.Move(direction * Time.deltaTime);        
+        controller.Move(direction * Time.deltaTime);
+
+        if (_distanceToGround > _distanceForFly && fly)
+        {
+            direction.y = 5;
+            controller.Move(direction * Time.deltaTime);
+        }
     }
 
     public void Action(bool triggered)
-    {
-        float _distanceToGround = controller.GetComponent<PlayerController>().DistanceToGround;
-
+    {       
         if (triggered)
         {
             if( _distanceToGround < _distanceForJump)
@@ -45,5 +56,19 @@ public class Jump : MonoBehaviour,IAction
                 _currentGravity = _dropGravity;
             }
         }
+    }
+
+    public IEnumerator ChangeGravity()
+    {
+        fly = true;
+        _gravity = 4;
+
+        Action(true);
+
+        yield return new WaitForSeconds(10f);
+        fly = false;
+        _gravity = LoadBalance.gravity;
+
+        yield break;
     }
 }

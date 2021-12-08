@@ -8,6 +8,9 @@ public class WorldController : MonoBehaviour
     public delegate void DelAndAddPlatform();
     public event DelAndAddPlatform OnPlatformMovement;
 
+    public delegate void SpeedIncrease();
+    public event SpeedIncrease OnIncrease;
+
     [SerializeField] private float _speedMax;
     [SerializeField] private float _changeSpeedAcceleration = 5;    //это нужно будет добавить в баланс
     [SerializeField] private float _currentSpeed = 0;
@@ -22,7 +25,7 @@ public class WorldController : MonoBehaviour
 
     public float MinZ { get { return -10; } }
     public float Distance { get { return _distance; } }
-    public float CurrentSpeed { get { return _currentSpeed; } }
+    public float MaxSpeed { get { return _speedMax; } }
     public bool StartMovement { get; set; }
 
     private void Start()
@@ -38,7 +41,7 @@ public class WorldController : MonoBehaviour
     {
         if (StartMovement)
         {
-            Acceleration();
+            SpeedController();
             transform.position -= Vector3.forward * _currentSpeed * Time.deltaTime;            
         }
         DificultUp();
@@ -69,6 +72,10 @@ public class WorldController : MonoBehaviour
         {
             _speedMax += _speedUpValue;
             _difficultRange += _difficultRange;
+            if(OnIncrease != null)
+            {
+                OnIncrease();
+            }            
         }
     }
 
@@ -77,7 +84,7 @@ public class WorldController : MonoBehaviour
         if(transform.position.z < -_platformLenght)
         {
             _platformLenght += platformPoints;
-            //_scoreSystem.AddPoint(); - очки за дистанцию нужны?
+            _scoreSystem.AddPoint();
         }
     }
 
@@ -94,11 +101,37 @@ public class WorldController : MonoBehaviour
         }
     }
 
-    private void Acceleration()
+    private void SpeedController()
     {
         if (_currentSpeed < _speedMax)
         {
             _currentSpeed += Time.deltaTime * _changeSpeedAcceleration;
         }
+        else
+        {
+            _currentSpeed -= Time.deltaTime * _changeSpeedAcceleration;
+        }
+    }
+
+    public IEnumerator SpeedUp()
+    {
+        _speedMax += LoadBalance.speedBonusValue;
+        print("SpeedUp");
+        yield return new WaitForSeconds(5f);
+        _speedMax -= LoadBalance.speedBonusValue;
+        print("SpeedDown");
+
+        yield break;
+    }
+
+    public IEnumerator SpeedDown()
+    {
+        _speedMax -= LoadBalance.stopBonusValue;
+        print("SpeedUp");
+        yield return new WaitForSeconds(5f);
+        _speedMax += LoadBalance.stopBonusValue;
+        print("SpeedDown");
+
+        yield break;
     }
 }

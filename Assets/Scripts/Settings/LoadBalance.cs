@@ -17,16 +17,15 @@ public class LoadBalance : MonoBehaviour
     public static float divideSecondLayerBackground;
     public static float divideThirdLayerBackground;
     public static float divideFourLayerBackground;
-    public static float scoreMultiplyBonus;
-    public static float coinMultiplyBonus;
-    public static int chanceEmpty;
-    public static int chanceGiftType1;
-    public static int chanceGiftType2;
-    public static int chanceGiftType3;
-    public static int chanceBonusType1;
-    public static int chanceBonusType2;
-    public static int chanceBonusType3;
+    public static int scoreMultiplyBonusValue;
+    public static int coinMultiplyBonus;
+    public static int[] chancesCoin;
+    public static int[] chancesBonus;
+    public static int[] chancesZones;
     public static int chanceCoinOrBonus;
+    public static int speedBonusValue;
+    public static int stopBonusValue;
+    
 
     void Awake()
     {
@@ -46,16 +45,30 @@ public class LoadBalance : MonoBehaviour
         divideSecondLayerBackground = _balancePreset.divideSecondLayerBackground;
         divideThirdLayerBackground = _balancePreset.divideThirdLayerBackground;
         divideFourLayerBackground = _balancePreset.divideFourLayerBackground;
-        scoreMultiplyBonus = _balancePreset.scoreMultiplyBonus;
+        scoreMultiplyBonusValue = _balancePreset.scoreMultiplyBonusValue;
         coinMultiplyBonus = _balancePreset.coinMultiplyBonus;
-        chanceEmpty = _balancePreset.chanceEmpty;
-        chanceGiftType1 = _balancePreset.chanceGiftType1;
-        chanceGiftType2 = _balancePreset.chanceGiftType2;
-        chanceGiftType3 = _balancePreset.chanceGiftType3;
-        chanceBonusType1 = _balancePreset.chanceBonusType1;
-        chanceBonusType2 = _balancePreset.chanceBonusType2;
-        chanceBonusType3 = _balancePreset.chanceBonusType3;
+
+        chancesCoin = new int[] {
+            _balancePreset.chanceEmpty,
+            _balancePreset.chanceGiftType1,
+            _balancePreset.chanceGiftType2,
+            _balancePreset.chanceGiftType3};
+
+        chancesBonus = new int[] {
+            _balancePreset.chanceEmpty,
+            _balancePreset.magnetBonus,
+            _balancePreset.multiplyBonus,
+            _balancePreset.flyBonus };
+
+        chancesZones = new int[] {
+            _balancePreset.chanceEmpty,
+            _balancePreset.speedingZone,
+            _balancePreset.stoppingZone };
+
         chanceCoinOrBonus = _balancePreset.chanceCoinOrBonus;
+        speedBonusValue = _balancePreset.speedBonusValue;
+        stopBonusValue = _balancePreset.stopBonusValue;
+
         print("In Game Update Activated");
     }
 
