@@ -16,6 +16,7 @@ public class StoppingZone : InterractableObject
     public override IEnumerator Action(Collider collider)
     {
         collider.GetComponent<InteractionWithSubject>().DecreaseSpeed();
+        Destroy(this.gameObject);
 
         yield break;
     }

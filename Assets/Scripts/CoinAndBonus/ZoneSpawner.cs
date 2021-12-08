@@ -43,18 +43,21 @@ public class ZoneSpawner : MonoBehaviour
 
     public void InstantiateZone(int index)
     {
-        for (int i = 0; i < _chanceBalance.Length; i++)
-        {
-            if (index <= _chanceBalance[i])
-            {
-                _currentZone = _prefabZones[i];
-            }
-            else
-            {
-                index -= _chanceBalance[i];
-            }
-        }
+            int currentRandom = index;
 
-        Instantiate(_currentZone, _currentPos);
+            for (int i = 0; i < _chanceBalance.Length; i++)
+            {
+                if (currentRandom <= _chanceBalance[i])
+                {
+                    _currentZone = _prefabZones[i];
+                    Instantiate(_currentZone, _currentPos);
+                    return;
+                }
+                else
+                {
+                    currentRandom -= _chanceBalance[i];
+                }
+            }
+            print("Zone " + _currentZone);       
     }
 }

@@ -11,7 +11,7 @@ public class SpawnerController : MonoBehaviour
     private int _chance;
     private int _chanceZone;
 
-    private void Start()
+    public void Start()
     {
         _bonus = new RandomLogic().TrueFalseRandomizer();
         _zone = new RandomLogic().TrueFalseRandomizer();
@@ -34,6 +34,7 @@ public class SpawnerController : MonoBehaviour
         if (_zone)
         {
             _chanceZone = new RandomLogic().SumForRandomSystem(LoadBalance.chancesZones);
+            if (_zoneSpawner != null)
             _zoneSpawner.InstantiateZone(_chanceZone);
         }
     }

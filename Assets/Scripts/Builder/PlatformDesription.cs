@@ -6,24 +6,27 @@ public class PlatformDesription : MonoBehaviour
 {
     [SerializeField] private PlatformTypes _types;
     private WorldController _worldController;
+    private SpawnerController _spawnerController;
     
     public PlatformTypes Type { get { return _types; } }
 
     public Transform centerPoint;
-    public Transform endPoint;    
+    public Transform endPoint;
 
-    private void Start()
+    private void Awake()
     {
         _worldController = GetComponentInParent<WorldController>();
+        
 
         if (_worldController != null)
         {
             _worldController.OnPlatformMovement += AddPlatform;
         }
-        else
-        {
-            print("WorldControllerNotFound");
-        }       
+    }
+
+    private void Start()
+    {
+        _spawnerController = gameObject.GetComponent<SpawnerController>();
     }
 
     private void AddPlatform()
@@ -31,6 +34,7 @@ public class PlatformDesription : MonoBehaviour
         if(transform.position.z < _worldController.MinZ)
         {
             _worldController.CreatePlatform();
+            //_spawnerController.Spawn();
             DeletePlatform();
         }
     }

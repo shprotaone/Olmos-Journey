@@ -14,7 +14,9 @@ public class MultiplyScore : InterractableObject
 
     public override IEnumerator Action(Collider collider)
     {
+        print("Multiply bonus Activated");
         collider.GetComponent<InteractionWithSubject>().MultiplyCoin();       //понять как переделать на евенты
+        Destroy(this.gameObject);
 
         yield break;
     }

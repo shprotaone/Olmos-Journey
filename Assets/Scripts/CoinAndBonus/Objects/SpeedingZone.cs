@@ -16,6 +16,7 @@ public class SpeedingZone : InterractableObject
     public override IEnumerator Action(Collider collider)
     {
         collider.GetComponent<InteractionWithSubject>().IncreaseSpeed();    //понять как переделать на евенты
+        Destroy(this.gameObject);
                                                                             //
         yield break;
     }

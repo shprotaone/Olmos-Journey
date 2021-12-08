@@ -8,7 +8,7 @@ public class CoinSpawner : MonoBehaviour
     [SerializeField] private GameObject _coinsPositionPrefab;
     [SerializeField] private Transform _lineVariant;
 
-    private GameObject _currentBonus;
+    private GameObject _currentCoin;
 
     private Transform[] _linesForBonus;
     private Transform[] _coinPos;   
@@ -43,21 +43,29 @@ public class CoinSpawner : MonoBehaviour
 
     public void InstantiateCoin(int index)
     {
+        int currentRandomNumber = index;
+
         for (int i = 0; i < _chancesCoin.Length; i++)
         {
-            if (index <= _chancesCoin[i])
+            if (currentRandomNumber <= _chancesCoin[i])
             {
-                _currentBonus = prefabCoins[i];
+                _currentCoin = prefabCoins[i];
+                Setup();
+                return;
             }
             else
             {
-                index -= _chancesCoin[i];
+                currentRandomNumber -= _chancesCoin[i];
             }
         }
+        print("Coin " + _currentCoin.name);
+    }
 
+    private void Setup()
+    {
         for (int i = 0; i < _coinPos.Length; i++)
         {
-            Instantiate(_currentBonus, _coinPos[i]);
+            Instantiate(_currentCoin, _coinPos[i]);
         }
     }
 }

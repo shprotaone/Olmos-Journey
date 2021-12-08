@@ -24,16 +24,16 @@ MonoBehaviour:
   divideThirdLayerBackground: 80
   divideFourLayerBackground: 100
   scoreMultiplyBonusValue: 5
-  coinMultiplyBonus: 0
-  chanceEmpty: 50
-  chanceGiftType1: 20
-  chanceGiftType2: 40
-  chanceGiftType3: 30
+  coinMultiplyBonus: 15
+  chanceEmpty: 35
+  chanceGiftType1: 30
+  chanceGiftType2: 20
+  chanceGiftType3: 15
   magnetBonus: 50
-  multiplyBonus: 0
-  flyBonus: 0
-  speedingZone: 0
-  stoppingZone: 0
-  chanceCoinOrBonus: 20
+  multiplyBonus: 40
+  flyBonus: 20
+  speedingZone: 25
+  stoppingZone: 30
+  chanceCoinOrBonus: 34
   speedBonusValue: 3
   stopBonusValue: 5

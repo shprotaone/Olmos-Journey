@@ -19,7 +19,7 @@ public class BonusSpawner : MonoBehaviour
 
     private void Start()
     {
-        _chanceBalance = LoadBalance.chancesBonus;
+         _chanceBalance = LoadBalance.chancesBonus;
 
         _linesForBonus = _lineVariant.GetComponentsInChildren<Transform>();
 
@@ -43,18 +43,22 @@ public class BonusSpawner : MonoBehaviour
 
     public void InstantiateBonus(int index)
     {
+        int currentRandom = index;
+
         for (int i = 0; i < _chanceBalance.Length; i++)
         {
-            if (index <= _chanceBalance[i])
+            if (currentRandom <= _chanceBalance[i])
             {
                 _currentBonus = _prefabBonuses[i];
+                Instantiate(_currentBonus, _currentPos);
+                return;
             }
             else
             {
-                index -= _chanceBalance[i];
+                currentRandom -= _chanceBalance[i];
             }
         }
-
-        Instantiate(_currentBonus, _currentPos);
+        
+        print("Bonus " + _currentBonus.name);
     }
 }
