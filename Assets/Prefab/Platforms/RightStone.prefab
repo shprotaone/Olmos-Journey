@@ -326,6 +326,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1171441263857274345}
     m_Modifications:
     - target: {fileID: 3328619670655342108, guid: 48980a8f052ee7f43b9a515debd46ca3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 3328619670655342108, guid: 48980a8f052ee7f43b9a515debd46ca3, type: 3}
       propertyPath: m_LocalPosition.y
       value: 1.064
       objectReference: {fileID: 0}
@@ -333,6 +337,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: StoneObstacle
       objectReference: {fileID: 0}
+    - target: {fileID: 7159102612302826188, guid: 48980a8f052ee7f43b9a515debd46ca3, type: 3}
+      propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7159102612302826188, guid: 48980a8f052ee7f43b9a515debd46ca3, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7159102612302826188, guid: 48980a8f052ee7f43b9a515debd46ca3, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 11ad779c005eec34facb48af745469ca, type: 2}
     - target: {fileID: 9038773204371159830, guid: 48980a8f052ee7f43b9a515debd46ca3, type: 3}
       propertyPath: m_RootOrder
       value: 3

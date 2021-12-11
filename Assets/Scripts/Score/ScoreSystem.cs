@@ -8,6 +8,7 @@ public class ScoreSystem : MonoBehaviour
     [SerializeField] private TMP_Text _coinDisplay;
     [SerializeField] private TMP_Text _distanceDisplay;
     [SerializeField] private TMP_Text _scoreDisplay;
+    [SerializeField] private TMP_Text _resultCoinDisplay;
 
     private const int meterMultiplier = 4;
 
@@ -20,11 +21,12 @@ public class ScoreSystem : MonoBehaviour
     public int CurrentCoin { get { return _snowflakesCounter; } }
     public int CurrentDistance { get { return _distance; } }
     public int CurrentGiftCount { get { return _giftCount; } }
+    public int Score { get { return _scoreCounter; } }
 
     private void Update()
     {
         _coinDisplay.text = _snowflakesCounter.ToString();
-        _scoreDisplay.text = _scoreCounter.ToString();
+        _scoreDisplay.text = Score.ToString();
     }
 
     public void CatchUpPoint()
@@ -35,6 +37,7 @@ public class ScoreSystem : MonoBehaviour
     public void AddPoint()
     {
         _scoreCounter += 10 * _scoreMultiply;
+        _resultCoinDisplay.text = _snowflakesCounter.ToString();
     }
 
     public void SaveScore()

@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Balance1
   m_EditorClassIdentifier: 
   speed: 10
-  increaseSpeed: 3
+  increaseSpeed: 1
   distanceToUpDifficult: -200
-  movement: 10
-  jumpForce: 20
-  gravity: 20
-  gravityToDrop: 50
+  movement: 15
+  jumpForce: 30
+  gravity: 25
+  gravityToDrop: 100
   divideFirstLayerBackground: 100
   divideSecondLayerBackground: 70
   divideThirdLayerBackground: 80
@@ -26,14 +26,14 @@ MonoBehaviour:
   scoreMultiplyBonusValue: 5
   coinMultiplyBonus: 15
   chanceEmpty: 35
-  chanceGiftType1: 30
+  chanceGiftType1: 25
   chanceGiftType2: 20
   chanceGiftType3: 15
-  magnetBonus: 50
-  multiplyBonus: 40
-  flyBonus: 20
-  speedingZone: 25
-  stoppingZone: 30
-  chanceCoinOrBonus: 34
-  speedBonusValue: 3
-  stopBonusValue: 5
+  magnetBonus: 30
+  multiplyBonus: 20
+  flyBonus: 0
+  speedingZone: 1
+  stoppingZone: 50
+  chanceCoinOrBonus: 16
+  speedBonusValue: 10
+  stopBonusValue: 6

@@ -16,7 +16,7 @@ public class Underslide : MonoBehaviour, IAction
         _center = _characterController.center;
         _height = _characterController.height;
     }
-    public void Action(bool triggered)
+    public void Action()
     {
         StartCoroutine(Slide());
         print("Action");

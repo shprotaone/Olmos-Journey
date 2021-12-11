@@ -42,20 +42,19 @@ public class Jump : MonoBehaviour,IAction
         }
     }
 
-    public void Action(bool triggered)
+    public void Action()
     {       
-        if (triggered)
+
+        if( _distanceToGround < _distanceForJump)
         {
-            if( _distanceToGround < _distanceForJump)
-            {
-                _currentGravity = _gravity;
-                direction.y = _jumpSpeed;
-            }
-            else if(_distanceToGround > _distanceForDrop)
-            {
-                _currentGravity = _dropGravity;
-            }
+            _currentGravity = _gravity;
+            direction.y = _jumpSpeed;
         }
+        else if(_distanceToGround > _distanceForDrop)
+        {
+            _currentGravity = _dropGravity;
+        }
+        
     }
 
     public IEnumerator ChangeGravity()
@@ -63,7 +62,7 @@ public class Jump : MonoBehaviour,IAction
         fly = true;
         _gravity = 4;
 
-        Action(true);
+        Action();
 
         yield return new WaitForSeconds(10f);
         fly = false;

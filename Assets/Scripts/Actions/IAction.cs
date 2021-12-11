@@ -1,4 +1,4 @@
 ﻿interface IAction
 {
-    void Action(bool triggered);
+    void Action();
 }

@@ -4,11 +4,10 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float _speedMovement;
 
-    [SerializeField] private ResultUI _result;
+    [SerializeField] private GameObject _resultWindow;
     [SerializeField] private Transform _leftLine;
     [SerializeField] private Transform _rightLine;
 
-    private Keyboard _input;
     private CharacterController _characterController;
     private Animator _animator;
 
@@ -17,7 +16,6 @@ public class PlayerController : MonoBehaviour
     private bool _left;
     private bool _right;
     private bool _edge;
-    private bool _pressedAction;
     private bool _playerDeath;
 
     private StartRunningScript _startRunningScript;
@@ -35,36 +33,47 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        _input = new Keyboard();
-        _input.Player.Action.performed += context => Action();
-        _input.Player.MoveLeft.performed += context => MoveLeft();
-        _input.Player.MoveRight.performed += context => MoveRight();
-
         _characterController = GetComponent<CharacterController>();
         _animator = GetComponentInChildren<Animator>();
         _startRunningScript = GetComponent<StartRunningScript>();
         _deathScript = GetComponent<DeathScript>();
         _jumpScript = GetComponent<Jump>();
 
+        SwipeDetection.SwipeEvent += OnSwipe;
+        SwipeDetection.TouchEvent += OnTouch;
+       
         _speedMovement = LoadBalance.movement;
     }
 
-    private void OnEnable()
-    {
-        _input.Enable();
-    }
 
-    private void OnDisable()
-    {
-        _input.Disable();
-    }
 
     private void Update()
     {   
-        if(_startRunningScript.IsStarted && !_playerDeath)
         Movement();        
-        Action();
         CheckPlatform();
+    }
+
+    private void OnSwipe(Vector2 direction)
+    {
+        if (_startRunningScript.IsStarted && !_playerDeath)
+        {
+            if (direction.x == 1)
+            {
+                MoveLeft();
+            }
+            else if (direction.x == -1)
+            {
+                MoveRight();
+            }
+        }       
+    }
+
+    private void OnTouch(bool action)
+    {
+            if (!_startRunningScript.IsStarted)
+                _startRunningScript.Action();
+            else
+                _jumpScript.Action();
     }
 
     private void MoveLeft()
@@ -112,27 +121,12 @@ public class PlayerController : MonoBehaviour
         _left = false;
     }
 
-    private void Action()
-    {
-        _pressedAction = _input.Player.Action.triggered;
-
-        if (_pressedAction)
-        {
-            _startRunningScript.Action(_pressedAction);
-            _jumpScript.Action(_pressedAction);
-        }
-
-        if (_playerDeath)
-        {
-            _deathScript.Action(_playerDeath);
-        }
-    }
-
     public void Death()
     {
         _playerDeath = true;
         GetComponent<ScoreSystem>().SaveScore();
-        //_result.ResultEnable();
+        _deathScript.Action();
+        _resultWindow.SetActive(true);
     }
 
     private void CheckEdge()        //пока что не работает как положено

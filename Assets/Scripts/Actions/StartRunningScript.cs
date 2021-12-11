@@ -17,9 +17,9 @@ public class StartRunningScript : MonoBehaviour, IAction
         _startRunAnim = Animator.StringToHash("StartRunning");
     }
 
-    public void Action(bool triggered)
+    public void Action()
     {
-        _isStarted = triggered;
+        _isStarted = true;
         _animator.SetBool(_startRunAnim,true);
         _worldController.StartMovement = true;
         //_guide.SetActive(false);

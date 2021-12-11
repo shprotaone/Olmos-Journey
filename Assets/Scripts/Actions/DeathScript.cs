@@ -12,7 +12,7 @@ public class DeathScript : MonoBehaviour, IAction
         _animator = GetComponentInChildren<Animator>();
     }
 
-    public void Action(bool triggered)
+    public void Action()
     {
         _worldController.StartMovement = false;
         _animator.SetBool(_deathAnim, true);
