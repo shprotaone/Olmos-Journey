@@ -22,8 +22,6 @@ public class HighscoreTable : MonoBehaviour
 
     private void Awake()
     {
-        print(Application.streamingAssetsPath);
-
         if (base.name == _tableName)
         {           
             _entryContainer = transform.Find("HighscoreContainer");

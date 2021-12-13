@@ -12,37 +12,37 @@ public class ScoreSystem : MonoBehaviour
 
     private const int meterMultiplier = 4;
 
-    private int _snowflakesCounter;
+    private int _coinCounter;
     private int _scoreCounter;
     private int _distance;
     private int _giftCount;
     private int _scoreMultiply = 1;
 
-    public int CurrentCoin { get { return _snowflakesCounter; } }
+    public int CurrentCoin { get { return _coinCounter; } }
     public int CurrentDistance { get { return _distance; } }
     public int CurrentGiftCount { get { return _giftCount; } }
     public int Score { get { return _scoreCounter; } }
 
     private void Update()
     {
-        _coinDisplay.text = _snowflakesCounter.ToString();
+        _coinDisplay.text = _coinCounter.ToString();
         _scoreDisplay.text = Score.ToString();
     }
 
     public void CatchUpPoint()
     {
-        _snowflakesCounter += 1;
+        _coinCounter += 1;
     }
 
     public void AddPoint()
     {
         _scoreCounter += 10 * _scoreMultiply;
-        _resultCoinDisplay.text = _snowflakesCounter.ToString();
+        _resultCoinDisplay.text = _coinCounter.ToString();
     }
 
     public void SaveScore()
     {
-        _commonContainer.coin += _snowflakesCounter;
+        _commonContainer.coin += _coinCounter;
         _commonContainer.score += _scoreCounter;
     }
 

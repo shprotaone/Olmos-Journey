@@ -11,7 +11,7 @@ public class CoinSpawner : MonoBehaviour
     private GameObject _currentCoin;
 
     private Transform[] _linesForBonus;
-    private Transform[] _coinPos;   
+    private Transform _currentPos;   
     private Transform _bonusLine;
 
     private int[] _chancesCoin;   
@@ -30,7 +30,7 @@ public class CoinSpawner : MonoBehaviour
         SetupPosition();
                
     }
-    private void FindParent()
+    private void FindParent()   //определяем лайн
     {
         _parentIndex = Random.Range(1, _linesForBonus.Length);
     }
@@ -38,7 +38,7 @@ public class CoinSpawner : MonoBehaviour
     private void SetupPosition()
     {
         GameObject posInit = Instantiate(_coinsPositionPrefab, _bonusLine);
-        _coinPos = posInit.GetComponentsInChildren<Transform>();       
+        _currentPos = posInit.GetComponentInChildren<Transform>();       
     }
 
     public void InstantiateCoin(int index)
@@ -50,7 +50,7 @@ public class CoinSpawner : MonoBehaviour
             if (currentRandomNumber <= _chancesCoin[i])
             {
                 _currentCoin = prefabCoins[i];
-                Setup();
+                Instantiate(_currentCoin, _currentPos);
                 return;
             }
             else
@@ -59,13 +59,5 @@ public class CoinSpawner : MonoBehaviour
             }
         }
         print("Coin " + _currentCoin.name);
-    }
-
-    private void Setup()
-    {
-        for (int i = 0; i < _coinPos.Length; i++)
-        {
-            Instantiate(_currentCoin, _coinPos[i]);
-        }
     }
 }

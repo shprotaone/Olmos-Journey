@@ -9,7 +9,7 @@ public class MagnetScript : MonoBehaviour
 
     void Start()
     {
-        PlayerTransform = gameObject.GetComponentInParent<Transform>();
+        PlayerTransform = GetComponentInParent<Transform>();
     }
 
    public IEnumerator MagnetActivate()

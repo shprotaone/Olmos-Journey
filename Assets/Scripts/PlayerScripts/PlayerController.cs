@@ -7,8 +7,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject _resultWindow;
     [SerializeField] private Transform _leftLine;
     [SerializeField] private Transform _rightLine;
+    [SerializeField] private LayerMask _platformLayer;
 
     private CharacterController _characterController;
+    private SoundController _soundController;
     private Animator _animator;
 
     private Vector3 _targetPosition;
@@ -38,14 +40,13 @@ public class PlayerController : MonoBehaviour
         _startRunningScript = GetComponent<StartRunningScript>();
         _deathScript = GetComponent<DeathScript>();
         _jumpScript = GetComponent<Jump>();
+        _soundController = GetComponentInChildren<SoundController>();
 
         SwipeDetection.SwipeEvent += OnSwipe;
         SwipeDetection.TouchEvent += OnTouch;
        
         _speedMovement = LoadBalance.movement;
     }
-
-
 
     private void Update()
     {   
@@ -60,25 +61,30 @@ public class PlayerController : MonoBehaviour
             if (direction.x == 1)
             {
                 MoveLeft();
+                _soundController.TurnSound(true);
             }
             else if (direction.x == -1)
             {
                 MoveRight();
+                _soundController.TurnSound(false);
             }
         }       
     }
 
     private void OnTouch(bool action)
     {
-            if (!_startRunningScript.IsStarted)
-                _startRunningScript.Action();
-            else
+        if (!_startRunningScript.IsStarted)
+        {
+            _startRunningScript.Action();
+            _soundController.StartSliding(true);
+        }
+        else if(!_playerDeath)
                 _jumpScript.Action();
     }
 
     private void MoveLeft()
     {
-        if (!_edge)
+        if (!_edge && _animator != null)
             _animator.SetTrigger(_leftAnimationID);
 
         _left = true;
@@ -86,7 +92,7 @@ public class PlayerController : MonoBehaviour
      
     private void MoveRight()
     {                
-        if (!_edge)
+        if (!_edge && _animator != null)
         _animator.SetTrigger(_rightAnimationID);
 
         _right = true;
@@ -139,15 +145,17 @@ public class PlayerController : MonoBehaviour
 
     public void CheckPlatform()
     {
-        Ray ray = new Ray(transform.position, Vector3.down*2);
-        Debug.DrawRay(ray.origin, ray.direction, Color.red,1000);
-
+        Ray ray = new Ray(transform.position, Vector3.down*6);
+        Debug.DrawRay(ray.origin, ray.direction, Color.red);
         RaycastHit hit;
 
-        if(Physics.Raycast(ray,out hit))
+        if(Physics.Raycast(ray,out hit,_platformLayer))
         {
-            _type = hit.transform.GetComponentInParent<PlatformDesription>().Type;
-            _distanceToGround = hit.distance;
+            if (hit.transform.CompareTag("Platform"))
+            {
+                _distanceToGround = hit.distance;
+            }
+            //_type = hit.transform.GetComponentInParent<PlatformController>().Type;     **на будущее для выпрыгавающих платформ                 
         }
-    }   //на будущее для платформы с броском подарка
+    }
 }

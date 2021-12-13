@@ -11,8 +11,8 @@ public class Jump : MonoBehaviour,IAction
     private CharacterController controller;
     private float _distanceToGround;
 
-    private float _distanceForJump = 0.2f;
-    private float _distanceForDrop = 1f;    //1f
+    private float _distanceForJump = 0.1f;
+    private float _distanceForDrop = 0.5f;    //1f
     private float _distanceForFly = 5f;
     private float _currentGravity;
 
@@ -43,21 +43,40 @@ public class Jump : MonoBehaviour,IAction
     }
 
     public void Action()
-    {       
-
-        if( _distanceToGround < _distanceForJump)
+    {
+        if (_distanceToGround > _distanceForDrop)
+        {
+            _currentGravity = _dropGravity;
+            print("Drop");
+        }
+        else
         {
             _currentGravity = _gravity;
             direction.y = _jumpSpeed;
+            print("Jump");
         }
-        else if(_distanceToGround > _distanceForDrop)
-        {
-            _currentGravity = _dropGravity;
-        }
-        
+
+
+        //if( _distanceToGround < _distanceForJump)
+        //{
+        //    _currentGravity = _gravity;
+        //    direction.y = _jumpSpeed;
+        //    print("Jump");
+        //}
+        //else if(_distanceToGround > _distanceForDrop)
+        //{
+        //    _currentGravity = _dropGravity;
+        //    print("Drop");
+        //}
+        //else
+        //{
+        //    _currentGravity = _gravity;
+        //    print("Other");
+        //}
+
     }
 
-    public IEnumerator ChangeGravity()
+    public IEnumerator ChangeGravityToFly()
     {
         fly = true;
         _gravity = 4;

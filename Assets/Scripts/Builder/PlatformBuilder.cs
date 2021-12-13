@@ -46,7 +46,7 @@ public class PlatformBuilder : MonoBehaviour
         }
         else
         {
-            _lastPlatformPosition = _lastPlatform.GetComponent<PlatformDesription>().endPoint.position;
+            _lastPlatformPosition = _lastPlatform.GetComponent<PlatformController>().endPoint.position;
         }
         Vector3 instatiatePos = _lastPlatformPosition + _offsetPlatform;
 
@@ -59,7 +59,7 @@ public class PlatformBuilder : MonoBehaviour
 
     private void CreateObstaclePlatform()
     {
-        _lastPlatformPosition = _lastPlatform.GetComponent<PlatformDesription>().endPoint.position;
+        _lastPlatformPosition = _lastPlatform.GetComponent<PlatformController>().endPoint.position;
 
         Vector3 instatiatePos = _lastPlatformPosition + _offsetPlatform;
 

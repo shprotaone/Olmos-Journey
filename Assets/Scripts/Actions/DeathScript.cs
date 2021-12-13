@@ -2,6 +2,9 @@
 
 public class DeathScript : MonoBehaviour, IAction
 {
+    public delegate void Death();
+    public static event Death OnDeath;
+    
     [SerializeField] private WorldController _worldController;
 
     private Animator _animator;
@@ -14,6 +17,11 @@ public class DeathScript : MonoBehaviour, IAction
 
     public void Action()
     {
+        if(OnDeath != null)
+        {
+            OnDeath();
+        }
+
         _worldController.StartMovement = false;
         _animator.SetBool(_deathAnim, true);
     }

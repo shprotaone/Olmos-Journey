@@ -37,7 +37,7 @@ public class InteractionWithSubject : MonoBehaviour
 
     public void Fly()
     {
-        StartCoroutine(_jumpScript.ChangeGravity());
+        StartCoroutine(_jumpScript.ChangeGravityToFly());
     }
 
 }

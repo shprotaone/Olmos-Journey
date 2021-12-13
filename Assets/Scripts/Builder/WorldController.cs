@@ -8,9 +8,6 @@ public class WorldController : MonoBehaviour
     public delegate void DelAndAddPlatform();
     public event DelAndAddPlatform OnPlatformMovement;
 
-    public delegate void SpeedIncrease();
-    public event SpeedIncrease OnIncrease;
-
     [SerializeField] private float _speedMax;
     [SerializeField] private float _changeSpeedAcceleration = 5;    //это нужно будет добавить в баланс
     [SerializeField] private float _currentSpeed = 0;
@@ -22,9 +19,11 @@ public class WorldController : MonoBehaviour
     private float _difficultRange;
     private float _speedUpValue;
     private float _distance;
+    private bool _slowedDown;
 
-    public float MinZ { get { return -10; } }
+    public float MinZ { get { return -20; } }
     public float Distance { get { return _distance; } }
+    public float CurrentSpeed { get { return _currentSpeed; } }
     public float MaxSpeed { get { return _speedMax; } }
     public bool StartMovement { get; set; }
 
@@ -42,8 +41,9 @@ public class WorldController : MonoBehaviour
         if (StartMovement)
         {
             SpeedController();
-            transform.position -= Vector3.forward * _currentSpeed * Time.deltaTime;            
+            transform.position -= Vector3.forward * _currentSpeed * Time.deltaTime;
         }
+
         DificultUp();
         AddPlatformPoint();
         DistanceCalculate();
@@ -53,7 +53,7 @@ public class WorldController : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(2);
             if (OnPlatformMovement != null)
             {
                 OnPlatformMovement();
@@ -63,7 +63,7 @@ public class WorldController : MonoBehaviour
 
     public void CreatePlatform()
     {
-        _platformBuilder.CreateNextPlatform();        
+        _platformBuilder.CreateNextPlatform();
     }
 
     private void DificultUp()
@@ -72,18 +72,14 @@ public class WorldController : MonoBehaviour
         {
             _speedMax += _speedUpValue;
             _difficultRange += _difficultRange;
-            if(OnIncrease != null)
-            {
-                OnIncrease();
-            }            
         }
     }
 
     private void AddPlatformPoint()
     {
-        if(transform.position.z < -_platformLenght)
+        if (transform.position.z < -_platformLenght)
         {
-            _platformLenght += platformPoints;
+            _platformLenght += platformPoints;      //сомнительная система, но пока так 
             _scoreSystem.AddPoint();
         }
     }
@@ -107,6 +103,10 @@ public class WorldController : MonoBehaviour
         {
             _currentSpeed += Time.deltaTime * _changeSpeedAcceleration;
         }
+        else if (_currentSpeed == _speedMax)
+        {
+            _currentSpeed = _speedMax;
+        }
         else
         {
             _currentSpeed -= Time.deltaTime * _changeSpeedAcceleration;
@@ -115,22 +115,22 @@ public class WorldController : MonoBehaviour
 
     public IEnumerator SpeedUp()
     {
-        _speedMax += LoadBalance.speedBonusValue;
-        print("SpeedUp");
-        yield return new WaitForSeconds(5f);
-        _speedMax -= LoadBalance.speedBonusValue;
-        print("SpeedDown");
-
+        if (!_slowedDown)
+        {
+            _slowedDown = true;
+            _speedMax += LoadBalance.speedBonusValue;
+            yield return new WaitForSeconds(5f);
+            _speedMax -= LoadBalance.speedBonusValue;
+            _slowedDown = false;
+        }
         yield break;
     }
 
     public IEnumerator SpeedDown()
     {
         _speedMax -= LoadBalance.stopBonusValue;
-        print("SpeedUp");
         yield return new WaitForSeconds(5f);
         _speedMax += LoadBalance.stopBonusValue;
-        print("SpeedDown");
 
         yield break;
     }

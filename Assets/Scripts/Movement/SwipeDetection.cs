@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SwipeDetection : MonoBehaviour
 {
@@ -12,23 +13,24 @@ public class SwipeDetection : MonoBehaviour
 
     public float resetTimer;
 
-    private Vector2 _tapPosition;
-    private Vector2 _swipeDelta;
+    public Text text1;
+    public Text text2;
+    public Text text3;
 
     private Vector2 _startPosition;
+    private Vector2 _swipeDelta;
     private Vector2 _endPosition;
 
-    private float _deadZone = 80;
+    private float _deadZone = 50;
 
     private bool _isSwiping;
     private bool _isTouch;
     private bool _isMobile;
 
-    private float _holdTime;
-
     private void Start()
     {
-        _isMobile = Application.isMobilePlatform;       
+        _isMobile = Application.isMobilePlatform;
+        ResetSwipe();
     }
 
     private void Update()
@@ -44,13 +46,13 @@ public class SwipeDetection : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {                  
-                _tapPosition = Input.mousePosition;
+                _startPosition = Input.mousePosition;
             }
             else if (Input.GetMouseButtonUp(0))
             {
                 _endPosition = Input.mousePosition;
-                Check(); 
-            }
+                Check();
+            }           
         }
         else
         {
@@ -58,8 +60,7 @@ public class SwipeDetection : MonoBehaviour
             {
                 if (Input.GetTouch(0).phase == TouchPhase.Began)
                 {
-                    _isSwiping = true;
-                    _tapPosition = Input.GetTouch(0).position;
+                    _startPosition = Input.GetTouch(0).position;
                 }
                 else if (Input.GetTouch(0).phase == TouchPhase.Canceled ||
                          Input.GetTouch(0).phase == TouchPhase.Ended)
@@ -75,19 +76,18 @@ public class SwipeDetection : MonoBehaviour
     {
         _swipeDelta = Vector2.zero;
 
-        if (_isSwiping)
-        {
-            Swiping();            
-        }
-
         if (_isTouch)
         {
             if (TouchEvent != null)
             {
-                TouchEvent(_isTouch); 
-                
+                TouchEvent(_isTouch);
+
                 ResetSwipe();
-            }            
+            }
+        }
+        else if (_isSwiping)
+        {
+            Swiping();
         }
 
         if (_swipeDelta.magnitude > _deadZone)
@@ -106,27 +106,32 @@ public class SwipeDetection : MonoBehaviour
         _isSwiping = false;
         _isTouch = false;
 
-        _tapPosition = Vector2.zero;
+        _startPosition = Vector2.zero;
         _swipeDelta = Vector2.zero;
     }
 
     private void Swiping()
     {      
-        if (!_isMobile && Input.GetMouseButton(0))
+        if (!_isMobile)
         {
-            _swipeDelta = (Vector2)Input.mousePosition - _tapPosition;
+            _swipeDelta = (Vector2)Input.mousePosition - _startPosition;
         }
         else if (Input.touchCount > 0)
         {
-            _swipeDelta = Input.GetTouch(0).position - _tapPosition;
+            _swipeDelta = Input.GetTouch(0).position - _startPosition;
         }
     }
 
     private void Check()
     {
-        if (_tapPosition == _endPosition)
+        text1.text = _startPosition.ToString();
+        text2.text = _endPosition.ToString();
+        text3.text = "_isTouch = " + _isTouch.ToString();
+
+        if (_startPosition == _endPosition)
         {
             _isTouch = true;
+            _isSwiping = false;
         }
         else
         {
