@@ -37,8 +37,7 @@ public class Coin : InterractableObject
 
     public override IEnumerator Action(Collider collider)
     {
-        collider.GetComponent<ScoreSystem>().CatchUpPoint();
-        collider.GetComponent<ScoreSystem>().GiftCounter();
+        collider.GetComponent<InteractionWithSubject>().AddCoin();
         Destroy(this.gameObject);
 
         yield break;

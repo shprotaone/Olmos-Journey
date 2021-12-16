@@ -2,45 +2,42 @@
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float _speedMovement;
-
-    [SerializeField] private GameObject _resultWindow;
+    [SerializeField] private SoundController _soundController;
     [SerializeField] private Transform _leftLine;
     [SerializeField] private Transform _rightLine;
     [SerializeField] private LayerMask _platformLayer;
-
-    private CharacterController _characterController;
-    private SoundController _soundController;
-    private Animator _animator;
+    [SerializeField] private float _speedMovement;
 
     private Vector3 _targetPosition;
+
+    private CharacterController _characterController;
     
-    private bool _left;
-    private bool _right;
-    private bool _edge;
-    private bool _playerDeath;
+    private PlatformTypes _type;
+    private Animator _animator;
 
     private StartRunningScript _startRunningScript;
     private DeathScript _deathScript;
     private Jump _jumpScript;
 
+    private float _distanceToGround;
+
     private int _leftAnimationID = Animator.StringToHash("Left");
     private int _rightAnimationID = Animator.StringToHash("Right");
 
-    private float _distanceToGround;
-
-    private PlatformTypes _type;
+    private bool _left;
+    private bool _right;
+    private bool _edge;
+    private bool _playerDeath;
 
     public float DistanceToGround { get { return _distanceToGround; } }
 
-    private void Awake()
+    private void Start()
     {
         _characterController = GetComponent<CharacterController>();
         _animator = GetComponentInChildren<Animator>();
         _startRunningScript = GetComponent<StartRunningScript>();
         _deathScript = GetComponent<DeathScript>();
         _jumpScript = GetComponent<Jump>();
-        _soundController = GetComponentInChildren<SoundController>();
 
         SwipeDetection.SwipeEvent += OnSwipe;
         SwipeDetection.TouchEvent += OnTouch;
@@ -52,6 +49,11 @@ public class PlayerController : MonoBehaviour
     {   
         Movement();        
         CheckPlatform();
+
+        if (_startRunningScript.IsStarted && !_playerDeath)
+        {
+            _soundController.SlideSound(_characterController.isGrounded);
+        }       
     }
 
     private void OnSwipe(Vector2 direction)
@@ -60,13 +62,11 @@ public class PlayerController : MonoBehaviour
         {
             if (direction.x == 1)
             {
-                MoveLeft();
-                _soundController.TurnSound(true);
+                MoveLeft();               
             }
             else if (direction.x == -1)
             {
-                MoveRight();
-                _soundController.TurnSound(false);
+                MoveRight();                
             }
         }       
     }
@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour
         if (!_startRunningScript.IsStarted)
         {
             _startRunningScript.Action();
-            _soundController.StartSliding(true);
+            
         }
         else if(!_playerDeath)
                 _jumpScript.Action();
@@ -88,6 +88,8 @@ public class PlayerController : MonoBehaviour
             _animator.SetTrigger(_leftAnimationID);
 
         _left = true;
+
+        _soundController.TurnSound();
     }
      
     private void MoveRight()
@@ -96,6 +98,7 @@ public class PlayerController : MonoBehaviour
         _animator.SetTrigger(_rightAnimationID);
 
         _right = true;
+        _soundController.TurnSound();
     }
 
     private void Movement()
@@ -130,9 +133,7 @@ public class PlayerController : MonoBehaviour
     public void Death()
     {
         _playerDeath = true;
-        GetComponent<ScoreSystem>().SaveScore();
         _deathScript.Action();
-        _resultWindow.SetActive(true);
     }
 
     private void CheckEdge()        //пока что не работает как положено

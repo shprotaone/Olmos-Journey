@@ -6,5 +6,5 @@ using UnityEngine;
 public class CommonScoreContainer : ScriptableObject
 {
     public int coin;
-    public int score;
+    public bool paused;
 }

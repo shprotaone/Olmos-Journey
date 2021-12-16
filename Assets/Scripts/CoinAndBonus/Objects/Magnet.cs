@@ -17,6 +17,6 @@ public class Magnet : InterractableObject
         collider.GetComponent<InteractionWithSubject>().MagnetActivate();
         Destroy(this.gameObject);
 
-        yield break;
+        yield return null;
     }
 }

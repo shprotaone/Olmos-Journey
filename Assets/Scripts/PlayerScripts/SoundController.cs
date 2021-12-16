@@ -1,49 +1,73 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
 
 public class SoundController : MonoBehaviour
 {
-    [SerializeField] private AudioSource[] _audioSources;
+    [SerializeField] private AudioClip _rotateSound;
+    [SerializeField] private CommonScoreContainer _gameContainer;
 
-    //[0] - sliding
-    //[1] - left
-    //[2] - right
+    private AudioSource _audioSource;
+    private float _turnVolume = 0.2f;
+    private float _startVolume;
 
-    private void Awake()
+    private void Start()
     {
-        _audioSources = GetComponents<AudioSource>();
+        _audioSource = GetComponent<AudioSource>();
+        _startVolume = _audioSource.volume;
+        DeathScript.OnDeath += Death;
     }
 
-    public void StartSliding(bool play)
+    public void TurnSound()
     {
-        //if(_audioSources != null)
-        //{
-        //    if (play)
-        //        _audioSources[0].Play();
-        //    else
-        //        _audioSources[0].Stop();
-        //}
-        //else
-        //{
-        //    print("AudioSource null");
-        //}
-
+        if(_audioSource != null)
+        _audioSource.PlayOneShot(_rotateSound, _turnVolume);
     }
 
-    public void TurnSound(bool left)
+    public void SlideSound(bool value)
     {
-        //if(_audioSources != null)
-        //{
-        //    if (left)
-        //        _audioSources[1].Play();
-        //    else
-        //        _audioSources[2].Play();
-        //}
-        //else
-        //{
-        //    print("AudiSource null ");
-        //}
+        if(_audioSource != null)
+        {
+            if (!_gameContainer.paused)
+            {
+                if (!_audioSource.isPlaying)
+                {
+                    _audioSource.Play();
+                }
+                else if (value)
+                {
+                    _audioSource.volume = _startVolume;
+                }
+                else if (!value)
+                {
+                    StartCoroutine(FadeSound());
+                    StopCoroutine(FadeSound());
+                }
+            }
+            else
+            {
+                _audioSource.Stop();
+            }    
+        }
+    }
 
+    private IEnumerator FadeSound()
+    {
+        float fadeTime = 0.5f;
+
+        while (_audioSource.volume > 0)
+        {
+            _audioSource.volume -= _startVolume * Time.deltaTime / fadeTime;
+            yield return new WaitForSeconds(1f);
+        }
+
+        yield return null;
+    }
+
+    private void Death()
+    {
+        if (_audioSource != null)
+        {
+            _audioSource.Stop();
+        }
     }
 }

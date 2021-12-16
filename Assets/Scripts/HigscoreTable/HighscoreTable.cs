@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 using System.IO;
 using TMPro;
 
@@ -11,17 +9,17 @@ public class HighscoreTable : MonoBehaviour
 
     [SerializeField] private Transform _entryContainer;
     [SerializeField] private Transform _entryTemplate;
-    [SerializeField] private GameObject _newRecordUI;
 
-    private string _dataPath = Application.streamingAssetsPath + "/HighscoreData.json";
+    private string _dataPath;
 
     private List<HighscoreEntry> _highscoreEntryList;
     private List<Transform> _highscoreEntryPosition;
 
-    private Color _newEntryColor = Color.yellow;
-
     private void Awake()
     {
+        _dataPath = Path.Combine(Application.persistentDataPath, "Save File", "HighscoreData.json");
+        CreateHigscoreData();
+
         if (base.name == _tableName)
         {           
             _entryContainer = transform.Find("HighscoreContainer");
@@ -62,8 +60,6 @@ public class HighscoreTable : MonoBehaviour
         fieldArray[2].text = time.ToString();
         fieldArray[3].text = dataScore;
 
-        CheckNewEntry(highscoreEntry.newEntry, fieldArray);
-
         transformList.Add(entryTransform);
     }
 
@@ -80,18 +76,24 @@ public class HighscoreTable : MonoBehaviour
         _highscoreEntryList.Add(highscoreEntry);
         SortTable();
 
-        if(_highscoreEntryList[0] == highscoreEntry && highscoreEntry.newEntry)
-        {
-            //_newRecordUI.SetActive(true);
-            
-            //Debug.Log("newRecord");
-        }
-        else
-        {
-            //_newRecordUI.SetActive(false);
-        }
-
         Save();
+    }
+    /// <summary>
+    /// Заполняет строку
+    /// </summary>
+    /// <param name="entryTransform"></param>
+    /// <returns></returns>
+    private TMP_Text[] FillLine(Transform entryTransform)
+    {
+        TMP_Text[] fieldArray =
+        {
+            entryTransform.Find("posText").GetComponent<TMP_Text>(),
+            entryTransform.Find("posScore").GetComponent<TMP_Text>(),
+            entryTransform.Find("posDistance").GetComponent<TMP_Text>(),
+            entryTransform.Find("posData").GetComponent<TMP_Text>()
+        };
+
+        return fieldArray;
     }
 
     private void SortTable()
@@ -139,9 +141,7 @@ public class HighscoreTable : MonoBehaviour
         {
             highscoreEntry = JsonUtility.FromJson<HighscoreEntry>(data[i]);
             _highscoreEntryList.Add(new HighscoreEntry(highscoreEntry.Score,highscoreEntry.Distance,highscoreEntry.DataScore,highscoreEntry.newEntry));
-        }
-
-        
+        }        
     }
 
     /// <summary>
@@ -156,60 +156,30 @@ public class HighscoreTable : MonoBehaviour
             CreateHighscoreEntryTransform(higscoreEntry, _entryContainer, _highscoreEntryPosition);
         }
 
-        ReturnColorEntry();
         Save();
     }
 
-    /// <summary>
-    /// Заменяет цвет на белый, если рекорд не новый
-    /// </summary>
-    private void ReturnColorEntry()
+    private void CreateHigscoreData()
     {
-        for (int i = 0; i < _highscoreEntryList.Count; i++)
+        if (!Directory.Exists(Path.GetDirectoryName(_dataPath)))
         {
-            HighscoreEntry tmp = _highscoreEntryList[i];
-            tmp.newEntry = false;            
-        }
-    }
-    
-    /// <summary>
-    /// Заполняет линию для окрашивания
-    /// </summary>
-    /// <param name="entryTransform"></param>
-    /// <returns></returns>
-    private TMP_Text[] FillLine(Transform entryTransform)
-    {
-        TMP_Text[] fieldArray =
-        {
-            entryTransform.Find("posText").GetComponent<TMP_Text>(),
-            entryTransform.Find("posScore").GetComponent<TMP_Text>(),
-            entryTransform.Find("posDistance").GetComponent<TMP_Text>(),
-            entryTransform.Find("posData").GetComponent<TMP_Text>()
-        };
+            Directory.CreateDirectory(Path.GetDirectoryName(_dataPath));
 
-        return fieldArray;
-    }
-    
-    /// <summary>
-    /// Окрашивает новую запись в таблице
-    /// </summary>
-    /// <param name="isNew"></param>
-    /// <param name="fieldArray"></param>
-    private void CheckNewEntry(bool isNew, TMP_Text [] fieldArray)
-    {
-        if (isNew == true)
-        {
-            foreach (TMP_Text text in fieldArray)
+            try
             {
-                text.color = _newEntryColor;
+                _highscoreEntryList = new List<HighscoreEntry>();
+                _highscoreEntryList.Add(new HighscoreEntry(50, 50, "50/50/50", true));
+
+                string json = JsonUtility.ToJson(_highscoreEntryList);
+                File.WriteAllText(_dataPath, json);
+
             }
-        }
-        else
-        {
-            foreach (TMP_Text text in fieldArray)
+            catch (System.Exception)
             {
-                text.color = Color.black;
+
+                print("Exception");
             }
+
         }
     }
 }

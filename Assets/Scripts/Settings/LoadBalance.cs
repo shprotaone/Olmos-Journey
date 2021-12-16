@@ -13,10 +13,7 @@ public class LoadBalance : MonoBehaviour
     public static float jumpForce;
     public static float gravity;
     public static float gravityToDrop;
-    public static float divideFirstLayerBackground;
-    public static float divideSecondLayerBackground;
-    public static float divideThirdLayerBackground;
-    public static float divideFourLayerBackground;
+
     public static int scoreMultiplyBonusValue;
     public static int coinMultiplyBonus;
     public static int[] chancesCoin;
@@ -41,10 +38,6 @@ public class LoadBalance : MonoBehaviour
         jumpForce = _balancePreset.jumpForce;
         gravity = _balancePreset.gravity;
         gravityToDrop = _balancePreset.gravityToDrop;
-        divideFirstLayerBackground = _balancePreset.divideFirstLayerBackground;
-        divideSecondLayerBackground = _balancePreset.divideSecondLayerBackground;
-        divideThirdLayerBackground = _balancePreset.divideThirdLayerBackground;
-        divideFourLayerBackground = _balancePreset.divideFourLayerBackground;
         scoreMultiplyBonusValue = _balancePreset.scoreMultiplyBonusValue;
         coinMultiplyBonus = _balancePreset.coinMultiplyBonus;
 

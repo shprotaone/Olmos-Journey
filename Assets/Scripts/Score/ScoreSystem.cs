@@ -4,52 +4,62 @@ using TMPro;
 
 public class ScoreSystem : MonoBehaviour
 {
-    [SerializeField] private CommonScoreContainer _commonContainer;
-    [SerializeField] private TMP_Text _coinDisplay;
-    [SerializeField] private TMP_Text _distanceDisplay;
-    [SerializeField] private TMP_Text _scoreDisplay;
-    [SerializeField] private TMP_Text _resultCoinDisplay;
-
     private const int meterMultiplier = 4;
+    private const int coinCost = 1;
+    private const int oneMeterCost = 10;
 
+    [SerializeField] private CommonScoreContainer _commonContainer;
+    [SerializeField] private BonusDisplay _bonusDisplay;
+    [SerializeField] private Sprite _spriteBonus;
+    [SerializeField] private TMP_Text _coinDisplay;
+    [SerializeField] private TMP_Text _resultCoinDisplay;
+    [SerializeField] private TMP_Text _resultDistanceCovered;
+    [SerializeField] private TMP_Text _resultScore;
+
+    [SerializeField] private float _bonusActiveTime;
+
+    private int _coinMultiply = 1;
     private int _coinCounter;
     private int _scoreCounter;
     private int _distance;
     private int _giftCount;
-    private int _scoreMultiply = 1;
 
+    private float _activeTime;
+    
     public int CurrentCoin { get { return _coinCounter; } }
     public int CurrentDistance { get { return _distance; } }
     public int CurrentGiftCount { get { return _giftCount; } }
     public int Score { get { return _scoreCounter; } }
 
+    private void Start()
+    {
+        DeathScript.OnDeath += SaveScore;
+    }
+
     private void Update()
     {
         _coinDisplay.text = _coinCounter.ToString();
-        _scoreDisplay.text = Score.ToString();
     }
 
-    public void CatchUpPoint()
+    public void CatchUpCoin()
     {
-        _coinCounter += 1;
+        _coinCounter += coinCost * _coinMultiply;
     }
 
-    public void AddPoint()
+    public void AddPointScore()
     {
-        _scoreCounter += 10 * _scoreMultiply;
-        _resultCoinDisplay.text = _coinCounter.ToString();
-    }
-
-    public void SaveScore()
-    {
-        _commonContainer.coin += _coinCounter;
-        _commonContainer.score += _scoreCounter;
+        _scoreCounter += oneMeterCost;
     }
 
     public void AddDistance(int distance)
     {
         _distance = distance / meterMultiplier;
-        _distanceDisplay.text = _distance + " m";
+    }
+
+    public void SaveScore()
+    {
+        _commonContainer.coin += _coinCounter;
+        PrintResult();
     }
 
     public void GiftCounter()
@@ -59,10 +69,23 @@ public class ScoreSystem : MonoBehaviour
 
     public IEnumerator MultiplyScore()
     {
-        _scoreMultiply = LoadBalance.scoreMultiplyBonusValue;
-        yield return new WaitForSeconds(5f);
-        _scoreMultiply = 1;
+        _coinMultiply = LoadBalance.scoreMultiplyBonusValue;
+        GetComponent<AudioSource>().Play();
+
+        print("CoinActivated");
+        _bonusDisplay.BonusOn(_bonusActiveTime,_spriteBonus);
+
+        yield return new WaitForSeconds(_bonusActiveTime);
+        print("CoinDesactivated");
+        _coinMultiply = 1;
 
         yield break;
+    }
+
+    private void PrintResult()
+    {
+        _resultCoinDisplay.text = _coinCounter.ToString();
+        _resultScore.text = _scoreCounter.ToString();
+        _resultDistanceCovered.text = _distance.ToString();
     }
 }

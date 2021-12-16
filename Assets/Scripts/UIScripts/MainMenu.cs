@@ -9,7 +9,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject _gameGuide;
     [SerializeField] private GameObject _confirmExit;
     [SerializeField] private GameObject _deathWindow;
-    [SerializeField] private GameStats _gameStats;
+    [SerializeField] private CommonScoreContainer _gameContainer;
 
     private int _idMainMenuScene = 0;
     private int _idGameScene = 1;
@@ -18,17 +18,17 @@ public class MainMenu : MonoBehaviour
     {
         if (_pauseMenu != null)
             _pauseMenu.SetActive(false);
+        _gameContainer.paused = false;
         BackButton();
         Time.timeScale = 1f;
-        //_gameStats.GameInPause = false;
     }
 
     public void Pause()
     {
         if (_pauseMenu != null)
             _pauseMenu.SetActive(true);
-        Time.timeScale = 0f;
-        //_gameStats.GameInPause = true;     
+        _gameContainer.paused = true;
+        Time.timeScale = 0f; 
     }
 
     public void StartGame()
@@ -91,5 +91,10 @@ public class MainMenu : MonoBehaviour
     public void DeathWindow()
     {
         _deathWindow.SetActive(true);
+    }
+
+    public void Exit()
+    {
+        Application.Quit();
     }
 }

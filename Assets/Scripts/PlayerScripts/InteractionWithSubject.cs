@@ -9,6 +9,8 @@ public class InteractionWithSubject : MonoBehaviour
     [SerializeField] private MagnetScript _magnet;
 
     private Jump _jumpScript;
+
+    private bool _activated;
     
     private void Start()
     {
@@ -25,6 +27,12 @@ public class InteractionWithSubject : MonoBehaviour
         StartCoroutine(_worldController.SpeedDown());
     }
 
+    public void AddCoin()
+    {
+        _scoreSystem.CatchUpCoin();
+        _scoreSystem.GiftCounter();
+    }
+
     public void MultiplyCoin()
     {
         StartCoroutine(_scoreSystem.MultiplyScore());
@@ -32,7 +40,7 @@ public class InteractionWithSubject : MonoBehaviour
 
     public void MagnetActivate()
     {
-        StartCoroutine(_magnet.MagnetActivate());
+        _magnet.EnableController();
     }
 
     public void Fly()

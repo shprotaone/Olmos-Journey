@@ -19,21 +19,17 @@ MonoBehaviour:
   jumpForce: 30
   gravity: 25
   gravityToDrop: 100
-  divideFirstLayerBackground: 300
-  divideSecondLayerBackground: 200
-  divideThirdLayerBackground: 400
-  divideFourLayerBackground: 450
   scoreMultiplyBonusValue: 5
   coinMultiplyBonus: 15
   chanceEmpty: 50
   chanceGiftType1: 25
   chanceGiftType2: 35
   chanceGiftType3: 45
-  magnetBonus: 20
+  magnetBonus: 0
   multiplyBonus: 0
-  flyBonus: 0
-  speedingZone: 50
-  stoppingZone: 20
-  chanceCoinOrBonus: 50
-  speedBonusValue: 10
-  stopBonusValue: 6
+  flyBonus: 40
+  speedingZone: 0
+  stoppingZone: 0
+  chanceCoinOrBonus: 80
+  speedBonusValue: 0
+  stopBonusValue: 0

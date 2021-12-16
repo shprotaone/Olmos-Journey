@@ -5,4 +5,5 @@ public class GameSettings : ScriptableObject
 {
     public float sfx;
     public float music;
+    public bool drunkedCam;
 }

@@ -19,7 +19,6 @@ public class WorldController : MonoBehaviour
     private float _difficultRange;
     private float _speedUpValue;
     private float _distance;
-    private bool _slowedDown;
 
     public float MinZ { get { return -20; } }
     public float Distance { get { return _distance; } }
@@ -80,7 +79,7 @@ public class WorldController : MonoBehaviour
         if (transform.position.z < -_platformLenght)
         {
             _platformLenght += platformPoints;      //сомнительная система, но пока так 
-            _scoreSystem.AddPoint();
+            _scoreSystem.AddPointScore();
         }
     }
 
@@ -103,10 +102,6 @@ public class WorldController : MonoBehaviour
         {
             _currentSpeed += Time.deltaTime * _changeSpeedAcceleration;
         }
-        else if (_currentSpeed == _speedMax)
-        {
-            _currentSpeed = _speedMax;
-        }
         else
         {
             _currentSpeed -= Time.deltaTime * _changeSpeedAcceleration;
@@ -115,14 +110,11 @@ public class WorldController : MonoBehaviour
 
     public IEnumerator SpeedUp()
     {
-        if (!_slowedDown)
-        {
-            _slowedDown = true;
-            _speedMax += LoadBalance.speedBonusValue;
-            yield return new WaitForSeconds(5f);
-            _speedMax -= LoadBalance.speedBonusValue;
-            _slowedDown = false;
-        }
+
+        _speedMax += LoadBalance.speedBonusValue;
+        yield return new WaitForSeconds(5f);
+        _speedMax -= LoadBalance.speedBonusValue;
+            
         yield break;
     }
 

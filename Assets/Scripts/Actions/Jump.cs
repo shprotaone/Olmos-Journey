@@ -3,17 +3,16 @@ using System.Collections;
 
 public class Jump : MonoBehaviour,IAction
 {
+    private CharacterController controller;
+    private Vector3 direction = Vector3.zero;
+    
+    private float _distanceForDrop = 0.5f;    //1f
+    private float _distanceForFly = 5f;
+    private float _distanceToGround;
+
     private float _jumpSpeed;
     private float _gravity;
     private float _dropGravity;
-
-    private Vector3 direction = Vector3.zero;
-    private CharacterController controller;
-    private float _distanceToGround;
-
-    private float _distanceForJump = 0.1f;
-    private float _distanceForDrop = 0.5f;    //1f
-    private float _distanceForFly = 5f;
     private float _currentGravity;
 
     private bool fly;
@@ -34,20 +33,19 @@ public class Jump : MonoBehaviour,IAction
 
         direction.y -= _currentGravity * Time.deltaTime;
         controller.Move(direction * Time.deltaTime);
-
-        if (_distanceToGround > _distanceForFly && fly)
-        {
-            direction.y = 5;
-            controller.Move(direction * Time.deltaTime);
-        }
     }
 
     public void Action()
     {
-        if (_distanceToGround > _distanceForDrop)
+        if (_distanceToGround > _distanceForDrop && !fly)
         {
             _currentGravity = _dropGravity;
             print("Drop");
+        }
+        else if (fly)
+        {
+            direction.y = _distanceForFly;
+            controller.Move(direction * Time.deltaTime);
         }
         else
         {
@@ -55,25 +53,6 @@ public class Jump : MonoBehaviour,IAction
             direction.y = _jumpSpeed;
             print("Jump");
         }
-
-
-        //if( _distanceToGround < _distanceForJump)
-        //{
-        //    _currentGravity = _gravity;
-        //    direction.y = _jumpSpeed;
-        //    print("Jump");
-        //}
-        //else if(_distanceToGround > _distanceForDrop)
-        //{
-        //    _currentGravity = _dropGravity;
-        //    print("Drop");
-        //}
-        //else
-        //{
-        //    _currentGravity = _gravity;
-        //    print("Other");
-        //}
-
     }
 
     public IEnumerator ChangeGravityToFly()

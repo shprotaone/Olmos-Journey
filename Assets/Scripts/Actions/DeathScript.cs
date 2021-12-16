@@ -6,6 +6,7 @@ public class DeathScript : MonoBehaviour, IAction
     public static event Death OnDeath;
     
     [SerializeField] private WorldController _worldController;
+    [SerializeField] private GameObject _deathWindow;
 
     private Animator _animator;
     private int _deathAnim = Animator.StringToHash("Death");
@@ -24,5 +25,6 @@ public class DeathScript : MonoBehaviour, IAction
 
         _worldController.StartMovement = false;
         _animator.SetBool(_deathAnim, true);
+        _deathWindow.SetActive(true);
     }
 }
