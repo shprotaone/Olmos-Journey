@@ -12,24 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6617773cc9b10c4b8f0372f26197ff3, type: 3}
   m_Name: Balance1
   m_EditorClassIdentifier: 
-  speed: 10
-  increaseSpeed: 1
+  speed: 15
+  increaseSpeed: 2
   distanceToUpDifficult: -200
   movement: 15
   jumpForce: 30
   gravity: 25
   gravityToDrop: 100
-  scoreMultiplyBonusValue: 5
+  scoreMultiplyBonusValue: 2
   coinMultiplyBonus: 15
   chanceEmpty: 50
   chanceGiftType1: 25
   chanceGiftType2: 35
   chanceGiftType3: 45
-  magnetBonus: 0
-  multiplyBonus: 0
-  flyBonus: 40
-  speedingZone: 0
-  stoppingZone: 0
-  chanceCoinOrBonus: 80
-  speedBonusValue: 0
-  stopBonusValue: 0
+  magnetBonus: 10
+  multiplyBonus: 20
+  flyBonus: 0
+  speedingZone: 30
+  stoppingZone: 20
+  chanceCoinOrBonus: 30
+  speedBonusValue: 10
+  stopBonusValue: 5

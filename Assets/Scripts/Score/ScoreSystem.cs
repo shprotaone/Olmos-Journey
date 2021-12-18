@@ -43,6 +43,7 @@ public class ScoreSystem : MonoBehaviour
 
     public void CatchUpCoin()
     {
+        GetComponent<AudioSource>().Play();
         _coinCounter += coinCost * _coinMultiply;
     }
 

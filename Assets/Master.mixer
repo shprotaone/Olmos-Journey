@@ -1,5 +1,38 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!244 &-6081238084653343487
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 528930e3e01a69346850461dea032623
+  m_EffectName: Attenuation
+  m_MixLevel: b73af2f19b65cb04d8ca0f421b841bac
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!243 &-5865527257717865168
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Sliding
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 4428746452e5194428edcc9e0491822d
+  m_Children: []
+  m_Volume: f683bd22651cb2449bdb4d1dbacd3d98
+  m_Pitch: 7deb114fb175fe646bb8590e28f582d8
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: -6081238084653343487}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
 --- !u!244 &-278609298807907038
 AudioMixerEffectController:
   m_ObjectHideFlags: 3
@@ -39,6 +72,7 @@ AudioMixerController:
     - fb910a4da9d1ccf44841605d1bc88d8b
     - bad8c722fc4ebb340b27828016d830fb
     - 16898c67add662b4280a0aca811d9063
+    - 4428746452e5194428edcc9e0491822d
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -88,6 +122,7 @@ AudioMixerSnapshotController:
   m_SnapshotID: 1af0d9a95ec38274486a4d2ac98af28d
   m_FloatValues:
     da18c1715f9bfac4b9797188fc65d4d2: 0.10800499
+    f683bd22651cb2449bdb4d1dbacd3d98: 4.648096
     29634ea619908c642a254f09faa483b5: -56.19068
     60367247a89b5ae469d049d2aa8da702: 0.13552584
   m_TransitionOverrides: {}
@@ -114,7 +149,8 @@ AudioMixerGroupController:
   m_Name: SFX
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: 16898c67add662b4280a0aca811d9063
-  m_Children: []
+  m_Children:
+  - {fileID: -5865527257717865168}
   m_Volume: 60367247a89b5ae469d049d2aa8da702
   m_Pitch: 5f178eb150752234baae64992c26e140
   m_Send: 00000000000000000000000000000000

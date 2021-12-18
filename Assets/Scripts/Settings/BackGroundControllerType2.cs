@@ -48,13 +48,19 @@ public class BackGroundControllerType2 : MonoBehaviour
 
     public void StartingScrolling()
     {
-        _additionalScrollSpeed = _worldController.CurrentSpeed;
-
-        if (_worldController.CurrentSpeed > _mainSpeed)
+        if (_worldController != null)
         {
-            _additionalScrollSpeed = _mainSpeed;
-            _mainSpeedOK = true;
-        }
+            _additionalScrollSpeed = _worldController.CurrentSpeed;
+
+            if (_worldController.CurrentSpeed > _mainSpeed)
+            {
+                _additionalScrollSpeed = _mainSpeed;
+                _mainSpeedOK = true;
+            }
+
+        }            
+        else
+            _additionalScrollSpeed = 1;      
     }
 
     public void StopSrolling()

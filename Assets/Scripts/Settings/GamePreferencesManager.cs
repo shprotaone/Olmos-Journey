@@ -36,4 +36,9 @@ public class GamePreferencesManager : MonoBehaviour
             _gameContainer.coin = coin;
         }
     }
+
+    public void ResetPlayerPrefs()
+    {
+        PlayerPrefs.DeleteAll();
+    }
 }

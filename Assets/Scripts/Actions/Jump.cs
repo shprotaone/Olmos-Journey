@@ -31,8 +31,11 @@ public class Jump : MonoBehaviour,IAction
     {
         _distanceToGround = controller.GetComponent<PlayerController>().DistanceToGround;
 
-        direction.y -= _currentGravity * Time.deltaTime;
-        controller.Move(direction * Time.deltaTime);
+        if (!fly)
+        {
+            direction.y -= _currentGravity * Time.deltaTime;
+            controller.Move(direction * Time.deltaTime);
+        }  
     }
 
     public void Action()
@@ -44,27 +47,39 @@ public class Jump : MonoBehaviour,IAction
         }
         else if (fly)
         {
-            direction.y = _distanceForFly;
-            controller.Move(direction * Time.deltaTime);
+            FlyMeth();
         }
         else
         {
-            _currentGravity = _gravity;
-            direction.y = _jumpSpeed;
+            JumpMeth();
             print("Jump");
+        }
+    }
+
+    private void JumpMeth()
+    {
+        _currentGravity = _gravity;
+        direction.y = _jumpSpeed;
+    }
+
+    private void FlyMeth()
+    {
+        if (_distanceToGround > _distanceForFly)
+        {
+            _currentGravity = 0;
         }
     }
 
     public IEnumerator ChangeGravityToFly()
     {
         fly = true;
-        _gravity = 4;
+        JumpMeth();
+        yield return new WaitForSeconds(0.2f);
+        FlyMeth();
 
-        Action();
-
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(5f);
         fly = false;
-        _gravity = LoadBalance.gravity;
+        _currentGravity = LoadBalance.gravity;
 
         yield break;
     }
