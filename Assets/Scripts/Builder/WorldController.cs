@@ -19,6 +19,11 @@ public class WorldController : MonoBehaviour
     private float _difficultRange;
     private float _speedUpValue;
     private float _distance;
+    private float _activeTime;
+
+    private bool _speedDownActivate;
+    private bool _speedMaxActivate;
+
 
     public float MinZ { get { return -20; } }
     public float Distance { get { return _distance; } }
@@ -108,22 +113,57 @@ public class WorldController : MonoBehaviour
         }
     }
 
-    public IEnumerator SpeedUp()
+    public IEnumerator SpeedUp()        //повторяющтйся код, починить
     {
+        float perTime = 1;
+        _activeTime = 5;
 
-        _speedMax += LoadBalance.speedBonusValue;
-        yield return new WaitForSeconds(5f);
+        if (!_speedMaxActivate)
+        {
+            _speedMax += LoadBalance.speedBonusValue;
+            _speedMaxActivate = true;
+        }
+
+        print(_speedMax);
+
+        while (_activeTime > 0)
+        {
+            _activeTime -= perTime;
+            yield return new WaitForSeconds(1f);
+
+        }
+        _speedMaxActivate = false;
+
         _speedMax -= LoadBalance.speedBonusValue;
-            
+
         yield break;
     }
 
     public IEnumerator SpeedDown()
     {
-        _speedMax -= LoadBalance.stopBonusValue;
-        yield return new WaitForSeconds(5f);
+        float perTime = 1;
+        _activeTime = 5;
+
+        if (!_speedDownActivate)
+        {
+            _speedMax -= LoadBalance.stopBonusValue;
+            _speedDownActivate = true;
+        }
+        
+        print(_speedMax);
+
+        while (_activeTime > 0)
+        {
+            _activeTime -= perTime;           
+            yield return new WaitForSeconds(1f);
+            
+        }
+        _speedDownActivate = false;
+
         _speedMax += LoadBalance.stopBonusValue;
 
+
+        print(_speedMax);
         yield break;
     }
 }

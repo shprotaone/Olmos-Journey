@@ -40,12 +40,31 @@ public class InteractionWithSubject : MonoBehaviour
 
     public void MagnetActivate()
     {
-        _magnet.EnableController();
+        _magnet.EnableMagnet();
     }
 
     public void Fly()
     {
         StartCoroutine(_jumpScript.ChangeGravityToFly());
+    }
+
+    public void Gift(int num)
+    {
+        if(num == 0)
+        {
+            MultiplyCoin();
+        }
+        else if( num == 1)
+        {
+            MagnetActivate();
+        }
+        else if(num == 2)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                AddCoin();
+            }
+        }
     }
 
 }

@@ -51,8 +51,6 @@ public class PlatformBuilder : MonoBehaviour
         Vector3 instatiatePos = _lastPlatformPosition + _offsetPlatform;
 
         GameObject platform = Instantiate(_platform.platforms[0], instatiatePos, Quaternion.identity, _platformContainer);
-        
-        //platform.GetComponent<GiftSpawner>().SpawnBonus();
 
         _lastPlatform = platform.transform;        
     }
@@ -65,14 +63,12 @@ public class PlatformBuilder : MonoBehaviour
 
         GameObject platform = Instantiate(_platform.platforms[PlatformSelector()], instatiatePos, Quaternion.identity, _platformContainer);
 
-        //platform.GetComponent<GiftSpawner>().SpawnBonus();
-
         _lastPlatform = platform.transform;
     }
 
     private int PlatformSelector()
     {
-        int range = _platform.platforms.Length-1;
+        int range = _platform.platforms.Length;
 
         return Random.Range(1, range);        
     }

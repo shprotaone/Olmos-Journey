@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3947978952726888590}
   - component: {fileID: 3947978952726888585}
   m_Layer: 0
-  m_Name: Quad (1)
+  m_Name: Forest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 21441d0b2a1f7e64cbe3c3e542df9957, type: 2}
+  - {fileID: 2100000, guid: 13c2a6421f8c1f74295ba64ea7a51de1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 3947978952873783638}
   - component: {fileID: 3947978952873783633}
   m_Layer: 0
-  m_Name: Quad (4)
+  m_Name: Cloud
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -156,7 +156,7 @@ MeshRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c4b3e13df2f9093458f7ac934236eaf4, type: 2}
+  - {fileID: 2100000, guid: c956072056775344eb16e3fc76377b78, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -265,7 +265,7 @@ GameObject:
   - component: {fileID: 3947978953921195890}
   - component: {fileID: 3947978953921195901}
   m_Layer: 0
-  m_Name: Quad (3)
+  m_Name: Sky
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -361,7 +361,7 @@ GameObject:
   - component: {fileID: 3947978953955590649}
   - component: {fileID: 3947978953955590648}
   m_Layer: 0
-  m_Name: Quad (2)
+  m_Name: Mountain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -408,7 +408,7 @@ MeshRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f1f91f6d058031b42927b1ceffebb521, type: 2}
+  - {fileID: 2100000, guid: 3c31da6e74a11bd41993d86bf92518b3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -457,7 +457,7 @@ GameObject:
   - component: {fileID: 3947978953960279673}
   - component: {fileID: 3947978953960279672}
   m_Layer: 0
-  m_Name: Quad
+  m_Name: Field
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -504,7 +504,7 @@ MeshRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4590cdbf8adf3c1478ef75f4c40661e5, type: 2}
+  - {fileID: 2100000, guid: ee5671a7e46144b4693beeae201e2ba5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

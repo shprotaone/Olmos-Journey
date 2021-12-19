@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class SwipeDetection : MonoBehaviour
 {
+    [SerializeField] private CommonScoreContainer _gameStats;
+
     public delegate void OnSwipeInput(Vector2 direction);
     public static event OnSwipeInput SwipeEvent;
 
@@ -30,18 +32,21 @@ public class SwipeDetection : MonoBehaviour
     private void Start()
     {
         _isMobile = Application.isMobilePlatform;
+        _gameStats.paused = false;
         ResetSwipe();
     }
 
     private void Update()
-    {       
-        Movement();
-        CheckInput();
+    {
+        if (!_gameStats.paused)
+        {
+            Movement();
+            CheckInput();
+        }
     }
     
     private void Movement()
     {       
-
         if (!_isMobile)
         {
             if (Input.GetMouseButtonDown(0))

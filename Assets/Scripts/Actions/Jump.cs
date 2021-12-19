@@ -5,6 +5,9 @@ public class Jump : MonoBehaviour,IAction
 {
     private CharacterController controller;
     private Vector3 direction = Vector3.zero;
+
+    private int _jumpAnimationID = Animator.StringToHash("Jump");
+    private Animator _animator;
     
     private float _distanceForDrop = 0.5f;    //1f
     private float _distanceForFly = 5f;
@@ -20,6 +23,7 @@ public class Jump : MonoBehaviour,IAction
     private void Start()
     {
         controller = GetComponent<CharacterController>();
+        _animator = GetComponentInChildren<Animator>();
         _jumpSpeed = LoadBalance.jumpForce;
         _gravity = LoadBalance.gravity;
         _dropGravity = LoadBalance.gravityToDrop;
@@ -42,8 +46,7 @@ public class Jump : MonoBehaviour,IAction
     {
         if (_distanceToGround > _distanceForDrop && !fly)
         {
-            _currentGravity = _dropGravity;
-            print("Drop");
+            _currentGravity = _dropGravity;            
         }
         else if (fly)
         {
@@ -52,12 +55,14 @@ public class Jump : MonoBehaviour,IAction
         else
         {
             JumpMeth();
-            print("Jump");
         }
     }
 
     private void JumpMeth()
     {
+        if(_animator != null)
+        _animator.SetTrigger(_jumpAnimationID);
+
         _currentGravity = _gravity;
         direction.y = _jumpSpeed;
     }

@@ -27,8 +27,8 @@ public class SoundController : MonoBehaviour
     {
         if(_audioSource != null)
         {
-            if (!_gameContainer.paused)
-            {
+            
+            
                 if (!_audioSource.isPlaying)
                 {
                     _audioSource.Play();
@@ -42,11 +42,11 @@ public class SoundController : MonoBehaviour
                     StartCoroutine(FadeSound());
                     StopCoroutine(FadeSound());
                 }
-            }
-            else
-            {
-                _audioSource.Stop();
-            }    
+            
+            //else
+            //{
+            //    _audioSource.Stop();
+            //}    
         }
     }
 

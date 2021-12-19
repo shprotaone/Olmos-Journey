@@ -7,6 +7,7 @@ public class ScoreSystem : MonoBehaviour
     private const int meterMultiplier = 4;
     private const int coinCost = 1;
     private const int oneMeterCost = 10;
+    private const int indexDisplay = 1;
 
     [SerializeField] private CommonScoreContainer _commonContainer;
     [SerializeField] private BonusDisplay _bonusDisplay;
@@ -15,8 +16,6 @@ public class ScoreSystem : MonoBehaviour
     [SerializeField] private TMP_Text _resultCoinDisplay;
     [SerializeField] private TMP_Text _resultDistanceCovered;
     [SerializeField] private TMP_Text _resultScore;
-
-    [SerializeField] private float _bonusActiveTime;
 
     private int _coinMultiply = 1;
     private int _coinCounter;
@@ -59,8 +58,9 @@ public class ScoreSystem : MonoBehaviour
 
     public void SaveScore()
     {
-        _commonContainer.coin += _coinCounter;
         PrintResult();
+
+        DeathScript.OnDeath -= SaveScore;
     }
 
     public void GiftCounter()
@@ -71,13 +71,19 @@ public class ScoreSystem : MonoBehaviour
     public IEnumerator MultiplyScore()
     {
         _coinMultiply = LoadBalance.scoreMultiplyBonusValue;
+        _activeTime += 5;
+        float perTime = 1f;
+        
         GetComponent<AudioSource>().Play();
 
-        print("CoinActivated");
-        _bonusDisplay.BonusOn(_bonusActiveTime,_spriteBonus);
+        _bonusDisplay.BonusOn(indexDisplay,_activeTime, _spriteBonus);
 
-        yield return new WaitForSeconds(_bonusActiveTime);
-        print("CoinDesactivated");
+        while (_activeTime>0)
+        {
+            _activeTime -= perTime;
+            yield return new WaitForSeconds(1f);
+        }
+
         _coinMultiply = 1;
 
         yield break;

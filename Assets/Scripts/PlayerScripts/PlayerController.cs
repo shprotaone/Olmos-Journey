@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private SoundController _soundController;
     [SerializeField] private Transform _leftLine;
     [SerializeField] private Transform _rightLine;
+    [SerializeField] private Transform _shootPoint;
     [SerializeField] private LayerMask _platformLayer;
     [SerializeField] private float _speedMovement;
 
@@ -156,7 +157,13 @@ public class PlayerController : MonoBehaviour
             {
                 _distanceToGround = hit.distance;
             }
-            //_type = hit.transform.GetComponentInParent<PlatformController>().Type;     **на будущее для выпрыгавающих платформ                 
+
+            _type = hit.transform.GetComponentInParent<PlatformController>().Type;
+
+            if(_type == PlatformTypes.SHOOTPLATFORM)
+            {
+                hit.transform.GetComponentInParent<GiftLauncher>().LaunchGift(_shootPoint);
+            }
         }
     }
 }

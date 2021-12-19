@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: FreeTest
   m_EditorClassIdentifier: 
   platforms:
-  - {fileID: 232930024151528018, guid: 0cc28b17d12ed39459c3e3cb661fc304, type: 3}
-  - {fileID: 232930024151528018, guid: 0cc28b17d12ed39459c3e3cb661fc304, type: 3}
+  - {fileID: 232930024151528018, guid: 8ed3a512bc3ddb44e9d21d24f349786f, type: 3}
+  - {fileID: 232930024151528018, guid: 8ed3a512bc3ddb44e9d21d24f349786f, type: 3}

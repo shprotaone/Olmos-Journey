@@ -5,39 +5,39 @@ using UnityEngine.UI;
 
 public class BonusDisplay : MonoBehaviour
 {
-    [SerializeField] private Image _sprite;
-    [SerializeField] private Slider _slider;
+    [SerializeField] private Image[] _sprite;
+    [SerializeField] private Slider[] _slider;
 
-    public void BonusOn(float duration,Sprite image)
+    public void BonusOn(int index,float duration,Sprite image)
     {
         StopAllCoroutines();
-        BonusView(true);
+        BonusView(index, true);
 
-        _slider.maxValue = duration;
-        _slider.value = duration;
-        _sprite.sprite = image;
+        _slider[index].maxValue = duration;
+        _slider[index].value = duration;
+        _sprite[index].sprite = image;
 
-        StartCoroutine(FadeSlider(duration));
+        StartCoroutine(FadeSlider(index, duration));
     }
 
-    private IEnumerator FadeSlider(float value)
+    private IEnumerator FadeSlider(int index, float value)
     {
         float fadeTime = 1f;
 
-        while (_slider.value > 0)
+        while (_slider[index].value > 0)
         {
-            _slider.value -= fadeTime;
+            _slider[index].value -= fadeTime;
             yield return new WaitForSeconds(1f);
         }
 
-        BonusView(false);
+        BonusView(index, false);
 
         yield break;
     }
 
-    private void BonusView(bool condition)
+    private void BonusView(int index, bool condition)
     {
-        _slider.gameObject.SetActive(condition);
-        _sprite.gameObject.SetActive(condition);
+        _slider[index].gameObject.SetActive(condition);
+        _sprite[index].gameObject.SetActive(condition);
     }
 }
