@@ -4,11 +4,23 @@ using UnityEngine;
 
 public class Gift : InterractableObject
 {
+    private ParticleSystem _explosion;
+
+    private void Start()
+    {
+        _explosion = GetComponentInChildren<ParticleSystem>();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
+            if(!other.GetComponent<PlayerController>().PlayerDeath)
             StartCoroutine(Action(other));
+        }
+        else if(other.CompareTag("Platform"))
+        {
+            StartCoroutine(DestroyGift());
         }
     }
 
@@ -19,7 +31,17 @@ public class Gift : InterractableObject
         print(index);
         Destroy(this.gameObject);
         
-        yield return null;
+        yield break;
+    }
+
+    private IEnumerator DestroyGift()
+    {
+        _explosion.Play();
+        yield return new WaitForSeconds(0.5f);
+
+        Destroy(this.gameObject);
+
+        yield break;
     }
     private int Randomizer()
     {

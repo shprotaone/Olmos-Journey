@@ -24,6 +24,8 @@ public class ScoreSystem : MonoBehaviour
     private int _giftCount;
 
     private float _activeTime;
+
+    private bool _multiplyActive;
     
     public int CurrentCoin { get { return _coinCounter; } }
     public int CurrentDistance { get { return _distance; } }
@@ -59,6 +61,7 @@ public class ScoreSystem : MonoBehaviour
     public void SaveScore()
     {
         PrintResult();
+        _commonContainer.coin += _coinCounter;
 
         DeathScript.OnDeath -= SaveScore;
     }
@@ -68,10 +71,28 @@ public class ScoreSystem : MonoBehaviour
         _giftCount++;
     }
 
-    public IEnumerator MultiplyScore()
+    public void EnableMultiply()
+    {
+
+        if (!_multiplyActive)
+        {
+            _multiplyActive = true;
+            StartCoroutine(MultiplyScore());
+        }
+        else
+        {
+            StopCoroutine(MultiplyScore());
+            _bonusDisplay.ResetView(indexDisplay);
+            _multiplyActive = false;
+            StartCoroutine(MultiplyScore());
+            _multiplyActive = true;
+        }
+    }
+
+    private IEnumerator MultiplyScore()
     {
         _coinMultiply = LoadBalance.scoreMultiplyBonusValue;
-        _activeTime += 5;
+        _activeTime = 11;
         float perTime = 1f;
         
         GetComponent<AudioSource>().Play();
@@ -83,7 +104,7 @@ public class ScoreSystem : MonoBehaviour
             _activeTime -= perTime;
             yield return new WaitForSeconds(1f);
         }
-
+        _multiplyActive = false;
         _coinMultiply = 1;
 
         yield break;

@@ -20,8 +20,9 @@ public class StartRunningScript : MonoBehaviour, IAction
     public void Action()
     {
         _isStarted = true;
+        if(_animator != null)
         _animator.SetBool(_startRunAnim,true);
+
         _worldController.StartMovement = true;
-        //_guide.SetActive(false);
     }
 }

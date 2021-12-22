@@ -15,10 +15,6 @@ public class SwipeDetection : MonoBehaviour
 
     public float resetTimer;
 
-    public Text text1;
-    public Text text2;
-    public Text text3;
-
     private Vector2 _startPosition;
     private Vector2 _swipeDelta;
     private Vector2 _endPosition;
@@ -129,10 +125,6 @@ public class SwipeDetection : MonoBehaviour
 
     private void Check()
     {
-        text1.text = "magnitude = " + _swipeDelta.magnitude;
-        text2.text = _endPosition.ToString();
-        text3.text = "TouchDelta = " + (_startPosition - _endPosition).magnitude.ToString();
-
         float magnitude = (_startPosition - _endPosition).magnitude;
 
         if (magnitude < 40)

@@ -6,24 +6,26 @@ using TMPro;
 
 public class TreeShop : MonoBehaviour
 {
-    public delegate void Buy(bool complete);
-    public event Buy OnBuy;
-
     [SerializeField] private GameObject _tree;
     [SerializeField] private GameObject _buyWindow;
+    [SerializeField] private GameObject _notEnough;
     [SerializeField] private CommonScoreContainer _scoreContainer;
     [SerializeField] private CoinsViewer _coinsViewer;
     [SerializeField] private TMP_Text _cost;
-    [SerializeField] private Button[] _toys;
-
-    [SerializeField] public Toy _currentToy;
+    [SerializeField] private Image[] _toys;
 
     private int _currentCosts;
+    private int _activeToys;
+    private int[] _buyedArray;
 
     void Start()
     {
-        _toys = _tree.GetComponentsInChildren<Button>();
-        _currentCosts = 200;
+        _activeToys = _scoreContainer.buyedToys;
+        _toys = _tree.GetComponentsInChildren<Image>();
+        FillArray();
+        _currentCosts = _scoreContainer.currentCost;
+
+        RefreshTree();
     }
 
     public void BuyWindowActivate()
@@ -34,11 +36,13 @@ public class TreeShop : MonoBehaviour
 
     public void Buying()
     {
-        if(OnBuy != null)
-        {
-            bool completed = CheckCoins();
-            OnBuy(completed);                    
-        }
+        bool completed = CheckCoins();
+
+        if (completed)
+            _scoreContainer.buyedToys++;
+
+        FillArray();
+        RefreshTree();
     }
 
     private bool CheckCoins()
@@ -46,12 +50,15 @@ public class TreeShop : MonoBehaviour
         if (_currentCosts > _scoreContainer.coin)
         {
             print("No coins");
+            StartCoroutine(EnoughTextActivate());
             return false;
         }
         else
         {
-            print("Purchase");            
+            print("Purchase");
+            GetComponent<AudioSource>().Play();
             Purchase();
+
             return true;
         }
     }
@@ -59,8 +66,53 @@ public class TreeShop : MonoBehaviour
     private void Purchase()
     {      
         _scoreContainer.coin -= _currentCosts;
-        _currentCosts += _currentCosts;
+        _currentCosts += 75;
+        _scoreContainer.currentCost = _currentCosts;
         _coinsViewer.RefreshText();
         _buyWindow.SetActive(false);
+    }
+
+    private void CheckColor(Image image,int buyed)
+    {
+        image = image.GetComponent<Image>();
+
+        if (buyed == 0)
+        {
+            image.color = Color.black;
+        }
+        else
+        {
+            image.color = Color.white;
+        }
+    }
+
+    private void FillArray()
+    {
+        _buyedArray = new int[_toys.Length];
+
+        for (int i = 0; i < _buyedArray.Length; i++)
+        {
+            if (i <= _scoreContainer.buyedToys)
+                _buyedArray[i] = 1;
+            else
+                _buyedArray[i] = 0;
+        }
+    }
+
+    private void RefreshTree()
+    {
+        for (int i = 0; i < _toys.Length; i++)
+        {
+            CheckColor(_toys[i], _buyedArray[i]);
+        }
+    }
+
+    private IEnumerator EnoughTextActivate()
+    {
+        _notEnough.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        _notEnough.SetActive(false);
+
+        yield break;
     }
 }

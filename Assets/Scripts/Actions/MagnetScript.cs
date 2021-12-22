@@ -25,7 +25,6 @@ public class MagnetScript : MonoBehaviour
     public void EnableMagnet()
     {
         _coinDetector.SetActive(true);
-        _activeTime += 5;
 
         if (!_isActivated)
         {
@@ -35,13 +34,16 @@ public class MagnetScript : MonoBehaviour
         else
         {
             StopCoroutine(MagnetActivate());
+            _bonusDisplay.ResetView(indexDisplay);
             _isActivated = false;
             StartCoroutine(MagnetActivate());
+            _isActivated = true;
         }
     }
 
    public IEnumerator MagnetActivate()
     {
+        _activeTime = 11;
         float perTime = 1f;
         _bonusDisplay.BonusOn(indexDisplay,_activeTime,_magnetSprite);
 
@@ -55,10 +57,11 @@ public class MagnetScript : MonoBehaviour
             _activeTime -= perTime;
             yield return new WaitForSeconds(1f);
         }
+        _isActivated = false;
 
         _coinDetector.SetActive(false);
         _audioSource.Stop();
-        _isActivated = false;
+        
 
         yield break;
     }

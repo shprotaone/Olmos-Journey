@@ -17,15 +17,15 @@ public class Toy : MonoBehaviour
     public void CallBuy()
     {
         _shop = GetComponentInParent<TreeShop>();
-        _shop.OnBuy += Buy;
-        _shop._currentToy = this;
+        //_shop.OnBuy += Buy;
+        //_shop._currentToy = this;
     }
 
     private void Buy(bool completed)
     {
         _isBuyed = completed;
         CheckColor();
-        _shop.OnBuy -= Buy;
+        //_shop.OnBuy -= Buy;
     }
 
     private void CheckColor()

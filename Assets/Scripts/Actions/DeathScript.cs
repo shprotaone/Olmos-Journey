@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class DeathScript : MonoBehaviour, IAction
 {
@@ -21,10 +22,19 @@ public class DeathScript : MonoBehaviour, IAction
         if(OnDeath != null)
         {
             OnDeath();
+            GetComponent<AudioSource>().Play();
         }
 
         _worldController.StartMovement = false;
         _animator.SetBool(_deathAnim, true);
+        StartCoroutine(ActivateDeathWindow());
+    }
+
+    private IEnumerator ActivateDeathWindow()
+    {
+        yield return new WaitForSeconds(1f);
         _deathWindow.SetActive(true);
+
+        yield return null;
     }
 }

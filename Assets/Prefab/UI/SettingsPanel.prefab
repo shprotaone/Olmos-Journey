@@ -28,7 +28,7 @@ RectTransform:
   m_GameObject: {fileID: 617690899641806404}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 617690899682707558}
   - {fileID: 4560050038812894943}
@@ -94,16 +94,16 @@ MonoBehaviour:
   _musicButton: {fileID: 4560050038812894942}
   _soundsButton: {fileID: 4560050040280323815}
   _turnOnMusic:
-  - {fileID: 21300000, guid: 4e40bf173ff141a4b9a16ae7fd853ff6, type: 3}
+  - {fileID: 21300000, guid: 85271e2ee948f61478598c6d0e71877d, type: 3}
   - {fileID: 21300000, guid: 85de8450d947d774a9908488d4a10fb3, type: 3}
   _turnOffMusic:
-  - {fileID: 21300000, guid: 5088020a9ee329345a007504816c9cb1, type: 3}
+  - {fileID: 21300000, guid: a2b50f034e201d54a8e98490fd1b3b41, type: 3}
   - {fileID: 21300000, guid: c1f3f3b6bab16d048bf5a23cd493c257, type: 3}
   _turnOnSounds:
-  - {fileID: 21300000, guid: 4e40bf173ff141a4b9a16ae7fd853ff6, type: 3}
+  - {fileID: 21300000, guid: 85271e2ee948f61478598c6d0e71877d, type: 3}
   - {fileID: 21300000, guid: e7af751bda9affa4491a67770d33d973, type: 3}
   _turnOffSounds:
-  - {fileID: 21300000, guid: 5088020a9ee329345a007504816c9cb1, type: 3}
+  - {fileID: 21300000, guid: a2b50f034e201d54a8e98490fd1b3b41, type: 3}
   - {fileID: 21300000, guid: 44114edffbd44c441914d1d6b4c01df8, type: 3}
   _currentImage: []
   _settings: {fileID: 11400000, guid: ef13a58f26d60d94695ca3fd54a926d1, type: 2}
@@ -175,7 +175,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5088020a9ee329345a007504816c9cb1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a2b50f034e201d54a8e98490fd1b3b41, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -230,8 +230,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
-        m_MethodName: BackButton
+        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+        m_MethodName: Play
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -254,8 +254,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-        m_MethodName: Play
+        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+        m_MethodName: BackButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -601,7 +601,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4e40bf173ff141a4b9a16ae7fd853ff6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 85271e2ee948f61478598c6d0e71877d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -656,8 +656,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-        m_MethodName: Play
+        m_TargetAssemblyTypeName: CommonSoundController, Assembly-CSharp
+        m_MethodName: SwitchMusic
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -668,8 +668,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: CommonSoundController, Assembly-CSharp
-        m_MethodName: SwitchMusic
+        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+        m_MethodName: Play
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -972,7 +972,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4e40bf173ff141a4b9a16ae7fd853ff6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 85271e2ee948f61478598c6d0e71877d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1027,8 +1027,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-        m_MethodName: Play
+        m_TargetAssemblyTypeName: CommonSoundController, Assembly-CSharp
+        m_MethodName: SwitchSounds
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1039,8 +1039,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: CommonSoundController, Assembly-CSharp
-        m_MethodName: SwitchSounds
+        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+        m_MethodName: Play
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -35,7 +35,7 @@ public class InteractionWithSubject : MonoBehaviour
 
     public void MultiplyCoin()
     {
-        StartCoroutine(_scoreSystem.MultiplyScore());
+        _scoreSystem.EnableMultiply();
     }
 
     public void MagnetActivate()

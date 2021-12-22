@@ -50,11 +50,11 @@ public class CommonSoundController : MonoBehaviour
 
         if (_music)
         {
-            _audioMixer.SetFloat(sfxName, 0);
+            _audioMixer.SetFloat(musicName, 0);
         }
         else
         {
-            _audioMixer.SetFloat(sfxName, -80);
+            _audioMixer.SetFloat(musicName, -80);
         }
     }
 
@@ -64,11 +64,11 @@ public class CommonSoundController : MonoBehaviour
 
         if (_sfx)
         {
-            _audioMixer.SetFloat(musicName, 0);
+            _audioMixer.SetFloat(sfxName, 0);
         }
         else
         {
-            _audioMixer.SetFloat(musicName, -80);
+            _audioMixer.SetFloat(sfxName, -80);
         }
     }
 

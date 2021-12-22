@@ -6,6 +6,10 @@ using UnityEngine;
 public class CommonScoreContainer : ScriptableObject
 {
     public int coin;
-    public int commonCoin;
+    public int buyedToys;
+    public int currentCost;
+    public bool firstOpen;
     public bool paused;
+    public bool guideActive;
+    public bool showGuideInStart;
 }

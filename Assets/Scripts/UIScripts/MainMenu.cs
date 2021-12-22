@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class MainMenu : MonoBehaviour
 {
@@ -14,6 +15,14 @@ public class MainMenu : MonoBehaviour
 
     private int _idMainMenuScene = 0;
     private int _idGameScene = 1;
+
+    private void Start()
+    {
+        if (_gameContainer.showGuideInStart && SceneManager.GetActiveScene().buildIndex != _idMainMenuScene)
+            _gameGuide.SetActive(true);
+
+
+    }
 
     public void Resume()
     {
@@ -43,7 +52,7 @@ public class MainMenu : MonoBehaviour
     }
 
     public void StartGame()
-    {
+    {       
         TimeScaleController(true);
         SceneManager.LoadScene(_idGameScene);
     }
@@ -99,7 +108,7 @@ public class MainMenu : MonoBehaviour
 
     public void Guide()
     {
-        _gameGuide.SetActive(true);
+        _gameGuide.SetActive(true);        
     }
 
     public void DeathWindow()

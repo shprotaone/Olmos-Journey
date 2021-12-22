@@ -3,6 +3,7 @@
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private SoundController _soundController;
+    [SerializeField] private CommonScoreContainer _gameContainer;
     [SerializeField] private Transform _leftLine;
     [SerializeField] private Transform _rightLine;
     [SerializeField] private Transform _shootPoint;
@@ -10,7 +11,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _speedMovement;
 
     private Vector3 _targetPosition;
-
     private CharacterController _characterController;
     
     private PlatformTypes _type;
@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
     private bool _playerDeath;
 
     public float DistanceToGround { get { return _distanceToGround; } }
+    public bool PlayerDeath { get { return _playerDeath; } }
 
     private void Start()
     {
@@ -74,13 +75,16 @@ public class PlayerController : MonoBehaviour
 
     private void OnTouch(bool action)
     {
-        if (!_startRunningScript.IsStarted)
+        if (!_gameContainer.guideActive)
         {
-            _startRunningScript.Action();
-            
-        }
-        else if(!_playerDeath)
+            if (!_startRunningScript.IsStarted)
+            {
+                _startRunningScript.Action();
+
+            }
+            else if (!_playerDeath)
                 _jumpScript.Action();
+        }       
     }
 
     private void MoveLeft()

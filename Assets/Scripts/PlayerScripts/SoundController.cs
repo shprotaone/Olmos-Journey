@@ -26,27 +26,24 @@ public class SoundController : MonoBehaviour
     public void SlideSound(bool value)
     {
         if(_audioSource != null)
-        {
-            
-            
-                if (!_audioSource.isPlaying)
-                {
-                    _audioSource.Play();
-                }
-                else if (value)
-                {
-                    _audioSource.volume = _startVolume;
-                }
-                else if (!value)
-                {
-                    StartCoroutine(FadeSound());
-                    StopCoroutine(FadeSound());
-                }
-            
-            //else
-            //{
-            //    _audioSource.Stop();
-            //}    
+        {          
+            if (!_audioSource.isPlaying && !_gameContainer.paused)
+            {
+                _audioSource.Play();
+            }
+            else if (_gameContainer.paused)
+            {
+                _audioSource.Stop();
+            }
+            else if (value)
+            {
+                _audioSource.volume = _startVolume;
+            }
+            else if (!value)
+            {
+                StartCoroutine(FadeSound());
+                StopCoroutine(FadeSound());
+            }
         }
     }
 
