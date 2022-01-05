@@ -43,11 +43,6 @@ public class InteractionWithSubject : MonoBehaviour
         _magnet.EnableMagnet();
     }
 
-    public void Fly()
-    {
-        StartCoroutine(_jumpScript.ChangeGravityToFly());
-    }
-
     public void Gift(int num)
     {
         if(num == 0)

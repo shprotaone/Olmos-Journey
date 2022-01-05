@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CoinMove : MonoBehaviour
 {
-    [SerializeField] private float _moveSpeed = 25;     //добавить скорость отлета в балансер? 
+    [SerializeField] private float _moveSpeed = 100;     //добавить скорость отлета в балансер? 
 
     private Coin _coin;
 

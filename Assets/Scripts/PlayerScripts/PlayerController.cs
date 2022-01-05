@@ -1,48 +1,44 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private SoundController _soundController;
-    [SerializeField] private CommonScoreContainer _gameContainer;
-    [SerializeField] private Transform _leftLine;
-    [SerializeField] private Transform _rightLine;
+    [SerializeField] private CurrentGameDataContainer _gameContainer;    
     [SerializeField] private Transform _shootPoint;
     [SerializeField] private LayerMask _platformLayer;
-    [SerializeField] private float _speedMovement;
-
-    private Vector3 _targetPosition;
+       
     private CharacterController _characterController;
-    
-    private PlatformTypes _type;
-    private Animator _animator;
+    private AnimationController _animController;
 
-    private StartRunningScript _startRunningScript;
+    private PlatformTypes _type;
+
+    private SwipeDetection _swipeDetection;
     private DeathScript _deathScript;
     private Jump _jumpScript;
 
+    private Vector3 _targetPosition;
+    private float _leftPoint = -5;
+    private float _centerPoint = 0;
+    private float _rightPoint = 5;
+    private float _speedMovement;
     private float _distanceToGround;
-
-    private int _leftAnimationID = Animator.StringToHash("Left");
-    private int _rightAnimationID = Animator.StringToHash("Right");
 
     private bool _left;
     private bool _right;
-    private bool _edge;
-    private bool _playerDeath;
 
     public float DistanceToGround { get { return _distanceToGround; } }
-    public bool PlayerDeath { get { return _playerDeath; } }
 
     private void Start()
     {
+        _swipeDetection = GetComponent<SwipeDetection>();
         _characterController = GetComponent<CharacterController>();
-        _animator = GetComponentInChildren<Animator>();
-        _startRunningScript = GetComponent<StartRunningScript>();
+        _animController = GetComponentInChildren<AnimationController>();
         _deathScript = GetComponent<DeathScript>();
         _jumpScript = GetComponent<Jump>();
 
-        SwipeDetection.SwipeEvent += OnSwipe;
-        SwipeDetection.TouchEvent += OnTouch;
+        _swipeDetection.SwipeEvent += OnSwipe;
+        _swipeDetection.TouchEvent += OnTouch;
        
         _speedMovement = LoadBalance.movement;
     }
@@ -52,24 +48,19 @@ public class PlayerController : MonoBehaviour
         Movement();        
         CheckPlatform();
 
-        if (_startRunningScript.IsStarted && !_playerDeath)
+        if (_gameContainer.gameIsStarted && !_gameContainer.death)
         {
             _soundController.SlideSound(_characterController.isGrounded);
-        }       
+        }
+
+        print(_targetPosition);
     }
 
     private void OnSwipe(Vector2 direction)
     {
-        if (_startRunningScript.IsStarted && !_playerDeath)
+        if (_gameContainer.gameIsStarted && !_gameContainer.death)
         {
-            if (direction.x == 1)
-            {
-                MoveLeft();               
-            }
-            else if (direction.x == -1)
-            {
-                MoveRight();                
-            }
+            Turn(direction.x);
         }       
     }
 
@@ -77,53 +68,52 @@ public class PlayerController : MonoBehaviour
     {
         if (!_gameContainer.guideActive)
         {
-            if (!_startRunningScript.IsStarted)
+            if (!_gameContainer.gameIsStarted)
             {
-                _startRunningScript.Action();
-
+                _gameContainer.gameIsStarted = true;
+                _animController.AnimationStartRunning();                
             }
-            else if (!_playerDeath)
+            else if (!_gameContainer.death)
                 _jumpScript.Action();
         }       
     }
 
-    private void MoveLeft()
+    private void Turn(float direction)
     {
-        if (!_edge && _animator != null)
-            _animator.SetTrigger(_leftAnimationID);
 
-        _left = true;
-
-        _soundController.TurnSound();
-    }
-     
-    private void MoveRight()
-    {                
-        if (!_edge && _animator != null)
-        _animator.SetTrigger(_rightAnimationID);
-
-        _right = true;
-        _soundController.TurnSound();
+        if (transform.position.x > _leftPoint + 1 && direction == 1 && !_left)    //починить края
+        {
+            _left = true;
+            _right = false;
+            _animController.AnimationLeft();
+            _soundController.TurnSound();
+        }
+        else if (transform.position.x < _rightPoint - 1 && direction == -1 && !_right)
+        {
+            _right = true;
+            _left = false;
+            _animController.AnimationRight();
+            _soundController.TurnSound();
+        }
     }
 
     private void Movement()
     {
-        CheckEdge();
-
         float tmpDist = Time.deltaTime * _speedMovement;
 
-        var movement = Vector3.MoveTowards(transform.position, _targetPosition, tmpDist) - transform.position ;
+        Vector3 movement = Vector3.MoveTowards(transform.position, _targetPosition, tmpDist) - transform.position ;
+
+        movement.y = _jumpScript.JumpDirection.y * Time.deltaTime;      //Jump and Drop
+       
         _characterController.Move(movement);
 
-        if (_left && _targetPosition.x > _leftLine.transform.position.x )
+        if (_left)
         {
-            _targetPosition += _leftLine.transform.position;
-            _edge = false;
-        }        
-        else if(_right && _targetPosition.x < _rightLine.transform.position.x)
+            _targetPosition.x += _leftPoint;
+        }
+        else if (_right)
         {
-            _targetPosition += _rightLine.transform.position;
-            _edge = false;
+            _targetPosition.x += _rightPoint;
         }
 
         ResetPosition();
@@ -136,26 +126,18 @@ public class PlayerController : MonoBehaviour
     }
 
     public void Death()
-    {
-        _playerDeath = true;
+    {       
         _deathScript.Action();
-    }
-
-    private void CheckEdge()        //пока что не работает как положено
-    {
-        if (transform.position.x == _leftLine.transform.position.x || transform.position.x == _rightLine.transform.position.x)
-            _edge = true;
-        else
-            _edge = false;
+        _animController.AnimationDeath();
     }
 
     public void CheckPlatform()
     {
-        Ray ray = new Ray(transform.position, Vector3.down*6);
+        Ray ray = new Ray(transform.position, Vector3.down * 6);
         Debug.DrawRay(ray.origin, ray.direction, Color.red);
         RaycastHit hit;
 
-        if(Physics.Raycast(ray,out hit,_platformLayer))
+        if (Physics.Raycast(ray, out hit, _platformLayer))
         {
             if (hit.transform.CompareTag("Platform"))
             {
@@ -164,7 +146,7 @@ public class PlayerController : MonoBehaviour
 
             _type = hit.transform.GetComponentInParent<PlatformController>().Type;
 
-            if(_type == PlatformTypes.SHOOTPLATFORM)
+            if (_type == PlatformTypes.SHOOTPLATFORM)
             {
                 hit.transform.GetComponentInParent<GiftLauncher>().LaunchGift(_shootPoint);
             }

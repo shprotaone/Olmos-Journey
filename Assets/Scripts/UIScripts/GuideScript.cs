@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GuideScript : MonoBehaviour
 {
-    [SerializeField] private CommonScoreContainer _gameManager;
+    [SerializeField] private CurrentGameDataContainer _gameManager;
     [SerializeField] private Toggle _showMeGuideInStart;
 
     private void Start()

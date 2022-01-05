@@ -3,14 +3,10 @@ using System.Collections;
 
 public class Jump : MonoBehaviour,IAction
 {
-    private CharacterController controller;
+    private AnimationController _animController;
     private Vector3 direction = Vector3.zero;
-
-    private int _jumpAnimationID = Animator.StringToHash("Jump");
-    private Animator _animator;
     
-    private float _distanceForDrop = 0.5f;    //1f
-    private float _distanceForFly = 5f;
+    private float _distanceForDrop = 0.5f;
     private float _distanceToGround;
 
     private float _jumpSpeed;
@@ -20,10 +16,11 @@ public class Jump : MonoBehaviour,IAction
 
     private bool fly;
 
+    public Vector3 JumpDirection { get { return direction; } }
+
     private void Start()
     {
-        controller = GetComponent<CharacterController>();
-        _animator = GetComponentInChildren<Animator>();
+        _animController = GetComponent<AnimationController>();
         _jumpSpeed = LoadBalance.jumpForce;
         _gravity = LoadBalance.gravity;
         _dropGravity = LoadBalance.gravityToDrop;
@@ -33,13 +30,8 @@ public class Jump : MonoBehaviour,IAction
 
     private void Update()
     {
-        _distanceToGround = controller.GetComponent<PlayerController>().DistanceToGround;
-
-        if (!fly)
-        {
-            direction.y -= _currentGravity * Time.deltaTime;
-            controller.Move(direction * Time.deltaTime);
-        }  
+        _distanceToGround = GetComponent<PlayerController>().DistanceToGround;
+        direction.y -= _currentGravity * Time.deltaTime;
     }
 
     public void Action()
@@ -48,44 +40,16 @@ public class Jump : MonoBehaviour,IAction
         {
             _currentGravity = _dropGravity;            
         }
-        else if (fly)
-        {
-            FlyMeth();
-        }
         else
         {
+            _animController.JumpAnimation();
             JumpMeth();
         }
     }
 
     private void JumpMeth()
     {
-        if(_animator != null)
-        _animator.SetTrigger(_jumpAnimationID);
-
         _currentGravity = _gravity;
         direction.y = _jumpSpeed;
-    }
-
-    private void FlyMeth()
-    {
-        if (_distanceToGround > _distanceForFly)
-        {
-            _currentGravity = 0;
-        }
-    }
-
-    public IEnumerator ChangeGravityToFly()
-    {
-        fly = true;
-        JumpMeth();
-        yield return new WaitForSeconds(0.2f);
-        FlyMeth();
-
-        yield return new WaitForSeconds(5f);
-        fly = false;
-        _currentGravity = LoadBalance.gravity;
-
-        yield break;
     }
 }

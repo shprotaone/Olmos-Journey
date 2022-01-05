@@ -9,18 +9,16 @@ public class TreeShop : MonoBehaviour
     [SerializeField] private GameObject _tree;
     [SerializeField] private GameObject _buyWindow;
     [SerializeField] private GameObject _notEnough;
-    [SerializeField] private CommonScoreContainer _scoreContainer;
+    [SerializeField] private CurrentGameDataContainer _scoreContainer;
     [SerializeField] private CoinsViewer _coinsViewer;
     [SerializeField] private TMP_Text _cost;
     [SerializeField] private Image[] _toys;
 
     private int _currentCosts;
-    private int _activeToys;
     private int[] _buyedArray;
 
     void Start()
     {
-        _activeToys = _scoreContainer.buyedToys;
         _toys = _tree.GetComponentsInChildren<Image>();
         FillArray();
         _currentCosts = _scoreContainer.currentCost;
@@ -66,7 +64,7 @@ public class TreeShop : MonoBehaviour
     private void Purchase()
     {      
         _scoreContainer.coin -= _currentCosts;
-        _currentCosts += 75;
+        _currentCosts += 50;
         _scoreContainer.currentCost = _currentCosts;
         _coinsViewer.RefreshText();
         _buyWindow.SetActive(false);

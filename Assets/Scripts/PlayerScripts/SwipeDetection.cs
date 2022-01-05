@@ -5,13 +5,13 @@ using UnityEngine.UI;
 
 public class SwipeDetection : MonoBehaviour
 {
-    [SerializeField] private CommonScoreContainer _gameStats;
+    [SerializeField] private CurrentGameDataContainer _gameStats;
 
     public delegate void OnSwipeInput(Vector2 direction);
-    public static event OnSwipeInput SwipeEvent;
+    public event OnSwipeInput SwipeEvent;
 
     public delegate void OnTouchInput(bool action);
-    public static event OnTouchInput TouchEvent;
+    public event OnTouchInput TouchEvent;
 
     public float resetTimer;
 
@@ -28,16 +28,17 @@ public class SwipeDetection : MonoBehaviour
     private void Start()
     {
         _isMobile = Application.isMobilePlatform;
-        _gameStats.paused = false;
+        _gameStats.gameInPaused = false;
         ResetSwipe();
     }
 
     private void Update()
     {
-        if (!_gameStats.paused)
+        if (!_gameStats.gameInPaused)
         {
             Movement();
             CheckInput();
+            
         }
     }
     
@@ -93,9 +94,9 @@ public class SwipeDetection : MonoBehaviour
 
         if (_swipeDelta.magnitude > _deadZone)
         {
-            if(SwipeEvent != null)      //swipe по оси Y
+            if(SwipeEvent != null)      //swipe пїЅпїЅ пїЅпїЅпїЅ Y
             {
-                SwipeEvent(_swipeDelta.y > 0 ? Vector2.right : Vector2.left);  //менять тут если не будет работать
+                SwipeEvent(_swipeDelta.y > 0 ? Vector2.right : Vector2.left); //пїЅпїЅпїЅпїЅ SwipeDelta пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ. 
             }
 
             ResetSwipe();

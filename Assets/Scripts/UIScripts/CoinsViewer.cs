@@ -6,7 +6,7 @@ using TMPro;
 public class CoinsViewer : MonoBehaviour
 {
     [SerializeField] private TMP_Text coins;
-    [SerializeField] private CommonScoreContainer _container;
+    [SerializeField] private CurrentGameDataContainer _container;
 
 
     void Start()

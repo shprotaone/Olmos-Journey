@@ -13,15 +13,17 @@ MonoBehaviour:
   m_Name: Balance
   m_EditorClassIdentifier: 
   speed: 14
-  increaseSpeed: 3
-  distanceToUpDifficult: -115
-  movement: 15
-  jumpForce: 30
+  steering: 30
+  jumpForce: 15
   gravity: 25
   gravityToDrop: 100
+  increaseSpeed: 3
+  distanceToUpDifficult: -125
   scoreMultiplyBonusValue: 2
   coinMultiplyBonus: 15
-  chanceEmpty: 20
+  speedBonusValue: 6
+  stopBonusValue: 5
+  chanceEmpty: 10
   chanceGiftType1: 25
   chanceGiftType2: 30
   chanceGiftType3: 35
@@ -31,5 +33,3 @@ MonoBehaviour:
   speedingZone: 20
   stoppingZone: 25
   chanceCoinOrBonus: 47
-  speedBonusValue: 6
-  stopBonusValue: 5

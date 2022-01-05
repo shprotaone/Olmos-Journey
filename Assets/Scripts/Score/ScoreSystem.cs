@@ -9,7 +9,7 @@ public class ScoreSystem : MonoBehaviour
     private const int oneMeterCost = 10;
     private const int indexDisplay = 1;
 
-    [SerializeField] private CommonScoreContainer _commonContainer;
+    [SerializeField] private CurrentGameDataContainer _commonContainer;
     [SerializeField] private BonusDisplay _bonusDisplay;
     [SerializeField] private Sprite _spriteBonus;
     [SerializeField] private TMP_Text _coinDisplay;

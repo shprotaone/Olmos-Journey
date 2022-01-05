@@ -34,7 +34,7 @@ public class LoadBalance : MonoBehaviour
         speed = _balancePreset.speed;
         increaseSpeed = _balancePreset.increaseSpeed;
         distanceToUpDifficult = _balancePreset.distanceToUpDifficult;
-        movement = _balancePreset.movement;
+        movement = _balancePreset.steering;
         jumpForce = _balancePreset.jumpForce;
         gravity = _balancePreset.gravity;
         gravityToDrop = _balancePreset.gravityToDrop;

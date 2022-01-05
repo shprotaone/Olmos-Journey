@@ -3,7 +3,7 @@ using UnityEngine;
 public class GamePreferencesManager : MonoBehaviour
 {
     [SerializeField] private CommonSoundController _settings;
-    [SerializeField] private CommonScoreContainer _gameContainer;
+    [SerializeField] private CurrentGameDataContainer _gameContainer;
 
     private void Start()
     {

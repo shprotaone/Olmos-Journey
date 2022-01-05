@@ -4,7 +4,7 @@ using System.Collections;
 public class SoundController : MonoBehaviour
 {
     [SerializeField] private AudioClip _rotateSound;
-    [SerializeField] private CommonScoreContainer _gameContainer;
+    [SerializeField] private CurrentGameDataContainer _gameContainer;
 
     private AudioSource _audioSource;
     private float _turnVolume = 0.2f;
@@ -27,11 +27,11 @@ public class SoundController : MonoBehaviour
     {
         if(_audioSource != null)
         {          
-            if (!_audioSource.isPlaying && !_gameContainer.paused)
+            if (!_audioSource.isPlaying && !_gameContainer.gameInPaused)
             {
                 _audioSource.Play();
             }
-            else if (_gameContainer.paused)
+            else if (_gameContainer.gameInPaused)
             {
                 _audioSource.Stop();
             }

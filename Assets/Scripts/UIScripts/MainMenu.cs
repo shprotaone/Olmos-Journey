@@ -11,7 +11,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject _shopTree;
     [SerializeField] private GameObject _deathWindow;
     [SerializeField] private GameObject _creditWindow;
-    [SerializeField] private CommonScoreContainer _gameContainer;
+    [SerializeField] private CurrentGameDataContainer _gameContainer;
 
     private int _idMainMenuScene = 0;
     private int _idGameScene = 1;
@@ -47,7 +47,7 @@ public class MainMenu : MonoBehaviour
     {
         if (_pauseMenu != null)
             _pauseMenu.SetActive(true);
-        _gameContainer.paused = true;
+        _gameContainer.gameInPaused = true;
         TimeScaleController(false);
     }
 
@@ -123,6 +123,6 @@ public class MainMenu : MonoBehaviour
 
     private void GamePauseStatus()
     {
-        _gameContainer.paused = false;
+        _gameContainer.gameInPaused = false;
     }
 }

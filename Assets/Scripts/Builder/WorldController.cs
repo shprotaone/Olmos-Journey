@@ -14,6 +14,7 @@ public class WorldController : MonoBehaviour
 
     [SerializeField] private PlatformBuilder _platformBuilder;
     [SerializeField] private ScoreSystem _scoreSystem;
+    [SerializeField] private CurrentGameDataContainer _gameContainer;
 
     private float _platformLenght = 15; // переделать на точку end? 
     private float _difficultRange;
@@ -29,20 +30,20 @@ public class WorldController : MonoBehaviour
     public float Distance { get { return _distance; } }
     public float CurrentSpeed { get { return _currentSpeed; } }
     public float MaxSpeed { get { return _speedMax; } }
-    public bool StartMovement { get; set; }
 
     private void Start()
     {
         _speedMax = LoadBalance.speed;
         _speedUpValue = LoadBalance.increaseSpeed;
         _difficultRange = LoadBalance.distanceToUpDifficult;
+        _gameContainer.gameIsStarted = false;
 
         StartCoroutine(OnPlatformMovementCorutine());
     }
 
     private void Update()
     {
-        if (StartMovement)
+        if (_gameContainer.gameIsStarted && !_gameContainer.death)
         {
             SpeedController();
             transform.position -= Vector3.forward * _currentSpeed * Time.deltaTime;

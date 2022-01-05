@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Gift : InterractableObject
@@ -15,7 +14,6 @@ public class Gift : InterractableObject
     {
         if (other.CompareTag("Player"))
         {
-            if(!other.GetComponent<PlayerController>().PlayerDeath)
             StartCoroutine(Action(other));
         }
         else if(other.CompareTag("Platform"))
