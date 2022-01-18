@@ -6,6 +6,7 @@ public class InteractionWithSubject : MonoBehaviour
 {
     [SerializeField] private WorldController _worldController;
     [SerializeField] private ScoreSystem _scoreSystem;
+    [SerializeField] private MultiplyCoinScript _multiplyCoinScript;
     [SerializeField] private MagnetScript _magnet;
 
     private Jump _jumpScript;
@@ -35,7 +36,7 @@ public class InteractionWithSubject : MonoBehaviour
 
     public void MultiplyCoin()
     {
-        _scoreSystem.EnableMultiply();
+        _multiplyCoinScript.EnableMultiply();
     }
 
     public void MagnetActivate()

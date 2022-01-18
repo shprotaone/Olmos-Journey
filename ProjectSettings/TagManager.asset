@@ -8,6 +8,7 @@ TagManager:
   - CoinDetector
   - Platform
   - LaunchPlatform
+  - Target
   layers:
   - Default
   - TransparentFX
@@ -18,9 +19,9 @@ TagManager:
   - 
   - Obstacle
   - Platform
-  - 
-  - 
-  - 
+  - PostProcessing
+  - Bonus
+  - Coins
   - 
   - 
   - 

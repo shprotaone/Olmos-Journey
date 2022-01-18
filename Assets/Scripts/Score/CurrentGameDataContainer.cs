@@ -14,6 +14,7 @@ public class CurrentGameDataContainer : ScriptableObject
     [Header("Current Game Stats")]
     public int coin;
     public bool death;
+    public GameObject previousBonus;
 
     [Header("Shop Progress")]
     public int buyedToys;

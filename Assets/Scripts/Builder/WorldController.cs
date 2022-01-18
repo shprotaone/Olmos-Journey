@@ -9,7 +9,7 @@ public class WorldController : MonoBehaviour
     public event DelAndAddPlatform OnPlatformMovement;
 
     [SerializeField] private float _speedMax;
-    [SerializeField] private float _changeSpeedAcceleration = 5;    //это нужно будет добавить в баланс
+    [SerializeField] private float _acceleration = 5;    //это нужно будет добавить в баланс
     [SerializeField] private float _currentSpeed = 0;
 
     [SerializeField] private PlatformBuilder _platformBuilder;
@@ -26,10 +26,8 @@ public class WorldController : MonoBehaviour
     private bool _speedMaxActivate;
 
 
-    public float MinZ { get { return -20; } }
-    public float Distance { get { return _distance; } }
+    public float MinZ { get { return -60; } }
     public float CurrentSpeed { get { return _currentSpeed; } }
-    public float MaxSpeed { get { return _speedMax; } }
 
     private void Start()
     {
@@ -106,12 +104,17 @@ public class WorldController : MonoBehaviour
     {
         if (_currentSpeed < _speedMax)
         {
-            _currentSpeed += Time.deltaTime * _changeSpeedAcceleration;
+            _currentSpeed += Time.deltaTime * _acceleration;
         }
         else
         {
-            _currentSpeed -= Time.deltaTime * _changeSpeedAcceleration;
+            _currentSpeed -= Time.deltaTime * _acceleration;
         }
+    }
+
+    public void SpeedChanger(float speed)
+    {
+        _speedMax += speed;
     }
 
     public IEnumerator SpeedUp()        //повторяющтйся код, починить
@@ -121,7 +124,7 @@ public class WorldController : MonoBehaviour
 
         if (!_speedMaxActivate)
         {
-            _speedMax += LoadBalance.speedBonusValue;
+            SpeedChanger(LoadBalance.speedBonusValue);
             _speedMaxActivate = true;
         }
 
@@ -147,11 +150,9 @@ public class WorldController : MonoBehaviour
 
         if (!_speedDownActivate)
         {
-            _speedMax -= LoadBalance.stopBonusValue;
+            SpeedChanger(LoadBalance.stopBonusValue);
             _speedDownActivate = true;
         }
-        
-        print(_speedMax);
 
         while (_activeTime > 0)
         {
@@ -161,10 +162,8 @@ public class WorldController : MonoBehaviour
         }
         _speedDownActivate = false;
 
-        _speedMax += LoadBalance.stopBonusValue;
+        _speedMax -= LoadBalance.stopBonusValue;
 
-
-        print(_speedMax);
         yield break;
     }
 }

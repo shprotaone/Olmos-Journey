@@ -8,6 +8,7 @@ public class GamePreferencesManager : MonoBehaviour
     private void Start()
     {
         LoadPrefs();   
+        Application.targetFrameRate = 75;
     }
 
     private void OnApplicationQuit()
@@ -53,5 +54,10 @@ public class GamePreferencesManager : MonoBehaviour
     public void ResetPlayerPrefs()
     {
         PlayerPrefs.DeleteAll();
+        _gameContainer.coin = 0;
+        _gameContainer.currentCost = 50;
+        _gameContainer.buyedToys = 0;
+        _gameContainer.showGuideInStart = true;
+        PlayerPrefs.Save();
     }
 }

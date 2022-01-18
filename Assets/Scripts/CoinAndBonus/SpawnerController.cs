@@ -2,8 +2,7 @@
 
 public class SpawnerController : MonoBehaviour
 {
-    private CoinSpawner _coinSpawner;
-    private BonusSpawner _bonusSpawner;
+    private DropSpawner _bonusSpawner;
     private ZoneSpawner _zoneSpawner;
 
     private bool _bonus;
@@ -13,29 +12,23 @@ public class SpawnerController : MonoBehaviour
 
     public void Start()
     {
-        _bonus = new RandomLogic().TrueFalseRandomizer();
-        _zone = new RandomLogic().TrueFalseRandomizer();
+        _bonus = new RandomLogic().TrueFalseRandomizer(LoadBalance.chanceBonus);
+        _zone = new RandomLogic().TrueFalseRandomizer(LoadBalance.chanceZone);
 
-        _coinSpawner = GetComponent<CoinSpawner>();
-        _bonusSpawner = GetComponent<BonusSpawner>();
+        _bonusSpawner = GetComponent<DropSpawner>();
         _zoneSpawner = GetComponent<ZoneSpawner>();
 
-        if (!_bonus)
+        _chance = new RandomLogic().SumForRandomSystem(LoadBalance.chancesBonus);
+        _bonusSpawner.InstantiateBonus(_chance);
+
+        if (_zoneSpawner != null)
         {
-            _chance = new RandomLogic().SumForRandomSystem(LoadBalance.chancesCoin);
-            _coinSpawner.InstantiateCoin(_chance);
-        }
-        else
-        {
-            _chance = new RandomLogic().SumForRandomSystem(LoadBalance.chancesBonus);
-            _bonusSpawner.InstantiateBonus(_chance);
+            if (_zone)
+            {
+                _chanceZone = new RandomLogic().SumForRandomSystem(LoadBalance.chancesZones);
+                _zoneSpawner.InstantiateZone(_chanceZone);
+            }
         }
 
-        if (_zone)
-        {
-            _chanceZone = new RandomLogic().SumForRandomSystem(LoadBalance.chancesZones);
-            if (_zoneSpawner != null)
-            _zoneSpawner.InstantiateZone(_chanceZone);
-        }
     }
 }

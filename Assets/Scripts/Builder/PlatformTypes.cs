@@ -2,5 +2,5 @@
 {
     JUMP,
     SHOOTPLATFORM,
-    CATCH
+    RAIL
 }

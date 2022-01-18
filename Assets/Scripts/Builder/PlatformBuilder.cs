@@ -7,7 +7,6 @@ public class PlatformBuilder : MonoBehaviour
     
     private Transform _lastPlatform = null;
     private Vector3 _lastPlatformPosition;
-    private Vector3 _offsetPlatform = new Vector3(0, 0, 7.5f);
 
     private bool isObstacle;
 
@@ -39,30 +38,34 @@ public class PlatformBuilder : MonoBehaviour
     }
 
     private void CreateFreePlatform()
-    {
+    {        
         if(_lastPlatform == null)
         {
             _lastPlatformPosition = _platformContainer.position;
         }
         else
         {
-            _lastPlatformPosition = _lastPlatform.GetComponent<PlatformController>().endPoint.position;
+            PlatformController controller = _lastPlatform.GetComponent<PlatformController>();
+
+            _lastPlatformPosition = controller.endPoint.position;
         }
-        Vector3 instatiatePos = _lastPlatformPosition + _offsetPlatform;
+        Vector3 instatiatePos = _lastPlatformPosition;
 
         GameObject platform = Instantiate(_platform.platforms[0], instatiatePos, Quaternion.identity, _platformContainer);
-
+        
         _lastPlatform = platform.transform;        
     }
 
     private void CreateObstaclePlatform()
     {
-        _lastPlatformPosition = _lastPlatform.GetComponent<PlatformController>().endPoint.position;
+        PlatformController controller = _lastPlatform.GetComponent<PlatformController>();
 
-        Vector3 instatiatePos = _lastPlatformPosition + _offsetPlatform;
+        _lastPlatformPosition = controller.endPoint.position;
+
+        Vector3 instatiatePos = _lastPlatformPosition;
 
         GameObject platform = Instantiate(_platform.platforms[PlatformSelector()], instatiatePos, Quaternion.identity, _platformContainer);
-
+        
         _lastPlatform = platform.transform;
     }
 

@@ -3,11 +3,14 @@ using UnityEngine;
 
 public class Gift : InterractableObject
 {
-    private ParticleSystem _explosion;
+    private ParticleSystem[] _effects;  //0 - DestroyExplosion, 1 - Catch
 
+    [SerializeField] private AudioClip [] _sounds; //0 - Coin,1 - magnetSound,2 - Coin
+    private AudioSource _source;
     private void Start()
     {
-        _explosion = GetComponentInChildren<ParticleSystem>();
+        _effects = GetComponentsInChildren<ParticleSystem>();
+        _source = GetComponent<AudioSource>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -26,7 +29,14 @@ public class Gift : InterractableObject
     {
         int index = Randomizer();
         collider.GetComponent<InteractionWithSubject>().Gift(index);
-        print(index);
+
+        this.gameObject.GetComponent<BoxCollider>().enabled = false;
+        this.gameObject.GetComponentInChildren<SpriteRenderer>().enabled = false;
+
+        _source.PlayOneShot(_sounds[index]);
+        _effects[1].Play();
+
+        yield return new WaitForSeconds(1f);
         Destroy(this.gameObject);
         
         yield break;
@@ -34,7 +44,7 @@ public class Gift : InterractableObject
 
     private IEnumerator DestroyGift()
     {
-        _explosion.Play();
+        _effects[0].Play();
         yield return new WaitForSeconds(0.5f);
 
         Destroy(this.gameObject);

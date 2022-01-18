@@ -22,14 +22,14 @@ MonoBehaviour:
   scoreMultiplyBonusValue: 2
   coinMultiplyBonus: 15
   speedBonusValue: 6
-  stopBonusValue: 5
-  chanceEmpty: 10
-  chanceGiftType1: 25
-  chanceGiftType2: 30
-  chanceGiftType3: 35
-  magnetBonus: 2
-  multiplyBonus: 3
-  flyBonus: 0
-  speedingZone: 20
-  stoppingZone: 25
-  chanceCoinOrBonus: 47
+  stopBonusValue: -5
+  chanceEmpty: 100
+  chanceGiftType1: 50
+  chanceGiftType2: 31
+  chanceGiftType3: 22
+  magnetBonus: 17
+  multiplyBonus: 30
+  speedingZone: 36
+  stoppingZone: 20
+  chanceZone: 100
+  chanceBonus: 20

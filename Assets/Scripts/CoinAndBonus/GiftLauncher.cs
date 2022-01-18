@@ -20,7 +20,6 @@ public class GiftLauncher : MonoBehaviour
             GameObject gift = Instantiate(_gift, shootPoint);
             gift.GetComponent<Rigidbody>().AddForce(new Vector3(0, y, z) * _force);
             _launch = true;
-        }
-        
+        }       
     }
 }

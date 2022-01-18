@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b50b6a46a8f23a347a96b8dfa3ed16e9, type: 3}
   m_Name: CurrentGameData
   m_EditorClassIdentifier: 
-  gameIsStarted: 1
+  gameIsStarted: 0
   gameInPaused: 0
-  guideActive: 0
-  showGuideInStart: 0
-  coin: 5
-  death: 1
+  guideActive: 1
+  showGuideInStart: 1
+  coin: 0
+  death: 0
+  previousBonus: {fileID: 3961719717769709555, guid: e9504fa75c775b04984bf763049c48a6, type: 3}
   buyedToys: 0
-  currentCost: 0
+  currentCost: 50

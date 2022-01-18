@@ -17,7 +17,6 @@ public class PlatformController : MonoBehaviour
     {
         _worldController = GetComponentInParent<WorldController>();
         
-
         if (_worldController != null)
         {
             _worldController.OnPlatformMovement += AddPlatform;

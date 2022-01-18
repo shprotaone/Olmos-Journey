@@ -14,16 +14,18 @@ public class TreeShop : MonoBehaviour
     [SerializeField] private TMP_Text _cost;
     [SerializeField] private Image[] _toys;
 
+    private ParticleSystem _effect;
+
     private int _currentCosts;
     private int[] _buyedArray;
 
-    void Start()
+    private void Start()
     {
         _toys = _tree.GetComponentsInChildren<Image>();
         FillArray();
         _currentCosts = _scoreContainer.currentCost;
-
-        RefreshTree();
+        _effect = GetComponentInChildren<ParticleSystem>();
+        RefreshTree(false);
     }
 
     public void BuyWindowActivate()
@@ -40,7 +42,7 @@ public class TreeShop : MonoBehaviour
             _scoreContainer.buyedToys++;
 
         FillArray();
-        RefreshTree();
+        RefreshTree(true);
     }
 
     private bool CheckCoins()
@@ -70,17 +72,24 @@ public class TreeShop : MonoBehaviour
         _buyWindow.SetActive(false);
     }
 
-    private void CheckColor(Image image,int buyed)
+    private void CheckColor(Image image,int buyed, bool withBuy)
     {
         image = image.GetComponent<Image>();
+        var tempColor = image.color;
 
         if (buyed == 0)
         {
-            image.color = Color.black;
+            tempColor.a = 0f;
+            image.color = tempColor;
         }
         else
         {
-            image.color = Color.white;
+            tempColor.a = 1;  
+            image.color = tempColor;
+            CatchImage(image);      
+            
+            if(withBuy)
+            _effect.Play();
         }
     }
 
@@ -97,11 +106,11 @@ public class TreeShop : MonoBehaviour
         }
     }
 
-    private void RefreshTree()
+    private void RefreshTree(bool withBuy)
     {
         for (int i = 0; i < _toys.Length; i++)
         {
-            CheckColor(_toys[i], _buyedArray[i]);
+            CheckColor(_toys[i], _buyedArray[i],withBuy);
         }
     }
 
@@ -112,5 +121,12 @@ public class TreeShop : MonoBehaviour
         _notEnough.SetActive(false);
 
         yield break;
+    }
+
+    private void CatchImage(Image image)
+    {
+            _effect.transform.position = image.transform.position;
+            _effect.textureSheetAnimation.RemoveSprite(0);
+            _effect.textureSheetAnimation.AddSprite(image.sprite);
     }
 }

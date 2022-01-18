@@ -5,19 +5,17 @@ using UnityEngine;
 public class ZoneSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject[] _prefabZones;
-    [SerializeField] private GameObject _bonusPositionPrefab;
     [SerializeField] private Transform _lineVariant;
 
     private GameObject _currentZone;
 
     private Transform[] _linesForZone;
     private Transform _currentPos;
-    private Transform _bonusLine;
 
     private int[] _chanceBalance;
     private int _parentIndex;
 
-    private void Start()
+    private void Awake()
     {
         _chanceBalance = LoadBalance.chancesZones;
 
@@ -25,9 +23,8 @@ public class ZoneSpawner : MonoBehaviour
 
         FindParent();
 
-        _bonusLine = _linesForZone[_parentIndex];
+        _currentPos = _linesForZone[_parentIndex];
 
-        SetupPosition();
     }
 
     private void FindParent()
@@ -35,29 +32,24 @@ public class ZoneSpawner : MonoBehaviour
         _parentIndex = Random.Range(1, _linesForZone.Length);
     }
 
-    private void SetupPosition()
-    {
-        GameObject posInit = Instantiate(_bonusPositionPrefab, _bonusLine);
-        _currentPos = posInit.GetComponentInChildren<Transform>();
-    }
-
     public void InstantiateZone(int index)
     {
-            int currentRandom = index;
+        int currentRandom = index;
 
-            for (int i = 0; i < _chanceBalance.Length; i++)
+        for (int i = 0; i < _chanceBalance.Length; i++)
+        {
+            if (currentRandom <= _chanceBalance[i])
             {
-                if (currentRandom <= _chanceBalance[i])
-                {
-                    _currentZone = _prefabZones[i];
-                    Instantiate(_currentZone, _currentPos);
-                    return;
-                }
-                else
-                {
-                    currentRandom -= _chanceBalance[i];
-                }
+                _currentZone = _prefabZones[i];
+                Instantiate(_currentZone, _currentPos);
+                return;
             }
-            print("Zone " + _currentZone);       
+            else
+            {
+                currentRandom -= _chanceBalance[i];
+            }
+        }
+        
+        print("Zone " + _currentZone);
     }
 }

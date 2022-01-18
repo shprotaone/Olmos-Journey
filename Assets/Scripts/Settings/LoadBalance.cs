@@ -16,10 +16,10 @@ public class LoadBalance : MonoBehaviour
 
     public static int scoreMultiplyBonusValue;
     public static int coinMultiplyBonus;
-    public static int[] chancesCoin;
     public static int[] chancesBonus;
     public static int[] chancesZones;
-    public static int chanceCoinOrBonus;
+    public static int chanceZone;
+    public static int chanceBonus;
     public static int speedBonusValue;
     public static int stopBonusValue;
     
@@ -41,32 +41,22 @@ public class LoadBalance : MonoBehaviour
         scoreMultiplyBonusValue = _balancePreset.scoreMultiplyBonusValue;
         coinMultiplyBonus = _balancePreset.coinMultiplyBonus;
 
-        chancesCoin = new int[] {
+        chancesBonus = new int[] {
             _balancePreset.chanceEmpty,
             _balancePreset.chanceGiftType1,
             _balancePreset.chanceGiftType2,
-            _balancePreset.chanceGiftType3};
-
-        chancesBonus = new int[] {
-            _balancePreset.chanceEmpty,
+            _balancePreset.chanceGiftType3,
+            
             _balancePreset.magnetBonus,
-            _balancePreset.multiplyBonus,
-            _balancePreset.flyBonus };
+            _balancePreset.multiplyBonus};
 
         chancesZones = new int[] {
-            _balancePreset.chanceEmpty,
             _balancePreset.speedingZone,
             _balancePreset.stoppingZone };
 
-        chanceCoinOrBonus = _balancePreset.chanceCoinOrBonus;
         speedBonusValue = _balancePreset.speedBonusValue;
         stopBonusValue = _balancePreset.stopBonusValue;
-
-        print("In Game Update Activated");
-    }
-
-    public void InGame()
-    {
-        LoadPreset();
+        chanceZone = _balancePreset.chanceZone;
+        chanceBonus = _balancePreset.chanceBonus;
     }
 }

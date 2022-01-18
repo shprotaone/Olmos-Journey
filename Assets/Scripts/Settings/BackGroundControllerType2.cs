@@ -22,7 +22,7 @@ public class BackGroundControllerType2 : MonoBehaviour
     {      
         _mainSpeed = LoadBalance.speed;
         _isStopped = false;
-        DeathScript.OnDeath += StopScrolling;
+        HealthSystem.OnDeath += StopScrolling;
     }
 
     private void FixedUpdate()
@@ -53,7 +53,7 @@ public class BackGroundControllerType2 : MonoBehaviour
         {           
             _additionalScrollSpeed = _worldController.CurrentSpeed;
 
-            if (_additionalScrollSpeed == 0)                //отвратительно, переделать
+            if (_additionalScrollSpeed == 0)                //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
                 _timer = 0;
 
             if (_worldController.CurrentSpeed > _mainSpeed)

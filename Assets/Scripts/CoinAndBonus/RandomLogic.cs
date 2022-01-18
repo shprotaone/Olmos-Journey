@@ -20,10 +20,12 @@ public class RandomLogic
         return currentNumber;
     }
 
-    public bool TrueFalseRandomizer()
+    public bool TrueFalseRandomizer(int balanceValue)
     {
         int result = Random.Range(0, 100);
 
-        return result <= LoadBalance.chanceCoinOrBonus;
+        return result <= balanceValue;
     }
+
+
 }

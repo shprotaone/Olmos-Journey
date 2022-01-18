@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34ef27a573b94da4f9b44df3879e7eee, type: 3}
   m_Name: GameSettings
   m_EditorClassIdentifier: 
-  sfx: 0
-  music: 0
+  sfx: 1
+  music: 1
   drunkedCam: 0
