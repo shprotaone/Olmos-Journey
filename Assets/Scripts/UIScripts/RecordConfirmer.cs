@@ -24,6 +24,6 @@ public class RecordConfirmer : MonoBehaviour
 
     private void GlobalSave()
     {
-        _gameRef.SavePrefs();
+        _gameRef.SaveAllPrefs();
     }
 }

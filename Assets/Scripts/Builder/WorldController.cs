@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using TMPro;
 
 public class WorldController : MonoBehaviour
 {
@@ -16,15 +17,11 @@ public class WorldController : MonoBehaviour
     [SerializeField] private ScoreSystem _scoreSystem;
     [SerializeField] private CurrentGameDataContainer _gameContainer;
 
-    private float _platformLenght = 15; // переделать на точку end? 
+    private float _platformLenght = 15;
     private float _difficultRange;
     private float _speedUpValue;
     private float _distance;
     private float _activeTime;
-
-    private bool _speedDownActivate;
-    private bool _speedMaxActivate;
-
 
     public float MinZ { get { return -60; } }
     public float CurrentSpeed { get { return _currentSpeed; } }
@@ -112,23 +109,12 @@ public class WorldController : MonoBehaviour
         }
     }
 
-    public void SpeedChanger(float speed)
-    {
-        _speedMax += speed;
-    }
-
-    public IEnumerator SpeedUp()        //повторяющтйся код, починить
+    public IEnumerator SpeedChanger(int speed)
     {
         float perTime = 1;
-        _activeTime = 5;
+        _activeTime = 2;
 
-        if (!_speedMaxActivate)
-        {
-            SpeedChanger(LoadBalance.speedBonusValue);
-            _speedMaxActivate = true;
-        }
-
-        print(_speedMax);
+        _speedMax += speed;
 
         while (_activeTime > 0)
         {
@@ -136,33 +122,8 @@ public class WorldController : MonoBehaviour
             yield return new WaitForSeconds(1f);
 
         }
-        _speedMaxActivate = false;
 
-        _speedMax -= LoadBalance.speedBonusValue;
-
-        yield break;
-    }
-
-    public IEnumerator SpeedDown()
-    {
-        float perTime = 1;
-        _activeTime = 5;
-
-        if (!_speedDownActivate)
-        {
-            SpeedChanger(LoadBalance.stopBonusValue);
-            _speedDownActivate = true;
-        }
-
-        while (_activeTime > 0)
-        {
-            _activeTime -= perTime;           
-            yield return new WaitForSeconds(1f);
-            
-        }
-        _speedDownActivate = false;
-
-        _speedMax -= LoadBalance.stopBonusValue;
+        _speedMax -= speed;
 
         yield break;
     }

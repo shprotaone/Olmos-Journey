@@ -1,11 +1,23 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GamePreferencesManager : MonoBehaviour
 {
-    [SerializeField] private CommonSoundController _settings;
-    [SerializeField] private CurrentGameDataContainer _gameContainer;
+    private const string _coinPrefsName = "Coins";
+    private const string _soundsPrefsName = "Sounds";
+    private const string _musicPrefsName = "Music";
+    private const string _guidePrefsName = "GuideOn";
+    private const string _currentCostPrefsName = "CurrentCost";
+    private const string _buyedToysCounterPrefsName = "BuyedToysCounter";
 
-    private void Start()
+    public delegate void ResetSettings();
+    public static event ResetSettings OnReset;
+
+    [SerializeField] private CommonSoundController _soundController;
+    [SerializeField] private CurrentGameDataContainer _currentGameContainer;
+    [SerializeField] private GameSettings _gameSettings;
+
+    private void Awake()
     {
         LoadPrefs();   
         Application.targetFrameRate = 75;
@@ -13,51 +25,70 @@ public class GamePreferencesManager : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        SavePrefs();
+        SaveAllPrefs();
     }
 
-    public void SavePrefs()
-    {
-        PlayerPrefs.SetInt("Coins", _gameContainer.coin);
-        PlayerPrefs.SetString("Sounds", _settings.SFX.ToString());
-        PlayerPrefs.SetString("Music", _settings.Music.ToString());
-        PlayerPrefs.SetString("GuideOn", _gameContainer.showGuideInStart.ToString());
-        PlayerPrefs.SetInt("CurrentCost", _gameContainer.currentCost);
-        PlayerPrefs.SetInt("BuyedToysCounter", _gameContainer.buyedToys);
-        PlayerPrefs.Save();
-    }
 
     public void LoadPrefs()
     {
-        int coin = PlayerPrefs.GetInt("Coins", 0);
-        int currentCost = PlayerPrefs.GetInt("CurrentCost", 200);
-        int buyedToysCounter = PlayerPrefs.GetInt("BuyedToysCounter", 0);
-        string sounds = PlayerPrefs.GetString("Sounds", "");
-        string music = PlayerPrefs.GetString("Music", "");
-        string showGuideInStart = PlayerPrefs.GetString("GuideOn", "");
-        bool valueSounds, valueMusic,valueGuideInStart;
+        int coin = PlayerPrefs.GetInt(_coinPrefsName, 0);
+        string sounds = PlayerPrefs.GetString(_soundsPrefsName, "True");
+        string music = PlayerPrefs.GetString(_musicPrefsName, "True");
+        string showGuideInStart = PlayerPrefs.GetString(_guidePrefsName, "True");
+        int currentCost = PlayerPrefs.GetInt(_currentCostPrefsName, 50);
+        int buyedToysCounter = PlayerPrefs.GetInt(_buyedToysCounterPrefsName, 0);
 
-        if(_settings != null)
+        bool valueSfx, valueMusic,valueGuideInStart;
+
+        if(_soundController != null)
         {
-            valueSounds = _settings.Convertation(sounds);
-            valueMusic = _settings.Convertation(music);
-            valueGuideInStart = _settings.Convertation(showGuideInStart);
+            valueSfx = Convertation(sounds);
+            valueMusic = Convertation(music);
+            valueGuideInStart = Convertation(showGuideInStart);
 
-            _settings.LoadSettings(valueMusic, valueSounds);
-            _gameContainer.currentCost = currentCost;
-            _gameContainer.buyedToys = buyedToysCounter;
-            _gameContainer.coin = coin;
-            _gameContainer.showGuideInStart = valueGuideInStart;
+            _gameSettings.sfx = valueSfx;
+            _gameSettings.music = valueMusic;
+
+            _soundController.LoadSettings();
+            _currentGameContainer.currentCost = currentCost;
+            _currentGameContainer.buyedToys = buyedToysCounter;
+            _currentGameContainer.coin = coin;
+            _currentGameContainer.showGuideInStart = valueGuideInStart;
         }
+    }
+
+    public void SaveAllPrefs()
+    {
+        PlayerPrefs.SetInt(_coinPrefsName, _currentGameContainer.coin);
+        PlayerPrefs.SetString(_soundsPrefsName, _soundController.SFX.ToString());
+        PlayerPrefs.SetString(_musicPrefsName, _soundController.Music.ToString());
+        PlayerPrefs.SetString(_guidePrefsName, _currentGameContainer.showGuideInStart.ToString());
+        PlayerPrefs.SetInt(_currentCostPrefsName, _currentGameContainer.currentCost);
+        PlayerPrefs.SetInt(_buyedToysCounterPrefsName, _currentGameContainer.buyedToys);
+        PlayerPrefs.Save();
     }
 
     public void ResetPlayerPrefs()
     {
+        OnReset?.Invoke();
+
         PlayerPrefs.DeleteAll();
-        _gameContainer.coin = 0;
-        _gameContainer.currentCost = 50;
-        _gameContainer.buyedToys = 0;
-        _gameContainer.showGuideInStart = true;
+        _gameSettings.sfx = false;
+        _gameSettings.music = false;
+        _currentGameContainer.coin = 0;
+        _currentGameContainer.currentCost = 50;
+        _currentGameContainer.buyedToys = 0;
+        _currentGameContainer.showGuideInStart = true;
+        
         PlayerPrefs.Save();
+
+        SceneManager.LoadScene(0);
+    }
+
+    private bool Convertation(string value)
+    {
+        if (value == "True")
+            return true;
+        else return false;
     }
 }

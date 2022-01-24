@@ -24,7 +24,6 @@ public class PlayerController : MonoBehaviour
 
     private bool _left;
     private bool _right;
-    
     public bool CanTurn { get; set; }
     public float DistanceToGround { get { return _distanceToGround; } }
 
@@ -37,6 +36,9 @@ public class PlayerController : MonoBehaviour
 
         _swipeDetection.SwipeEvent += OnSwipe;
         _swipeDetection.TouchEvent += OnTouch;
+
+        _gameContainer.firstGift = false;
+
         CanTurn = true;
         _speedMovement = LoadBalance.movement;
     }
@@ -154,5 +156,10 @@ public class PlayerController : MonoBehaviour
                 hit.transform.GetComponentInParent<GiftLauncher>().LaunchGift(_shootPoint);
             }
         }
+    }
+
+    public void CatchFirstGift()
+    {
+        _gameContainer.firstGift = true;
     }
 }

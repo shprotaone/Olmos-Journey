@@ -27,7 +27,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1847151988}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 305590559595695420}
@@ -36,7 +36,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 4.8, y: 91.6}
+  m_AnchoredPosition: {x: -0.3, y: 92}
   m_SizeDelta: {x: 258.5, y: 266.48}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1847151992
@@ -163,7 +163,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &617690899641806427
 RectTransform:
   m_ObjectHideFlags: 0
@@ -245,14 +245,13 @@ MonoBehaviour:
   _turnOffMusic:
   - {fileID: 21300000, guid: a2b50f034e201d54a8e98490fd1b3b41, type: 3}
   - {fileID: 21300000, guid: c1f3f3b6bab16d048bf5a23cd493c257, type: 3}
-  _turnOnSounds:
+  _turnOnSfx:
   - {fileID: 21300000, guid: 85271e2ee948f61478598c6d0e71877d, type: 3}
   - {fileID: 21300000, guid: e7af751bda9affa4491a67770d33d973, type: 3}
-  _turnOffSounds:
+  _turnOffSfx:
   - {fileID: 21300000, guid: a2b50f034e201d54a8e98490fd1b3b41, type: 3}
   - {fileID: 21300000, guid: 44114edffbd44c441914d1d6b4c01df8, type: 3}
   _currentImage: []
-  _settings: {fileID: 11400000, guid: ef13a58f26d60d94695ca3fd54a926d1, type: 2}
   _soundController: {fileID: 0}
 --- !u!1 &617690899682707559
 GameObject:
@@ -387,9 +386,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 617690899641806404}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
-        m_MethodName: BackButton
+        m_TargetAssemblyTypeName: GamePreferencesManager, Assembly-CSharp
+        m_MethodName: SaveAllPrefs
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -412,6 +423,7 @@ GameObject:
   - component: {fileID: 4560050038564642152}
   - component: {fileID: 528302148}
   - component: {fileID: 4560050039549701817}
+  - component: {fileID: 1665427799}
   m_Layer: 5
   m_Name: TextMusic
   m_TagString: Untagged
@@ -493,13 +505,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
+  m_fontSize: 49.03
   m_fontSizeBase: 40
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontSizeMax: 49.03
+  m_fontStyle: 32
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -559,6 +571,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c72bb7665e946d42a959011d97471c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1665427799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4560050038564642158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c72bb7665e946d42a959011d97471c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4560050038697338836
 GameObject:
   m_ObjectHideFlags: 0
@@ -572,6 +596,7 @@ GameObject:
   - component: {fileID: 4560050038697338838}
   - component: {fileID: 528302150}
   - component: {fileID: 4560050039549701818}
+  - component: {fileID: 155467193}
   m_Layer: 5
   m_Name: TextSound
   m_TagString: Untagged
@@ -626,7 +651,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Sound
+  m_text: "\u0417\u0432\u0443\u043A\u0438"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a48f22430de3996479cebbdb19011d6e, type: 2}
   m_sharedMaterial: {fileID: -7329398430747792656, guid: a48f22430de3996479cebbdb19011d6e, type: 2}
@@ -653,13 +678,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
+  m_fontSize: 49.03
   m_fontSizeBase: 40
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontSizeMax: 49.03
+  m_fontStyle: 32
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -708,6 +733,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &4560050039549701818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4560050038697338836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c72bb7665e946d42a959011d97471c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &155467193
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1103,7 +1140,7 @@ GameObject:
   - component: {fileID: 4560050040280323810}
   - component: {fileID: 4560050040280323809}
   m_Layer: 5
-  m_Name: SoundButon
+  m_Name: SoundButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1213,8 +1250,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-        m_MethodName: Play
+        m_TargetAssemblyTypeName: CommonSoundController, Assembly-CSharp
+        m_MethodName: SwitchSFX
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1225,8 +1262,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: CommonSoundController, Assembly-CSharp
-        m_MethodName: SwitchSounds
+        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+        m_MethodName: Play
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

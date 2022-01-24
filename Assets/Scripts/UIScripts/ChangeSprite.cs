@@ -11,6 +11,7 @@ public class ChangeSprite : MonoBehaviour
     private void Start()
     {
         _currentImage = GetComponent<Image>();
+        RefreshImage();
         LocalizationManager.OnLanguageChanged += RefreshImage;
     }
 

@@ -43,4 +43,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a7f5d99142edae41878ab79b38e98e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  localizathionList: {fileID: 4900000, guid: 8262b0e90b526ae4584eff3604fb1d2a, type: 3}
+  localizathionList: {fileID: 4900000, guid: ae235ddace2bad843a4ff04c3b551275, type: 3}

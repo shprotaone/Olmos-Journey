@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Jump : MonoBehaviour,IAction
+public class Jump : MonoBehaviour
 {
     private AnimationController _animController;
     private Vector3 direction = Vector3.zero;

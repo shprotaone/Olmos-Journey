@@ -6,11 +6,13 @@ public class Gift : InterractableObject
     private ParticleSystem[] _effects;  //0 - DestroyExplosion, 1 - Catch
 
     [SerializeField] private AudioClip [] _sounds; //0 - Coin,1 - magnetSound,2 - Coin
+
     private AudioSource _source;
     private void Start()
     {
         _effects = GetComponentsInChildren<ParticleSystem>();
         _source = GetComponent<AudioSource>();
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -29,6 +31,7 @@ public class Gift : InterractableObject
     {
         int index = Randomizer();
         collider.GetComponent<InteractionWithSubject>().Gift(index);
+        collider.GetComponent<PlayerController>().CatchFirstGift();
 
         this.gameObject.GetComponent<BoxCollider>().enabled = false;
         this.gameObject.GetComponentInChildren<SpriteRenderer>().enabled = false;
@@ -45,7 +48,7 @@ public class Gift : InterractableObject
     private IEnumerator DestroyGift()
     {
         _effects[0].Play();
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(3f);
 
         Destroy(this.gameObject);
 

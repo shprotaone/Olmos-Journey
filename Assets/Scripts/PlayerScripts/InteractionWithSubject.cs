@@ -20,12 +20,12 @@ public class InteractionWithSubject : MonoBehaviour
 
     public void IncreaseSpeed()
     {
-        StartCoroutine(_worldController.SpeedUp());
+        StartCoroutine(_worldController.SpeedChanger(LoadBalance.speedBonusValue));
     }
 
     public void DecreaseSpeed()
     {
-        StartCoroutine(_worldController.SpeedDown());
+        StartCoroutine(_worldController.SpeedChanger(LoadBalance.stopBonusValue));
     }
 
     public void AddCoin()

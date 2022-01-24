@@ -27,7 +27,9 @@ MonoBehaviour:
   chanceGiftType1: 0
   chanceGiftType2: 0
   chanceGiftType3: 0
-  magnetBonus: 30
+  magnetBonus: 0
   multiplyBonus: 0
   speedingZone: 0
-  stoppingZone: 0
+  stoppingZone: 100
+  chanceZone: 66
+  chanceBonus: 50

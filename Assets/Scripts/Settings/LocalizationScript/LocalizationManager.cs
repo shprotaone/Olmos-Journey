@@ -7,6 +7,8 @@ public class LocalizationManager : MonoBehaviour
 {
     private const int EnglishID = 0;
     private const int RussianID = 1;
+    private const string _languagePrefsName = "Language";
+
     public delegate void ChangeLanguageText();
     public static event ChangeLanguageText OnLanguageChanged;
 
@@ -20,11 +22,11 @@ public class LocalizationManager : MonoBehaviour
 
     private void Start()
     {
-        _currentLanguage = PlayerPrefs.GetInt("Language");
+        _currentLanguage = PlayerPrefs.GetInt(_languagePrefsName);
         if (_localizedText == null)
             LoadLocalizationText();
 
-        FirstOpen();
+        //FirstOpen();
         print(_currentLanguage);
     }
 
@@ -75,27 +77,32 @@ public class LocalizationManager : MonoBehaviour
             _currentLanguage = RussianID;
         }
 
-        OnLanguageChanged?.Invoke();
-        PlayerPrefs.SetInt("Language", _currentLanguage);
+        RefreshAllText();
+        PlayerPrefs.SetInt(_languagePrefsName, _currentLanguage);
     }
 
-    private void FirstOpen()
+    public void RefreshAllText()
     {
-        if (!PlayerPrefs.HasKey("Language"))
-        {
-            if (Application.systemLanguage == SystemLanguage.Russian ||
-               Application.systemLanguage == SystemLanguage.Ukrainian ||
-               Application.systemLanguage == SystemLanguage.Belarusian)
-            {
-                PlayerPrefs.SetInt("Language", RussianID);
-            }
-            else
-            {
-                PlayerPrefs.SetInt("Language", EnglishID);
-                _currentLanguage = 0;
-            }
-        }
+        OnLanguageChanged?.Invoke();
     }
+
+    //private void FirstOpen()
+    //{
+    //    if (!PlayerPrefs.HasKey(_languagePrefsName))
+    //    {
+    //        if (Application.systemLanguage == SystemLanguage.Russian ||
+    //           Application.systemLanguage == SystemLanguage.Ukrainian ||
+    //           Application.systemLanguage == SystemLanguage.Belarusian)
+    //        {
+    //            PlayerPrefs.SetInt(_languagePrefsName, RussianID);
+    //        }
+    //        else
+    //        {
+    //            PlayerPrefs.SetInt(_languagePrefsName, EnglishID);
+    //            _currentLanguage = 0;
+    //        }
+    //    }
+    //}
 }
 
 

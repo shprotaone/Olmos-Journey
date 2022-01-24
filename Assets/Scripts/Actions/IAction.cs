@@ -1,4 +1,0 @@
-﻿interface IAction
-{
-    void Action();
-}

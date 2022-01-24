@@ -5,32 +5,34 @@ using TMPro;
 
 public class HighscoreTable : MonoBehaviour
 {
-    private const string _tableName = "HighscorePanel";   
+    private const string _tableName = "HighscorePanel";
+    private const string _entryContainerName = "HighscoreContainer";
+    private const string _entryTamplateName = "HighscoreEntry";
 
     [SerializeField] private Transform _entryContainer;
     [SerializeField] private Transform _entryTemplate;
 
-    private string _dataPath;
-
+    private HighscoreFileManager _highscoreFileManager;
     private List<HighscoreEntry> _highscoreEntryList;
     private List<Transform> _highscoreEntryPosition;
 
-    private void Awake()
+    private void Start()
     {
-        _dataPath = Path.Combine(Application.persistentDataPath, "Save File", "HighscoreData.json");
-        CreateHigscoreData();
+        _highscoreFileManager = GetComponentInParent<HighscoreFileManager>();
+
+        _highscoreFileManager.CreateNewHigscoreData(_highscoreEntryList);
 
         if (base.name == _tableName)
         {           
-            _entryContainer = transform.Find("HighscoreContainer");
-            _entryTemplate = _entryContainer.Find("HighscoreEntry");
+            _entryContainer = transform.Find(_entryContainerName);
+            _entryTemplate = _entryContainer.Find(_entryTamplateName);
             _entryTemplate.gameObject.SetActive(false);
 
             _highscoreEntryList = new List<HighscoreEntry>();
 
             Load();
             PrintTable();
-        }
+        }        
     }   
 
     /// <summary>
@@ -127,12 +129,12 @@ public class HighscoreTable : MonoBehaviour
             data[i] = JsonUtility.ToJson(_highscoreEntryList[i]);
         }
 
-        File.WriteAllLines(_dataPath, data);
+        _highscoreFileManager.Save(data);
     }
 
     private void Load()
     {
-        string[] data = File.ReadAllLines(_dataPath);
+        string[] data = _highscoreFileManager.Load();
 
         _highscoreEntryList = new List<HighscoreEntry>();
         HighscoreEntry highscoreEntry;
@@ -143,6 +145,7 @@ public class HighscoreTable : MonoBehaviour
             _highscoreEntryList.Add(new HighscoreEntry(highscoreEntry.Score,highscoreEntry.Distance,highscoreEntry.DataScore,highscoreEntry.newEntry));
         }        
     }
+
 
     /// <summary>
     /// Вывод таблицы
@@ -157,30 +160,6 @@ public class HighscoreTable : MonoBehaviour
         }
 
         Save();
-    }
-
-    private void CreateHigscoreData()
-    {
-        if (!Directory.Exists(Path.GetDirectoryName(_dataPath)))
-        {
-            Directory.CreateDirectory(Path.GetDirectoryName(_dataPath));
-
-            try
-            {
-                _highscoreEntryList = new List<HighscoreEntry>();
-                _highscoreEntryList.Add(new HighscoreEntry(50, 50, "50/50/50", true));
-
-                string json = JsonUtility.ToJson(_highscoreEntryList);
-                File.WriteAllText(_dataPath, json);
-
-            }
-            catch (System.Exception)
-            {
-
-                print("Exception");
-            }
-
-        }
     }
 }
 

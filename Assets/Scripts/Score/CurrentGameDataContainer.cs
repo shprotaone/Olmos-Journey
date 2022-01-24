@@ -10,6 +10,7 @@ public class CurrentGameDataContainer : ScriptableObject
     public bool gameInPaused;
     public bool guideActive;
     public bool showGuideInStart;
+    public bool firstGift = false;
 
     [Header("Current Game Stats")]
     public int coin;

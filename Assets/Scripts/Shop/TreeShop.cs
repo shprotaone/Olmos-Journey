@@ -57,6 +57,7 @@ public class TreeShop : MonoBehaviour
         {
             print("Purchase");
             GetComponent<AudioSource>().Play();
+            _effect.Play();
             Purchase();
 
             return true;
@@ -86,10 +87,7 @@ public class TreeShop : MonoBehaviour
         {
             tempColor.a = 1;  
             image.color = tempColor;
-            CatchImage(image);      
-            
-            if(withBuy)
-            _effect.Play();
+            CatchToyPosition(image);      
         }
     }
 
@@ -123,10 +121,8 @@ public class TreeShop : MonoBehaviour
         yield break;
     }
 
-    private void CatchImage(Image image)
+    private void CatchToyPosition(Image image)
     {
             _effect.transform.position = image.transform.position;
-            _effect.textureSheetAnimation.RemoveSprite(0);
-            _effect.textureSheetAnimation.AddSprite(image.sprite);
     }
 }

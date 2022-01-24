@@ -11,12 +11,11 @@ public class SettingsDisplay : MonoBehaviour
     [SerializeField] private Sprite[] _turnOnMusic;
     [SerializeField] private Sprite[] _turnOffMusic;
 
-    [SerializeField] private Sprite[] _turnOnSounds;
-    [SerializeField] private Sprite[] _turnOffSounds;
+    [SerializeField] private Sprite[] _turnOnSfx;
+    [SerializeField] private Sprite[] _turnOffSfx;
 
     [SerializeField] private Image[] _currentImage;
 
-    [SerializeField] private GameSettings _settings;
     [SerializeField] private CommonSoundController _soundController;
 
     private void Start()
@@ -27,22 +26,24 @@ public class SettingsDisplay : MonoBehaviour
 
     private void LoadCurrentSettings()
     {
-        _currentImage = _musicButton.GetComponentsInChildren<Image>();
+
         Sprite[] switchSprite;
 
-        if (_settings.music)
+        _currentImage = _musicButton.GetComponentsInChildren<Image>();
+       
+        if (_soundController.Music)
             switchSprite = _turnOnMusic;
         else switchSprite = _turnOffMusic;
 
-        SwitchImage(_settings.music, _currentImage, switchSprite);
+        SwitchImage(_soundController.Music, _currentImage, switchSprite);
 
         _currentImage = _soundsButton.GetComponentsInChildren<Image>();
 
-        if (_settings.music)
-            switchSprite = _turnOnSounds;
-        else switchSprite = _turnOffSounds;
+        if (_soundController.SFX)
+            switchSprite = _turnOnSfx;
+        else switchSprite = _turnOffSfx;
 
-        SwitchImage(_settings.sfx, _currentImage, switchSprite);
+        SwitchImage(_soundController.SFX, _currentImage, switchSprite);
     }
 
     public void ChangeMusic()
@@ -50,15 +51,15 @@ public class SettingsDisplay : MonoBehaviour
         _currentImage = _musicButton.GetComponentsInChildren<Image>();
         Sprite[] switchSprite;        
        
-        if (_settings.music)
+        if (_soundController.Music)
         {
             switchSprite = _turnOnMusic;
-            SwitchImage(_settings.music,_currentImage,switchSprite);
+            SwitchImage(_soundController.Music, _currentImage,switchSprite);
         }
         else
         {
             switchSprite = _turnOffMusic;
-            SwitchImage(_settings.music,_currentImage,switchSprite);
+            SwitchImage(_soundController.Music,_currentImage,switchSprite);
         }
     }
 
@@ -67,15 +68,15 @@ public class SettingsDisplay : MonoBehaviour
         _currentImage = _soundsButton.GetComponentsInChildren<Image>();
 
         Sprite[] switchSprite;
-        if (_settings.sfx)
+        if (_soundController.SFX)
         {
-            switchSprite = _turnOnSounds;
-            SwitchImage(_settings.sfx,_currentImage,switchSprite);
+            switchSprite = _turnOnSfx;
+            SwitchImage(_soundController.SFX, _currentImage,switchSprite);
         }
         else
         {
-            switchSprite = _turnOffSounds;
-            SwitchImage(_settings.sfx,_currentImage,switchSprite);
+            switchSprite = _turnOffSfx;
+            SwitchImage(_soundController.SFX, _currentImage,switchSprite);
         }
     }
 

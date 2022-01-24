@@ -11,94 +11,76 @@ public class CommonSoundController : MonoBehaviour
     private const string sfxName = "SFX";
 
     [SerializeField] private AudioMixer _audioMixer;
-    [SerializeField] private GameSettings _gameSettingsContainer;
     [SerializeField] private SettingsDisplay _settingDisplay;
+    [SerializeField] private GamePreferencesManager _gamePreferencesManager;
+    [SerializeField] private GameSettings _gameSettings;
 
     private bool _music;
     private bool _sfx;
 
     private Toggle _drunkedCam;
 
-    public bool Music { get { return _music; } }
     public bool SFX { get { return _sfx; } }
+    public bool Music { get { return _music; } }
 
     private void Start()
     {
-        _music = _gameSettingsContainer.music;
-        _sfx = _gameSettingsContainer.sfx;
+        _music = _gameSettings.music;
+        _sfx = _gameSettings.sfx;
+
+        LoadSettings();
     }
 
-    public bool Convertation(string value)
+    /// <summary>
+    /// Загрузка текущих настроек
+    /// </summary>
+    /// <param name="music"></param>
+    /// <param name="sounds"></param>
+    public void LoadSettings()
     {
-        if (value == "True")
-            return true;
-        else return false;
+        SetSound(musicName,_music);
+        SetSound(sfxName,_sfx);
     }
 
-    public void LoadSettings(bool music,bool sounds)
+    private void SetSound(string soundLayer,bool value)
     {
-        _gameSettingsContainer.music = music;
-        _gameSettingsContainer.sfx = sounds;
-
-        SetMusic();
-        SetSFX();
-    }
-
-    public void SetMusic()
-    {
-        _music = _gameSettingsContainer.music;
-
-        if (_music)
+        if (value)
         {
-            _audioMixer.SetFloat(musicName, 0);
+            _audioMixer.SetFloat(soundLayer, 0);
         }
         else
         {
-            _audioMixer.SetFloat(musicName, -80);
-        }
-    }
-
-    public void SetSFX()
-    {
-        _sfx = _gameSettingsContainer.sfx;
-
-        if (_sfx)
-        {
-            _audioMixer.SetFloat(sfxName, 0);
-        }
-        else
-        {
-            _audioMixer.SetFloat(sfxName, -80);
+            _audioMixer.SetFloat(soundLayer, -80);
         }
     }
 
     public void SwitchMusic()
     {
-        if (_gameSettingsContainer.music)
+        if (_music)
         {
-            _gameSettingsContainer.music = false;
+            _music = false;
         }
         else
         {
-            _gameSettingsContainer.music = true;
+            _music = true;
         }
+
         _settingDisplay.ChangeMusic();
-        SetMusic();
-        
+        SetSound(musicName,_music);
     }
 
-    public void SwitchSounds()
+    public void SwitchSFX()
     {
-        if (_gameSettingsContainer.sfx)
+        if (_sfx)
         {
-            _gameSettingsContainer.sfx = false;
+            _sfx = false;
         }
         else
         {
-            _gameSettingsContainer.sfx = true;
+            _sfx = true;
         }
 
         _settingDisplay.ChangeSounds();
-        SetSFX();
+        SetSound(sfxName,_sfx);
     }
 }

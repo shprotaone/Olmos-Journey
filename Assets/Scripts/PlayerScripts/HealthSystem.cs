@@ -74,7 +74,8 @@ public class HealthSystem : MonoBehaviour
          _animController.DamageAnimation();
 
         DeathCheked();
-        StartCoroutine(_worldController.SpeedDown());
+
+        StartCoroutine(_worldController.SpeedChanger(_changeSpeed));
     }
 
     public void DeathCheked()
