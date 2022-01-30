@@ -26,15 +26,15 @@ public class AnimationController : MonoBehaviour
             _animator.SetTrigger(_rightAnimationID);
     }
 
-    public void AnimationStartRunning()
+    public void AnimationStartRunning(bool value)
     {
-        _animator.SetBool(_startRunningAnimationID, true);
+        _animator.SetBool(_startRunningAnimationID, value);
     }
 
-    public void AnimationDeath()
+    public void AnimationDeath(bool value)
     {
         if (_animator != null)
-            _animator.SetBool(_deathAnimationID, true);
+            _animator.SetBool(_deathAnimationID, value);
     }
 
     public void JumpAnimation()

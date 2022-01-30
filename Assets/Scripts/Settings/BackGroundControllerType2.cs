@@ -16,7 +16,6 @@ public class BackGroundControllerType2 : MonoBehaviour
     private float _timer;
     private bool _mainSpeedOK = false;
     private bool _isStopped;
-    private bool _isStarting;
 
     private void Start()
     {      
@@ -53,7 +52,7 @@ public class BackGroundControllerType2 : MonoBehaviour
         {           
             _additionalScrollSpeed = _worldController.CurrentSpeed;
 
-            if (_additionalScrollSpeed == 0)                //�������������, ����������
+            if (_additionalScrollSpeed == 0)                
                 _timer = 0;
 
             if (_worldController.CurrentSpeed > _mainSpeed)
@@ -69,5 +68,10 @@ public class BackGroundControllerType2 : MonoBehaviour
     public void StopScrolling()
     {
         _isStopped = true;
+    }
+
+    public void ResumeScrolling()
+    {
+        _isStopped = false;
     }
 }

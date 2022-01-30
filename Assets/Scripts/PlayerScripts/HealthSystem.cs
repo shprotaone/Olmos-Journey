@@ -7,7 +7,7 @@ public class HealthSystem : MonoBehaviour
     public static event Death OnDeath;
 
     [SerializeField] private GameObject[] _heartUI;
-    [SerializeField] private GameObject _deathWindow;
+    [SerializeField] private GameObject[] _deathWindows;    //0 - secondChance, 1 - Result
     [SerializeField] private SpriteRenderer[] _playerSprite;
     [SerializeField] private CurrentGameDataContainer _gameContainer;
     [SerializeField] private WorldController _worldController;
@@ -15,6 +15,8 @@ public class HealthSystem : MonoBehaviour
     private AnimationController _animController;
     private int _health = 3;
     private int _changeSpeed = -3;
+
+    private bool _secondChance = true;
 
     private void Start()
     {
@@ -27,10 +29,9 @@ public class HealthSystem : MonoBehaviour
         if (OnDeath != null)
         {
             _health = 0;
-            //RefreshUI();
 
             _gameContainer.death = true;
-            _animController.AnimationDeath();
+            _animController.AnimationDeath(true);
 
             OnDeath();
             GetComponent<AudioSource>().Play();
@@ -41,16 +42,28 @@ public class HealthSystem : MonoBehaviour
 
     private IEnumerator ActivateDeathWindow()
     {
-        yield return new WaitForSeconds(1f);
-        _deathWindow.SetActive(true);
+        if (_secondChance)
+        {
+            yield return new WaitForSeconds(1f);
+            _deathWindows[0].SetActive(true);
 
-        yield return null;
+            _secondChance = false;
+            yield return null;
+        }
+        else
+        {
+            yield return new WaitForSeconds(1f);
+            _deathWindows[1].SetActive(true);
+
+            yield return null;
+        }
     }
 
-    private void RefreshUI()
+    private void RefreshUI(int health)
     {
         _heartUI[_health].SetActive(false);
     }
+
     /// <summary>
     /// подтверждение урона
     /// </summary>
@@ -62,13 +75,13 @@ public class HealthSystem : MonoBehaviour
             for (int i = 0; i < _health;)
             {
                 _health -= 1;
-                RefreshUI();
+                RefreshUI(_health);
             }
         }
         else 
         {
             _health -= 1;
-            RefreshUI();
+            RefreshUI(_health);
         }
         
          _animController.DamageAnimation();
@@ -90,5 +103,15 @@ public class HealthSystem : MonoBehaviour
     {
         ApplyDamage(true);
         DeathCheked();
+    }
+
+    public void ResetHealth()
+    {
+        _health = 3;
+
+        foreach (var item in _heartUI)
+        {
+            item.SetActive(true);
+        }   
     }
 }

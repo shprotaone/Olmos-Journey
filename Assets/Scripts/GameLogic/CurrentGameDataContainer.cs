@@ -13,11 +13,12 @@ public class CurrentGameDataContainer : ScriptableObject
     public bool firstGift = false;
 
     [Header("Current Game Stats")]
-    public int coin;
+    public int coinCollected;
     public bool death;
     public GameObject previousBonus;
 
-    [Header("Shop Progress")]
+    [Header("Progress")]
+    public int coin;
     public int buyedToys;
     public int currentCost;
     

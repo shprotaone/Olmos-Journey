@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Keys xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Key Name="2DArtistNameText">
+		<Translates>
+			<en-us>Chernakova Inna</en-us>
+			<ru>Чернакова Инна</ru>
+		</Translates>
+	</Key>
+	<Key Name="2DArtistText">
+		<Translates>
+			<en-us>2D artist</en-us>
+			<ru>2D Художник</ru>
+		</Translates>
+	</Key>
+	<Key Name="BuyAToyText">
+		<Translates>
+			<en-us>Buy a toy</en-us>
+			<ru>Купить игрушку</ru>
+		</Translates>
+	</Key>
+	<Key Name="BuyText">
+		<Translates>
+			<en-us>Buy</en-us>
+			<ru>Купить</ru>
+		</Translates>
+	</Key>
+	<Key Name="CreditsTitleText">
+		<Translates>
+			<en-us>Authors</en-us>
+			<ru>Создатели</ru>
+		</Translates>
+	</Key>
+	<Key Name="DataText">
+		<Translates>
+			<en-us>Date</en-us>
+			<ru>Дата</ru>
+		</Translates>
+	</Key>
+	<Key Name="DevText">
+		<Translates>
+			<en-us>Developer</en-us>
+			<ru>Разработчик</ru>
+		</Translates>
+	</Key>
+	<Key Name="DevNameText">
+		<Translates>
+			<en-us>Semenov Alexey</en-us>
+			<ru>Семенов Алексей</ru>
+		</Translates>
+	</Key>
+	<Key Name="SpecialTitleText">
+		<Translates>
+			<en-us>Special  thanks</en-us>
+			<ru>Отдельная благодарность</ru>
+		</Translates>
+	</Key>
+	<Key Name="DistanceText">
+		<Translates>
+			<en-us>Distance</en-us>
+			<ru>Дистанция</ru>
+		</Translates>
+	</Key>
+	<Key Name="ENGLanguageButtonText">
+		<Translates>
+			<en-us>English</en-us>
+		</Translates>
+	</Key>
+	<Key Name="GDNameText">
+		<Translates>
+			<en-us>Marchenko Viktor</en-us>
+			<ru>Марченко Виктор</ru>
+		</Translates>
+	</Key>
+	<Key Name="GDText">
+		<Translates>
+			<en-us>Game designer</en-us>
+			<ru>Геймдизайнер</ru>
+		</Translates>
+	</Key>
+	<Key Name="Guide1Text">
+		<Translates>
+			<en-us>This is Olmo, a little snowman with high hopes. He wants to decorate his home. Join him on an unforgettable adventure and help to decorate the Christmas Tree!</en-us>
+			<ru>Это Олмо, маленький снеговичок с большими надеждами. Он очень хочет украсить свой дом. Присоединяйся к нему в незабываемом приключении и помоги нарядить елку!</ru>
+		</Translates>
+	</Key>
+	<Key Name="Guide2Text">
+		<Translates>
+			<en-us>Avoid the obstacles!</en-us>
+			<ru>Избегай препятствий!</ru>
+		</Translates>
+	</Key>
+	<Key Name="Guide3Text">
+		<Translates>
+			<en-us>Slide to change the line!</en-us>
+			<ru>Смахни для смены дорожки!</ru>
+		</Translates>
+	</Key>
+	<Key Name="Guide4Text">
+		<Translates>
+			<en-us>Tap for a jump!
+
+If you tap second time while snowman in the air he will rapidly drops to the track! Be careful!</en-us>
+			<ru>Нажми, чтобы прыгнуть!
+
+Если ты нажмешь на экран еще раз, пока снеговик будет в воздухе, Олмо мгновенно приземлится назад на дорожку! Будь осторожен!</ru>
+		</Translates>
+	</Key>
+	<Key Name="Guide5Text">
+		<Translates>
+			<en-us>Collect balls and bonuses!</en-us>
+			<ru>Собирай шарики и бонусы!</ru>
+		</Translates>
+	</Key>
+	<Key Name="Guide6Text">
+		<Translates>
+			<en-us>Decorate the Christmas Tree!</en-us>
+			<ru>Украшай елку!</ru>
+		</Translates>
+	</Key>
+	<Key Name="NomoneyText">
+		<Translates>
+			<en-us>not enough</en-us>
+			<ru>Не хватает</ru>
+		</Translates>
+	</Key>
+	<Key Name="NumberText">
+		<Translates>
+			<en-us>Num</en-us>
+			<ru>Позиция</ru>
+		</Translates>
+	</Key>
+	<Key Name="ResetButtonText">
+		<Translates>
+			<en-us>Reset</en-us>
+			<ru>Заново</ru>
+		</Translates>
+	</Key>
+	<Key Name="ScoreText">
+		<Translates>
+			<en-us>Scores</en-us>
+			<ru>Очки</ru>
+		</Translates>
+	</Key>
+	<Key Name="SpecialText">
+		<Translates>
+			<en-us>Music and sounds:
+“MAGICAL GETAWAY” and “HYPNOTIC ORIENT” by Eric Matyas www.soundimage.org
+“ind white noise zigzag.wav” by NoiseCollector http://freesound.org/
+“8bit powerup" by JavierZumer http://freesound.org/
+“Whisper swoosh_10(mltprcssng).wav" by newlocknew http://freesound.org/
+“synth_sand_wave.wav" by vr http://freesound.org/
+“Crowd Wow Surprise People” by dersuperanton http://freesound.org/
+"TableHit_mono_bip.wav" by passAirmangrace http://freesound.org/
+
+Icons for buttons: Layer LAB
+
+Special thanks to:
+Authors from freesound.org:
+Phenala
+Breviceps
+afleetingspeck
+MLaudio
+NikitaGusev
+GWMX_YOUTUBE03</en-us>
+			<ru>Музыка и звуки:
+“MAGICAL GETAWAY” и “HYPNOTIC ORIENT” автор Eric Matyas www.soundimage.org
+“ind white noise zigzag.wav” автор NoiseCollector http://freesound.org/
+“8bit powerup" автор JavierZumer http://freesound.org/
+“Whisper swoosh_10(mltprcssng).wav" автор newlocknew http://freesound.org/
+“synth_sand_wave.wav" автор vr http://freesound.org/
+“Crowd Wow Surprise People” автор dersuperanton http://freesound.org/
+"TableHit_mono_bip.wav" автор passAirmangrace http://freesound.org/
+
+Иконки для кнопок: Layer LAB
+
+Специальная благодарность:
+Авторам c freesound.org:
+Phenala
+Breviceps
+afleetingspeck
+MLaudio
+NikitaGusev
+GWMX_YOUTUBE03</ru>
+		</Translates>
+	</Key>
+	<Key Name="TextMusic">
+		<Translates>
+			<en-us>Music</en-us>
+			<ru>Музыка</ru>
+		</Translates>
+	</Key>
+	<Key Name="TextSound">
+		<Translates>
+			<en-us>Sounds</en-us>
+			<ru>Звуки</ru>
+		</Translates>
+	</Key>
+	<Key Name="TitleHighscoresText">
+		<Translates>
+			<en-us>HIGHSCORES</en-us>
+			<ru>Таблица рекордов</ru>
+		</Translates>
+	</Key>
+	<Key Name="CoinText">
+		<Translates>
+			<en-us>Toys collected</en-us>
+			<ru>Игрушек собрано</ru>
+		</Translates>
+	</Key>
+	<Key Name="DistanceText">
+		<Translates>
+			<en-us>Distance</en-us>
+			<ru>Дистанция</ru>
+		</Translates>
+	</Key>
+	<Key Name="ExitButtonText">
+		<Translates>
+			<en-us>Exit</en-us>
+			<ru>Выход</ru>
+		</Translates>
+	</Key>
+	<Key Name="MainMenuButtonText">
+		<Translates>
+			<en-us>Main Menu</en-us>
+			<ru>Главное меню</ru>
+		</Translates>
+	</Key>
+	<Key Name="OKButtonText">
+		<Translates>
+			<en-us>Ok</en-us>
+			<ru>Понятно</ru>
+		</Translates>
+	</Key>
+	<Key Name="RestartButtonText">
+		<Translates>
+			<en-us>Restart</en-us>
+			<ru>Перезапустить</ru>
+		</Translates>
+	</Key>
+	<Key Name="RestartPauseButtonText">
+		<Translates>
+			<en-us>Restart</en-us>
+			<ru>Перезапустить</ru>
+		</Translates>
+	</Key>
+	<Key Name="ResumeButtonText">
+		<Translates>
+			<en-us>Resume</en-us>
+			<ru>Продолжить</ru>
+		</Translates>
+	</Key>
+	<Key Name="ScoreText">
+		<Translates>
+			<en-us>Score</en-us>
+			<ru>Очки</ru>
+		</Translates>
+	</Key>
+	<Key Name="SettingsButtonText">
+		<Translates>
+			<en-us>Settings</en-us>
+			<ru>Настройки</ru>
+		</Translates>
+	</Key>
+	<Key Name="ToggleDontShowText">
+		<Translates>
+			<en-us>Dont show me again</en-us>
+			<ru>Больше не показывать</ru>
+		</Translates>
+	</Key>
+	<Key Name="BuyAToyTittleText">
+		<Translates>
+			<en-us>Do you want to buy a toy?</en-us>
+			<ru>Ты хочешь купить игрушку?</ru>
+		</Translates>
+	</Key>
+	<Key Name="PriceTitleText">
+		<Translates>
+			<en-us>Price :</en-us>
+			<ru>Цена:</ru>
+		</Translates>
+	</Key>
+	<Key Name="ConfirmResetText">
+		<Translates>
+			<en-us>Are you sure you want to delete everything?</en-us>
+			<ru>Ты уверен что хочешь все удалить?</ru>
+		</Translates>
+	</Key>
+	<Key Name="YesButtonText">
+		<Translates>
+			<en-us>Yes</en-us>
+			<ru>Да</ru>
+		</Translates>
+	</Key>
+	<Key Name="NoButtonText">
+		<Translates>
+			<en-us>No</en-us>
+			<ru>Нет</ru>
+		</Translates>
+	</Key>
+	<Key Name="LeftTimeText">
+		<Translates>
+			<en-us>Left Time</en-us>
+			<ru>Осталось</ru>
+		</Translates>
+	</Key>
+	<Key Name="ContinueText">
+		<Translates>
+			<en-us>Continue?</en-us>
+			<ru>Продолжить?</ru>
+		</Translates>
+	</Key>
+</Keys>

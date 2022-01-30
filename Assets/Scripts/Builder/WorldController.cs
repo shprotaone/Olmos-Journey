@@ -127,4 +127,9 @@ public class WorldController : MonoBehaviour
 
         yield break;
     }
+
+    public void ResetGameSpeed()
+    {
+        _speedMax = LoadBalance.speed;
+    }
 }

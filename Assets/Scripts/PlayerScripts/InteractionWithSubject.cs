@@ -9,15 +9,6 @@ public class InteractionWithSubject : MonoBehaviour
     [SerializeField] private MultiplyCoinScript _multiplyCoinScript;
     [SerializeField] private MagnetScript _magnet;
 
-    private Jump _jumpScript;
-
-    private bool _activated;
-    
-    private void Start()
-    {
-        _jumpScript = GetComponent<Jump>();
-    }
-
     public void IncreaseSpeed()
     {
         StartCoroutine(_worldController.SpeedChanger(LoadBalance.speedBonusValue));
@@ -31,7 +22,6 @@ public class InteractionWithSubject : MonoBehaviour
     public void AddCoin()
     {
         _scoreSystem.CatchUpCoin();
-        _scoreSystem.GiftCounter();
     }
 
     public void MultiplyCoin()

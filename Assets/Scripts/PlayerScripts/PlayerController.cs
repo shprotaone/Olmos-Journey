@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour
             if (!_gameContainer.gameIsStarted)
             {
                 _gameContainer.gameIsStarted = true;
-                _animController.AnimationStartRunning();
+                _animController.AnimationStartRunning(true);
             }
             else if (!_gameContainer.death)
                 _jumpScript.Action();
