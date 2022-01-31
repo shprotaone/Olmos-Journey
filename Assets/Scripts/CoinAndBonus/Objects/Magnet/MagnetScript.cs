@@ -29,7 +29,7 @@ public class MagnetScript : MonoBehaviour
         else _currentTime = _activeTime;
     }
 
-   public IEnumerator MagnetActivate()
+   private IEnumerator MagnetActivate()
     {
         _currentTime = _activeTime;       
         float perTime = 1f;

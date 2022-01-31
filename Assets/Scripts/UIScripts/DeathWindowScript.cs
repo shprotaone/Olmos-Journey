@@ -40,6 +40,6 @@ public class DeathWindowScript : MonoBehaviour
         GameEnd();
         this.gameObject.SetActive(false);
 
-        yield break;
+        yield return null;
     }
 }

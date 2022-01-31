@@ -15,10 +15,11 @@ MonoBehaviour:
   gameIsStarted: 1
   gameInPaused: 0
   guideActive: 0
-  showGuideInStart: 0
+  showGuideInStart: 1
   firstGift: 0
-  coin: 52
+  coinCollected: 25
   death: 0
-  previousBonus: {fileID: 4239644816506188966, guid: 308f910c8784d524ca8a860fd1f1b9d7, type: 3}
-  buyedToys: 6
-  currentCost: 350
+  previousBonus: {fileID: 3961719717769709555, guid: e9504fa75c775b04984bf763049c48a6, type: 3}
+  coin: 396
+  buyedToys: 7
+  currentCost: 400

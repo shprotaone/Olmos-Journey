@@ -17,12 +17,12 @@ public class Obstacle : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             StartCoroutine(Action(other));
+            GetDamage(other);
         }
     }
 
-    private IEnumerator Action(Collider other)
-    {
-        GetDamage(other);
+    protected IEnumerator Action(Collider other)
+    {  
         EffectActivate(other);
 
         yield return new WaitForSeconds(0.5f);
@@ -38,7 +38,7 @@ public class Obstacle : MonoBehaviour
 
     protected void EffectActivate(Collider other)
     {
-        _renderer = this.gameObject.GetComponent<SpriteRenderer>();     //переделать через абстрактный класс(базовый класс Obstacle)
+        _renderer = this.gameObject.GetComponent<SpriteRenderer>();
         _audioSource = GetComponent<AudioSource>();
 
         this.gameObject.GetComponent<BoxCollider>().enabled = false;

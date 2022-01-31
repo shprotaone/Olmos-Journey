@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Gift : InterractableObject
+public class Gift : Bonus
 {
     private ParticleSystem[] _effects;  //0 - DestroyExplosion, 1 - Catch
 
@@ -19,7 +19,7 @@ public class Gift : InterractableObject
     {
         if (other.CompareTag("Player"))
         {
-            StartCoroutine(Action(other));
+            Action(other);
         }
         else if(other.CompareTag("Platform"))
         {
@@ -27,22 +27,15 @@ public class Gift : InterractableObject
         }
     }
 
-    public override IEnumerator Action(Collider collider)
+    private void Action(Collider player)
     {
+        StartCoroutine(DestroyAction(player));
+
         int index = Randomizer();
-        collider.GetComponent<InteractionWithSubject>().Gift(index);
-        collider.GetComponent<PlayerController>().CatchFirstGift();
+        player.GetComponent<InteractionWithSubject>().Gift(index);
+        player.GetComponent<PlayerController>().CatchFirstGift();
 
-        this.gameObject.GetComponent<BoxCollider>().enabled = false;
-        this.gameObject.GetComponentInChildren<SpriteRenderer>().enabled = false;
-
-        _source.PlayOneShot(_sounds[index]);
         _effects[1].Play();
-
-        yield return new WaitForSeconds(1f);
-        Destroy(this.gameObject);
-        
-        yield break;
     }
 
     private IEnumerator DestroyGift()
@@ -54,6 +47,7 @@ public class Gift : InterractableObject
 
         yield break;
     }
+
     private int Randomizer()
     {
         int result = Random.Range(0, 3);

@@ -26,10 +26,13 @@ public class MainMenu : MonoBehaviour
 
     public void Resume()
     {
-        if (_pauseMenu != null)
+        if (_pauseMenu != null && _pauseMenu.activeInHierarchy)
             _pauseMenu.SetActive(false);       
+
         BackButton();
+
         TimeScaleController(true);
+
         Invoke("GamePauseStatus", 0.2f);
     }
 

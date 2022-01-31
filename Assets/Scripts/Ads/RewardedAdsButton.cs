@@ -47,17 +47,23 @@ public class RewardedAdsButton : MonoBehaviour,IUnityAdsLoadListener,IUnityAdsSh
         if (showCompletionState.Equals(UnityAdsShowCompletionState.COMPLETED))
         {
             Debug.Log("Complete");
-            _continue.Continue();
+            StartCoroutine(_continue.StartPlayDelay());
+
         }
         else
         {
             Debug.Log("Uncomplete");
         }
+
+        StartCoroutine(DelayLoadRewardedAds());
     }
 
     public void OnUnityAdsFailedToLoad(string placementId, UnityAdsLoadError error, string message) { }
 
-    public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message) { }
+    public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message) 
+    { 
+        print(placementId + " " + error + " " + message);
+    }
 
     public void OnUnityAdsShowStart(string placementId) { }
 

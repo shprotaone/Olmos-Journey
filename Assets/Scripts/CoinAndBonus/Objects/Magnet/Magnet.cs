@@ -2,31 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Magnet : InterractableObject
+public class Magnet : Bonus
 {
-    private ParticleSystem _effect;
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            _effect = GetComponentInChildren<ParticleSystem>();
-            StartCoroutine(Action(other));
+            other.GetComponent<InteractionWithSubject>().MagnetActivate();
+            StartCoroutine(DestroyAction(other));
         }
-    }
-
-    public override IEnumerator Action(Collider collider)
-    {
-        collider.GetComponent<InteractionWithSubject>().MagnetActivate();
-        GetComponent<AudioSource>().Play();
-        
-        this.gameObject.GetComponent<BoxCollider>().enabled = false;
-        this.gameObject.GetComponentInChildren<SpriteRenderer>().enabled = false;
-        _effect.Play();
-        
-        yield return new WaitForSeconds(0.5f);
-        Destroy(this.gameObject);
-
-        yield break;
     }
 }
