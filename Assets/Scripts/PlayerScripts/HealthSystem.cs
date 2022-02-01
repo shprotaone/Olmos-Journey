@@ -102,6 +102,8 @@ public class HealthSystem : MonoBehaviour
     public void QuickDeath()
     {
         ApplyDamage(true);
+        _animController.Glide(false);
+
         DeathCheked();
     }
 

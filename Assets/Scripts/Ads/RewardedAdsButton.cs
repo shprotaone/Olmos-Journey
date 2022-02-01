@@ -47,7 +47,7 @@ public class RewardedAdsButton : MonoBehaviour,IUnityAdsLoadListener,IUnityAdsSh
         if (showCompletionState.Equals(UnityAdsShowCompletionState.COMPLETED))
         {
             Debug.Log("Complete");
-            StartCoroutine(_continue.StartPlayDelay());
+            _continue.Continue();
 
         }
         else
