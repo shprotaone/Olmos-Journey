@@ -8,7 +8,7 @@ public class GamePreferencesManager : MonoBehaviour
     private const string _musicPrefsName = "Music";
     private const string _guidePrefsName = "GuideOn";
     private const string _currentCostPrefsName = "CurrentCost";
-    private const string _buyedToysCounterPrefsName = "BuyedToysCounter";
+    
 
     public delegate void ResetSettings();
     public static event ResetSettings OnReset;
@@ -36,7 +36,6 @@ public class GamePreferencesManager : MonoBehaviour
         string music = PlayerPrefs.GetString(_musicPrefsName, "True");
         string showGuideInStart = PlayerPrefs.GetString(_guidePrefsName, "True");
         int currentCost = PlayerPrefs.GetInt(_currentCostPrefsName, 50);
-        int buyedToysCounter = PlayerPrefs.GetInt(_buyedToysCounterPrefsName, 0);
 
         bool valueSfx, valueMusic,valueGuideInStart;
 
@@ -50,8 +49,7 @@ public class GamePreferencesManager : MonoBehaviour
             _gameSettings.music = valueMusic;
 
             _soundController.LoadSettings();
-            _currentGameContainer.currentCost = currentCost;
-            _currentGameContainer.buyedToys = buyedToysCounter;
+            _currentGameContainer.currentCost = currentCost;           
             _currentGameContainer.coin = coin;
             _currentGameContainer.showGuideInStart = valueGuideInStart;
         }
@@ -63,8 +61,7 @@ public class GamePreferencesManager : MonoBehaviour
         PlayerPrefs.SetString(_soundsPrefsName, _soundController.SFX.ToString());
         PlayerPrefs.SetString(_musicPrefsName, _soundController.Music.ToString());
         PlayerPrefs.SetString(_guidePrefsName, _currentGameContainer.showGuideInStart.ToString());
-        PlayerPrefs.SetInt(_currentCostPrefsName, _currentGameContainer.currentCost);
-        PlayerPrefs.SetInt(_buyedToysCounterPrefsName, _currentGameContainer.buyedToys);
+        PlayerPrefs.SetInt(_currentCostPrefsName, _currentGameContainer.currentCost);        
         PlayerPrefs.Save();
     }
 

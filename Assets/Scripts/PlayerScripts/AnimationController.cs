@@ -28,6 +28,7 @@ public class AnimationController : MonoBehaviour
 
     public void AnimationStartRunning(bool value)
     {
+        if(_animator != null)
         _animator.SetBool(_startRunningAnimationID, value);
     }
 

@@ -7,13 +7,27 @@ public class Bonus : MonoBehaviour
     private AudioSource _audioSource;
     private ParticleSystem _particleSystem;
 
+    private BoxCollider _boxCollider;
+    private SpriteRenderer[] _sprites;
+
+    private void Init()
+    {
+        _audioSource = GetComponent<AudioSource>();
+        _particleSystem = GetComponentInChildren<ParticleSystem>();
+        _boxCollider = GetComponent<BoxCollider>();
+        _sprites = GetComponentsInChildren<SpriteRenderer>();
+    }
+
     protected IEnumerator DestroyAction(Collider collider)
     {
-        this.gameObject.GetComponent<BoxCollider>().enabled = false;
-        this.gameObject.GetComponentInChildren<SpriteRenderer>().enabled = false;
+        Init();
 
-        this._audioSource = GetComponent<AudioSource>();
-        this._particleSystem = GetComponentInChildren<ParticleSystem>();
+        _boxCollider.enabled = false;
+
+        foreach (var sprite in _sprites)
+        {
+            sprite.enabled = false;
+        }
 
         if (_audioSource != null)
             _audioSource.Play();

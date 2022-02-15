@@ -113,6 +113,7 @@ public class HealthSystem : MonoBehaviour
 
         foreach (var item in _heartUI)
         {
+            if(item!=null)
             item.SetActive(true);
         }   
     }

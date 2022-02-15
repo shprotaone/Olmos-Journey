@@ -90,4 +90,9 @@ public class SkateController : MonoBehaviour
             _slideFX.Stop();
         }
     }
+
+    private void OnDestroy()
+    {
+        HealthSystem.OnDeath -= Death;
+    }
 }

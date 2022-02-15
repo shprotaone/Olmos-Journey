@@ -3,14 +3,13 @@ using UnityEngine;
 
 public class Gift : Bonus
 {
-    private ParticleSystem[] _effects;  //0 - DestroyExplosion, 1 - Catch
-
+    [SerializeField] private ParticleSystem _explosion;
     [SerializeField] private AudioClip [] _sounds; //0 - Coin,1 - magnetSound,2 - Coin
 
     private AudioSource _source;
     private void Start()
     {
-        _effects = GetComponentsInChildren<ParticleSystem>();
+        _explosion = GetComponentInChildren<ParticleSystem>();
         _source = GetComponent<AudioSource>();
 
     }
@@ -34,13 +33,11 @@ public class Gift : Bonus
         int index = Randomizer();
         player.GetComponent<InteractionWithSubject>().Gift(index);
         player.GetComponent<PlayerController>().CatchFirstGift();
-
-        _effects[1].Play();
     }
 
     private IEnumerator DestroyGift()
     {
-        _effects[0].Play();
+        _explosion.Play();
         yield return new WaitForSeconds(3f);
 
         Destroy(this.gameObject);

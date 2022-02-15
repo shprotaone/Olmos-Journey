@@ -15,15 +15,14 @@ public class ContinueGameScript : MonoBehaviour
     public void Continue()
     {
         _worldController.ResetGameSpeed();
-
         _backGroundController.ResumeScrolling();
 
         _currentGameData.gameIsStarted = false;
         _currentGameData.death = false;
 
         _healthSystem.ResetHealth();
+
         _animationController.AnimationDeath(false);
         _animationController.AnimationStartRunning(true);
-
     }
 }

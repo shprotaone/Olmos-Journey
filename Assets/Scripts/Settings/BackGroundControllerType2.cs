@@ -74,4 +74,9 @@ public class BackGroundControllerType2 : MonoBehaviour
     {
         _isStopped = false;
     }
+
+    private void OnDestroy()
+    {
+        HealthSystem.OnDeath -= StopScrolling;
+    }
 }

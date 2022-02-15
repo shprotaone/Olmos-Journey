@@ -6,6 +6,8 @@ using TMPro;
 
 public class TreeShop : MonoBehaviour
 {
+    private const string _buyedToysCounterPrefsName = "BuyedToysCounter";
+
     [SerializeField] private GameObject _tree;
     [SerializeField] private GameObject _buyWindow;
     [SerializeField] private GameObject _notEnough;
@@ -21,6 +23,8 @@ public class TreeShop : MonoBehaviour
 
     private void Start()
     {
+        InitCurrentProgress();
+
         _toys = _tree.GetComponentsInChildren<Image>();
         FillArray();
         _currentCosts = _scoreContainer.currentCost;
@@ -39,8 +43,11 @@ public class TreeShop : MonoBehaviour
         bool completed = CheckCoins();
 
         if (completed)
+        {
             _scoreContainer.buyedToys++;
-
+            SaveCurrentProgress();
+        }
+            
         FillArray();
         RefreshTree(true);
     }
@@ -67,9 +74,12 @@ public class TreeShop : MonoBehaviour
     private void Purchase()
     {      
         _scoreContainer.coin -= _currentCosts;
+
         _currentCosts += 50;
         _scoreContainer.currentCost = _currentCosts;
+
         _coinsViewer.RefreshText();
+
         _buyWindow.SetActive(false);
     }
 
@@ -124,5 +134,16 @@ public class TreeShop : MonoBehaviour
     private void CatchToyPosition(Image image)
     {
             _effect.transform.position = image.transform.position;
+    }
+
+    private void InitCurrentProgress()
+    {
+        int buyedToysCounter = PlayerPrefs.GetInt(_buyedToysCounterPrefsName, 0);
+        _scoreContainer.buyedToys = buyedToysCounter;
+    }
+
+    private void SaveCurrentProgress()
+    {
+        PlayerPrefs.SetInt(_buyedToysCounterPrefsName, _scoreContainer.buyedToys);
     }
 }
