@@ -11,6 +11,9 @@ public class ContinueGameScript : MonoBehaviour
     [SerializeField] private AnimationController _animationController;
     [SerializeField] private WorldController _worldController;
     [SerializeField] private BackGroundControllerType2 _backGroundController;
+    [SerializeField] private DeathWindowScript _deathWindowScript;
+
+    public DeathWindowScript DeathWindowScript { get { return _deathWindowScript; } }
 
     public void Continue()
     {
@@ -24,5 +27,6 @@ public class ContinueGameScript : MonoBehaviour
 
         _animationController.AnimationDeath(false);
         _animationController.AnimationStartRunning(true);
+        _deathWindowScript.gameObject.SetActive(false);
     }
 }

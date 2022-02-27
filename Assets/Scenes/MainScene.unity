@@ -1544,7 +1544,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1776013028}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &344976927
 MonoBehaviour:
@@ -1564,6 +1564,7 @@ MonoBehaviour:
   _animationController: {fileID: 1671831081}
   _worldController: {fileID: 1437389258}
   _backGroundController: {fileID: 138827381}
+  _deathWindowScript: {fileID: 1885748636}
 --- !u!1 &348049749
 GameObject:
   m_ObjectHideFlags: 0
@@ -2709,33 +2710,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1387427642}
-        m_TargetAssemblyTypeName: RewardedAdsButton, Assembly-CSharp
+      - m_Target: {fileID: 1655538760}
+        m_TargetAssemblyTypeName: MobAdsRewarded, Assembly-CSharp
         m_MethodName: ShowAd
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1885748636}
-        m_TargetAssemblyTypeName: DeathWindowScript, Assembly-CSharp
-        m_MethodName: ContinueGame
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 344976927}
-        m_TargetAssemblyTypeName: ContinueGameScript, Assembly-CSharp
-        m_MethodName: ResultWindow
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2841,7 +2818,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7677780159399361999, guid: ea3608426bf36e6478c358da3868a35e, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7677780159399361999, guid: ea3608426bf36e6478c358da3868a35e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6705,66 +6682,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1379499280}
   m_CullTransparentMesh: 1
---- !u!1 &1387427639
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1387427640}
-  - component: {fileID: 1387427641}
-  - component: {fileID: 1387427642}
-  m_Layer: 0
-  m_Name: AdsCore
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1387427640
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1387427639}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1776013028}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1387427641
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1387427639}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b73a981050b1994cb95484a7afb0c2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _androidGameID: 4587209
-  _testMode: 0
---- !u!114 &1387427642
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1387427639}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdc22bb2fc061ae4290210e7519bc418, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _showAdButton: {fileID: 662450273}
-  _continue: {fileID: 344976927}
 --- !u!1 &1388127753
 GameObject:
   m_ObjectHideFlags: 0
@@ -7963,6 +7880,64 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1643670229}
   m_CullTransparentMesh: 1
+--- !u!1 &1655538756
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1655538757}
+  - component: {fileID: 1655538759}
+  - component: {fileID: 1655538760}
+  m_Layer: 0
+  m_Name: GoogleAdsCore
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1655538757
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1655538756}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1776013028}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1655538759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1655538756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3200cfa8403fc84c943e7ffd99b1928, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1655538760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1655538756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b1acacc9eec92e4bade04d7b10f40e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _continueGameScript: {fileID: 344976927}
+  _resultWindow: {fileID: 1187056168}
 --- !u!1 &1671831077
 GameObject:
   m_ObjectHideFlags: 0
@@ -8488,9 +8463,9 @@ Transform:
   - {fileID: 1234896781}
   - {fileID: 767040039}
   - {fileID: 62107060}
-  - {fileID: 1387427640}
   - {fileID: 671313720}
   - {fileID: 344976926}
+  - {fileID: 1655538757}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

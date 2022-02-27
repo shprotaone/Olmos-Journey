@@ -22,6 +22,7 @@ public class DeathWindowScript : MonoBehaviour
 
     public void GameEnd()
     {
+        this.gameObject.SetActive(false);
         _resultWindow.SetActive(true);
         Debug.Log("End Game");
     }

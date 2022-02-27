@@ -26,7 +26,7 @@ public class LocalizationManager : MonoBehaviour
         if (_localizedText == null)
             LoadLocalizationText();
 
-        //FirstOpen();
+        FirstOpen();
         print(_currentLanguage);
     }
 
@@ -86,23 +86,25 @@ public class LocalizationManager : MonoBehaviour
         OnLanguageChanged?.Invoke();
     }
 
-    //private void FirstOpen()
-    //{
-    //    if (!PlayerPrefs.HasKey(_languagePrefsName))
-    //    {
-    //        if (Application.systemLanguage == SystemLanguage.Russian ||
-    //           Application.systemLanguage == SystemLanguage.Ukrainian ||
-    //           Application.systemLanguage == SystemLanguage.Belarusian)
-    //        {
-    //            PlayerPrefs.SetInt(_languagePrefsName, RussianID);
-    //        }
-    //        else
-    //        {
-    //            PlayerPrefs.SetInt(_languagePrefsName, EnglishID);
-    //            _currentLanguage = 0;
-    //        }
-    //    }
-    //}
+    private void FirstOpen()
+    {
+        if (!PlayerPrefs.HasKey(_languagePrefsName))
+        {
+            if (Application.systemLanguage == SystemLanguage.Russian ||
+               Application.systemLanguage == SystemLanguage.Ukrainian ||
+               Application.systemLanguage == SystemLanguage.Belarusian)
+            {
+                PlayerPrefs.SetInt(_languagePrefsName, RussianID);
+            }
+            else
+            {
+                PlayerPrefs.SetInt(_languagePrefsName, EnglishID);
+                _currentLanguage = 0;
+            }
+
+            RefreshAllText();
+        }
+    }
 }
 
 
